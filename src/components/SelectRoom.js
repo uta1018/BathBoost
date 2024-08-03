@@ -20,7 +20,7 @@ const SelectRoom = () => {
       const roomPromises = roomIDList.map(async (roomID) => {
         const roomDocRef = doc(db, "rooms", roomID);
         const roomDocSnap = await getDoc(roomDocRef);
-        return roomDocSnap.exists() ? roomDocSnap.data() : null;
+        return { id: roomID, ...roomDocSnap.data() };
       });
 
       const rooms = await Promise.all(roomPromises);
@@ -40,6 +40,7 @@ const SelectRoom = () => {
   }, []);
 
   const handleRoute = (roomID) => {
+    console.log(roomID);
     setRoomID(roomID);
     navigate("/room");
   };
@@ -49,9 +50,9 @@ const SelectRoom = () => {
       <h3>ルームを選択</h3>
       {roomList.map((room) => {
         return (
-          <div key={room}>
+          <div key={room.id}>
             <div>
-              <button  onClick={() => handleRoute(room)}>{room.roomName}</button>
+              <button  onClick={() => handleRoute(room.id)}>{room.roomName}</button>
             </div>
           </div>
         );
