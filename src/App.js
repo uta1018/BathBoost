@@ -7,6 +7,7 @@ import Room from "./components/Room";
 import RoomInfo from "./components/RoomInfo";
 import TimeSelect from "./components/TimeSelect";
 import { Provider } from "./providers/Provider";
+import LevelUp from "./components/LevelUp";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/room" element={<Room />}></Route>
           <Route path="/roominfo" element={<RoomInfo />}></Route>
           <Route path="/timeselect" element={<TimeSelect />}></Route>
+          <Route path="/levelup" element={<LevelUp />}></Route>
         </Routes>
       </Router>
     </Provider>
