@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 const SelectRoom = () => {
   const { isAuth, setRoomID } = useContext(Context);
   const [roomList, setRoomList] = useState([]);
-  
+  const [isLoading, setIsLoading] = useState(true);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const getRooms = async () => {
+      setIsLoading(true);
       const userID = auth.currentUser.uid;
       const userDocSnap = await getDoc(doc(db, "user", userID));
       const userData = userDocSnap.data();
@@ -25,6 +27,7 @@ const SelectRoom = () => {
 
       const rooms = await Promise.all(roomPromises);
       setRoomList(rooms);
+      setIsLoading(false);
       // console.log(rooms);
     };
 
@@ -33,6 +36,7 @@ const SelectRoom = () => {
         getRooms();
       } else {
         setRoomList([]);
+        setIsLoading(false);
       }
     });
 
@@ -40,19 +44,24 @@ const SelectRoom = () => {
   }, []);
 
   const handleRoute = (roomID) => {
-    console.log(roomID);
+    // console.log(roomID);
     setRoomID(roomID);
+    localStorage.setItem("roomID", roomID);
     navigate("/room");
   };
 
   return (
     <div>
       <h3>ルームを選択</h3>
+      {isLoading ? <div>Loading...</div> : <></>}
       {roomList.map((room) => {
         return (
           <div key={room.id}>
             <div>
-              <button  onClick={() => handleRoute(room.id)}>{room.roomName}</button>
+              <button onClick={() => handleRoute(room.id)}>
+                {room.roomName}
+                {room.id}
+              </button>
             </div>
           </div>
         );
