@@ -11,11 +11,10 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("1");
     setIsAuth(localStorage.getItem("isAuth"));
-    if(!localStorage.getItem("isAuth")) {
-      navigate("./login")
-    }  
+    if (!localStorage.getItem("isAuth")) {
+      navigate("/login");
+    }
   }, []);
 
   return (
