@@ -1,0 +1,149 @@
+.roomContainer * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.roomContainer a {
+  display: block;
+  text-decoration: none;
+}
+
+.roomContainer header {
+  position: fixed;
+  height: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  background-color: #D4F1E8;
+  height: 48px;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 0 1px #777;
+}
+
+.roomContainer header a {
+  color: #695443;
+  font-size: 20px;
+  width: 48px;
+  padding: 0px 24px 4px;
+}
+
+.roomContainer header p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #695443;
+  padding-left: 12px;
+}
+
+.roomContainer header .roomID {
+  font-size: 14px;
+  padding-bottom: 4px;
+}
+
+.roomContainer .postContainer {
+  max-width: 430px;
+  padding: 56px 6px 60px;
+  margin: 0 auto;
+}
+
+.roomContainer .post_r,
+.roomContainer .post_l {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+}
+
+.roomContainer .post_r {
+  justify-content: flex-end;
+}
+
+.roomContainer .post {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.roomContainer .post_r .post {
+  flex-direction: row-reverse;
+}
+
+.roomContainer .user {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 中央揃え */
+  text-align: center; /* 中央揃え */
+}
+
+.roomContainer .userIcon {
+  width: 32px; /* 円の直径 */
+  height: 32px; /* 円の直径 */
+  border-radius: 50%; /* 円形にする */
+  background-color: #b59b86; /* 円の背景色 */
+  display: flex;
+  justify-content: center; /* 円内で中央揃え */
+  align-items: center; /* 円内で中央揃え */
+  overflow: hidden; /* テキストが円を超えないようにする */
+}
+
+.roomContainer .userIcon p {
+  font-size: 12px; /* フォントサイズ */
+  line-height: 1; /* 行間の調整 */
+  word-wrap: break-word; /* テキストの折り返し */
+  color: white;
+}
+
+.roomContainer .userLevel {
+  font-size: 14px; /* フォントサイズ */
+  color: #b59b86; /* テキストカラー */
+}
+
+.roomContainer .goalTime {
+  color: #b59b86;
+  text-align: center;
+  margin-bottom: 2px;
+  font-size: 32px;
+}
+
+.roomContainer .stamp {
+  display: flex;
+  align-items: end;
+}
+
+.roomContainer .post_r .stamp {
+  flex-direction: row-reverse;
+}
+
+.roomContainer .timeStamp {
+  font-size: 14px;
+  color: #b59b86;
+} 
+
+.roomContainer .menu {
+  height: 60px;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.roomContainer .menu button {
+  border: none;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  background-color: #b59b86;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+.roomContainer .menu button:nth-child(2) {
+  border-left: 1px solid white;
+}
+
+

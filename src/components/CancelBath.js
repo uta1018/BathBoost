@@ -33,7 +33,7 @@ const CancelBath = () => {
       level,
     });
 
-    if(currentLevel !== level) {
+    if (currentLevel !== level) {
       navigate("/levelup", {
         state: {
           currentLevel,
@@ -51,11 +51,7 @@ const CancelBath = () => {
     });
   };
 
-  return (
-    <div>
-      <button onClick={postData}>やっぱりお風呂キャンセル…</button>
-    </div>
-  );
+  return <button onClick={postData}>お風呂キャンセル…</button>;
 };
 
 export default CancelBath;

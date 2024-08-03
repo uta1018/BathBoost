@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SetBathGoal = () => {
   const navigate = useNavigate();
@@ -8,11 +8,7 @@ const SetBathGoal = () => {
     navigate("/timeselect");
   };
 
-  return (
-    <div>
-      <button onClick={navigateTimeSelect}>お風呂に入る!宣言をする</button>
-    </div>
-  )
-}
+  return <button onClick={navigateTimeSelect}>お風呂に入る!宣言をする</button>;
+};
 
-export default SetBathGoal
+export default SetBathGoal;
