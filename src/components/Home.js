@@ -20,22 +20,22 @@ const Home = () => {
 
   return (
     <div className="home-container">
-    <div className="header">
+      <div className="header">
         <div className="logo-box">
           <img src="/logo.png" className="logoImg"></img>
           <div className="logo">BATH BOOST</div>
           <Logout />
         </div>
       </div>
-    <div className="content">
-      <CreateRoom />
-      <JoinRoom />
-      <SelectRoom />
-    </div>
+      <div className="content">
+        <CreateRoom />
+        <JoinRoom />
+        <SelectRoom />
+      </div>
       <div className="footer">
         <p>@ライラック</p>
       </div>
-  </div>
+    </div>
   );
 };
 
