@@ -12,6 +12,10 @@ import {
 import { auth, db } from "../firebase";
 import SelectRoom from "./SelectRoom";
 import { Link } from "react-router-dom";
+import StartBath from "./StartBath";
+import SetBathGoal from "./SetBathGoal";
+import EndBath from "./EndBath";
+import CancelBath from "./CancelBath";
 
 const Room = () => {
   const { roomID, setRoomID } = useContext(Context);
@@ -95,6 +99,11 @@ const Room = () => {
           </div>
         ))}
       </div>
+      <SetBathGoal />
+      <StartBath />
+      <EndBath />
+      <CancelBath />
+      
       {/* <div>
       <div>アイコン</div>
       <div></div>

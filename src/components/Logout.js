@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import { Context } from '../providers/Provider'
 
 const Logout = () => {
-  const { setIsAuth } = useContext(Context);
+  const { setIsAuth, setRoomID } = useContext(Context);
   const navigate = useNavigate();
   const logOut = () => {
     signOut(auth).then(() => {
       localStorage.clear();
       setIsAuth(false);
+      setRoomID("");
       navigate("/login");
     });
   }
