@@ -36,12 +36,11 @@
     color: #795548;
   }
 
-  .square {
+  .logoImg {
     margin-right: 16px; /* ロゴとの間隔 */
     margin-left: 8px; 
-    width: 28px;
-    height: 24px;
-    background-color: #795548;
+    width: 32px;
+    height: 32px;
     z-index: 2; /* 四角形を前面に表示する */
   }
 
@@ -65,7 +64,7 @@
 
   .input-field-container {
     background-color: #FFD4BC;
-    height: 160px;
+    /* height: 160px; */
     width: 280px;
     padding: 20px;
     margin: 10px 0;
@@ -113,6 +112,7 @@
     cursor: pointer;
     border-radius: 12px;
     width: 80%;
+    margin-bottom: 10px;
   }
 
   .footer {

@@ -28,7 +28,7 @@ const Login = () => {
         rooms: [],
       });
     }
-  
+
     navigate("/");
   };
 
@@ -36,7 +36,7 @@ const Login = () => {
     <div className="login-container">
       <div className="header">
         <div className="logo-box">
-          <div className="square"></div>
+          <img src="/logo.png" className="logoImg"></img>
           <div className="logo">BATH BOOST</div>
         </div>
       </div>
@@ -46,12 +46,11 @@ const Login = () => {
           <img src="/img/login_img.png" alt="Animal" className="login_image" />
         </div>
 
-
         <div className="title">BATH BOOST</div>
-          <button onClick={logInWithGoogle} className="login-button">
-            Googleアカウントで<br></br>ログイン
-          </button>
-        </div>
+        <button onClick={logInWithGoogle} className="login-button">
+          Googleアカウントで<br></br>ログイン
+        </button>
+      </div>
       <div className="footer">
         <p>@ライラック</p>
       </div>
