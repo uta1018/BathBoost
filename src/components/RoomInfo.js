@@ -1,9 +1,17 @@
-import React, { useContext } from 'react'
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from '../providers/Provider';
 
 const RoomInfo = () => {
   const { roomID } = useContext(Context);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("isAuth")) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div>
