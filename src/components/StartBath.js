@@ -56,11 +56,7 @@ const StartBath = () => {
     });
   };
 
-  return (
-    <div>
-      <button onClick={postData}>今からお風呂に入る!</button>
-    </div>
-  );
+  return <button onClick={postData}>今からお風呂に入る!</button>;
 };
 
 export default StartBath;

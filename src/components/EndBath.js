@@ -53,7 +53,7 @@ const EndBath = () => {
           point: increment(1),
         });
       }
-      
+
       const userDocSnap = await getDoc(userDocRef);
       const currentLevel = userDocSnap.data().level;
       const level = Math.floor(userDocSnap.data().point / 2);
@@ -62,7 +62,7 @@ const EndBath = () => {
       });
       // console.log(currentLevel);
       // console.log(level);
-      if(currentLevel !== level) {
+      if (currentLevel !== level) {
         navigate("/levelup", {
           state: {
             currentLevel,
@@ -81,11 +81,7 @@ const EndBath = () => {
     });
   };
 
-  return (
-    <div>
-      <button onClick={postData}>上がった!</button>
-    </div>
-  );
+  return <button onClick={postData}>上がった!</button>;
 };
 
 export default EndBath;

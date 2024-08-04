@@ -10,19 +10,29 @@ import {
   where,
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import SelectRoom from "./SelectRoom";
 import { Link, useNavigate } from "react-router-dom";
 import StartBath from "./StartBath";
 import SetBathGoal from "./SetBathGoal";
 import EndBath from "./EndBath";
 import CancelBath from "./CancelBath";
+import "./css/Room.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const formatHHMM = (time) => {
-  return new Date(time).toTimeString().slice(0, 5);
+  const date = new Date(time);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${hours}:${minutes.toString().padStart(2, "0")}`;
 };
+
 const formatHHMMforTimeStamp = (timestamp) => {
   const date = new Date(timestamp.seconds * 1000);
-  return date.toTimeString().slice(0, 5);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${hours}:${minutes.toString().padStart(2, "0")}`;
 };
 
 const Room = () => {
@@ -113,7 +123,7 @@ const Room = () => {
     });
 
     return () => unsubscribe();
-  }, [roomData]);
+  }, [roomData, postList]);
 
   useEffect(() => {
     if (postList.length > 0 && currentUser) {
@@ -142,113 +152,122 @@ const Room = () => {
   const roomName = roomData ? roomData.roomName : "";
   const userlevel =
     currentUser && userList.length > 0
-      ? "level" + userList.find((user) => user.id === currentUser.uid)?.level
+      ? "Level" + userList.find((user) => user.id === currentUser.uid)?.level
       : "";
 
   return (
-    <div>
+    <div className="roomContainer">
       <header>
-        <Link to="/">ホームに戻る</Link>
-        {roomName}
-        {userlevel}
-        {/* <img src="/nyuyokutyu.png" alt="Agatta" width="200px" height="200px"/> */}
+        <Link to="/">
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </Link>
+        <p className="roomName">{roomName}</p>
+        <p className="roomID">id:{roomID}</p>
+        {/* <p className="userLevel">{userlevel}</p> */}
       </header>
-      <div>
+      <div className="postContainer">
         {postList.map((post) => {
           // console.log("Current User:", currentUser.uid);
           // console.log("Post Author:", post.author);
           const authorUser = userList.find((user) => user.id === post.author);
           const authorName = authorUser ? authorUser.username : "Unknown User";
-          const authorLevel = authorUser ? "level" + authorUser.level : "";
+          const authorLevel = authorUser ? "Level " + authorUser.level : "";
           const goalTime = post.goalTime
             ? `${formatHHMMforTimeStamp(post.goalTime)}`
             : "";
 
           return (
             <div
-              className={`balloon_${
-                currentUser.uid === post.author ? "r" : "l"
-              }`}
+              className={`post_${currentUser.uid === post.author ? "r" : "l"}`}
               key={post.id}
             >
-              {currentUser.uid === post.author
-                ? `[${formatHHMM(post.date)}]`
-                : ""}
-              <div>{authorName}</div>
-              <div>{authorLevel}</div>
-              {post.type === "startBath" ? (
-                <img
-                  src="/nyuyokutyu.png"
-                  alt="入浴"
-                  width="200px"
-                  height="200px"
-                />
-              ) : (
-                ""
-              )}
-              {post.type === "cancelBath" ? (
-                <img
-                  src="/cancel.png"
-                  alt="お風呂キャンセル"
-                  width="200px"
-                  height="200px"
-                />
-              ) : (
-                ""
-              )}
-              {post.type === "endBath" ? (
-                <img
-                  src="agatta.png"
-                  alt="上がった!"
-                  width="200px"
-                  height="200px"
-                />
-              ) : (
-                ""
-              )}
-              {post.type === "setBathGoal" ? (
-                <div>
-                  <h3>{goalTime}</h3>
-                  <img
-                  src="setGoalTime.png"
-                  alt="にお風呂に入る!"
-                  width="200px"
-                  height="200px"
-                />
+              <div className="post">
+                <div className="user">
+                  <div className="userIcon">
+                    <p>{authorName}</p>
+                  </div>
+                  <p className="userLevel">{authorLevel}</p>
                 </div>
-              ) : (
-                ""
-              )}
-              {currentUser.uid === post.author
-                ? ""
-                : `[${formatHHMM(post.date)}]`}
+
+                <div className="stamp">
+                  {post.type === "startBath" ? (
+                    <img
+                      src="/nyuyokutyu.png"
+                      alt="入浴"
+                      width="200px"
+                      height="200px"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {post.type === "cancelBath" ? (
+                    <img
+                      src="/cancel.png"
+                      alt="お風呂キャンセル"
+                      width="200px"
+                      height="200px"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {post.type === "endBath" ? (
+                    <img
+                      src="agatta.png"
+                      alt="上がった!"
+                      width="200px"
+                      height="200px"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {post.type === "setBathGoal" ? (
+                    <div>
+                      <h3 className="goalTime">{goalTime}</h3>
+                      <img
+                        src="setGoalTime.png"
+                        alt="にお風呂に入る!"
+                        width="200px"
+                        height="200px"
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  <p className="timeStamp">{formatHHMM(post.date)}</p>
+                </div>
+              </div>
             </div>
           );
         })}
       </div>
-      {lastPostType === "setBathGoal" ? 
-        <div>
-          <StartBath />
-          <CancelBath />
-        </div>
-      :
-      ''
-      }
-      {lastPostType === "startBath" ? 
-        <div>
-          <EndBath />
-          <CancelBath />
-        </div>
-      :
-      ''
-      }
-      {lastPostType === "" || lastPostType === "endBath" || lastPostType === "cancelBath" ? 
-        <div>
-          <SetBathGoal />
-        </div>
-      :
-      ''
-      }
+
+      <div className="menu">
+        {lastPostType === "setBathGoal" ? (
+          <>
+            <StartBath />
+            <CancelBath />
+          </>
+        ) : (
+          ""
+        )}
+        {lastPostType === "startBath" ? (
+          <>
+            <EndBath />
+            <CancelBath />
+          </>
+        ) : (
+          ""
+        )}
+        {lastPostType === "" ||
+        lastPostType === "endBath" ||
+        lastPostType === "cancelBath" ? (
+          <>
+            <SetBathGoal />
+          </>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };
