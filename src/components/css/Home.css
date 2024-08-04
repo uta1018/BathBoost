@@ -1,4 +1,4 @@
-.login-container {
+.home-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -6,9 +6,9 @@
     padding: 16px;
     background-color: #F5F5F5;
     text-align: center;
-    /* font-family: 'Arial', sans-serif; */
+    font-family: 'Arial', sans-serif;
   }
-  
+
   .header {
     background-color: #D4F1E8;
     padding: 0 20px;
@@ -44,59 +44,77 @@
     background-color: #795548;
     z-index: 2; /* 四角形を前面に表示する */
   }
+
+  .logout-button {
+    position: absolute;
+    top: 56px;
+    right: 20px;
+    height: 32px;
+    background-color: #695443;
+    color: white;
+    border: none;
+    padding: 4px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
   
   .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-  }
-  
-  .login_image {
-    position: absolute;
-    top: 176px;
-    left: 64px;
-    width: 75%;
-    height: auto;
-    z-index:1;
-  }
-  
-  .title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    font-size: 20px;
-    /* margin-top: 80px; */
-    color: #795548;
-  }
-  
-  .login-button {
-    position: relative; /*追記*/
-    top: 100px; /*追記*/
-    /* margin-top: 20px; */
-    padding: 28px 48px;
-    background-color: #FFD4BC;
-    border: none;
-    border-radius: 16px;
-    color: #695443;
-    font-size: 20px;
-    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
   }
 
-  .circle {
-    position: absolute;
-    top: 240px;
-    /*left: 50%;*/
-    width: 200px;
-    height: 200px;
-    background-color: #C6B5A7;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    z-index:0;
+  .input-field-container {
+    background-color: #FFD4BC;
+    height: 160px;
+    width: 280px;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .input-field-container h3 {
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: #695443;
+  }
+
+  .input-field-container p {
+    position: relative;
+    text-align: left;
+    left: 8px;
+    margin: 0 0 10px;
+    color: #695443;
   }
   
+  input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 0 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .post-button {
+    background-color: #695443;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+    border-radius: 12px;
+    width: 44%;
+  }
+
+  .room-select-button{
+    background-color: #695443;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+    border-radius: 12px;
+    width: 80%;
+  }
+
   .footer {
     position: fixed;
     background-color: #695443;

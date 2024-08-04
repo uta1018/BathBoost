@@ -3,6 +3,7 @@ import { Context } from "../providers/Provider";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import "./css/Home.css";
 
 const JoinRoom = () => {
   const { setRoomID } = useContext(Context);
@@ -42,7 +43,7 @@ const JoinRoom = () => {
   };
 
   return (
-    <div>
+    <div className="input-field-container">
       <h3>ルームに入室</h3>
       <p>ルームIDを入力</p>
       <input
@@ -51,7 +52,7 @@ const JoinRoom = () => {
         value={inputRoomID}
         onChange={(e) => setInputRoomID(e.target.value)}
       />
-      <button className="postButton" onClick={joinRoom}>
+      <button className="post-button" onClick={joinRoom}>
         参加！
       </button>
     </div>

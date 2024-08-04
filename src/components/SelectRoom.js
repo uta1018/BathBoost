@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { Context } from "../providers/Provider";
 import { useNavigate } from "react-router-dom";
+import "./css/Home.css";
 
 const SelectRoom = () => {
   const { isAuth, setRoomID } = useContext(Context);
@@ -51,22 +52,24 @@ const SelectRoom = () => {
   };
 
   return (
-    <div>
-      <h3>ルームを選択</h3>
-      {isLoading ? <div>Loading...</div> : <></>}
-      {roomList.map((room) => {
-        return (
-          <div key={room.id}>
-            <div>
-              <button onClick={() => handleRoute(room.id)}>
-                {room.roomName}
-                {room.id}
-              </button>
+    roomList.length > 0 && (
+      <div className="input-field-container">
+        <h3>ルームを選択</h3>
+        {isLoading ? <div>Loading...</div> : null}
+        {roomList.map((room) => {
+          return (
+            <div key={room.id}>
+              <div>
+                <button className="room-select-button" onClick={() => handleRoute(room.id)}>
+                  {room.roomName}  に入室
+                  {/* {room.id} */}
+                </button>
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    )
   );
 };
 

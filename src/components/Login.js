@@ -36,21 +36,24 @@ const Login = () => {
     <div className="login-container">
       <div className="header">
         <div className="logo-box">
+          <div className="square"></div>
           <div className="logo">BATH BOOST</div>
         </div>
       </div>
       <div className="content">
         <div className="image-container">
           <div className="circle"></div>
-          <img src="../img/login_img.png" alt="Animal" className="login_image" />
+          <img src="/img/login_img.png" alt="Animal" className="login_image" />
         </div>
 
 
         <div className="title">BATH BOOST</div>
-        <button className="login-button">Googleアカウントでログイン</button>
-      </div>
+          <button onClick={logInWithGoogle} className="login-button">
+            Googleアカウントで<br></br>ログイン
+          </button>
+        </div>
       <div className="footer">
-        <p>ライラック</p>
+        <p>@ライラック</p>
       </div>
     </div>
   );

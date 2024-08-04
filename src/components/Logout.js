@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../providers/Provider'
+import "./css/Home.css";
 
 const Logout = () => {
   const { setIsAuth, setRoomID } = useContext(Context);
@@ -18,8 +19,8 @@ const Logout = () => {
 
   return (
     <div>
-      <p>ログアウトする</p>
-      <button onClick={logOut}>ログアウト</button>
+      {/* <p>ログアウトする</p> */}
+      <button className="logout-button" onClick={logOut}>ログアウト</button>
     </div>
   )
 }

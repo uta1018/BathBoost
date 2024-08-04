@@ -5,6 +5,7 @@ import CreateRoom from "./CreateRoom";
 import SelectRoom from "./SelectRoom";
 import Logout from "./Logout";
 import { Context } from "../providers/Provider";
+import "./css/Home.css";
 
 const Home = () => {
   const { setIsAuth } = useContext(Context);
@@ -18,12 +19,23 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="home-container">
+    <div className="header">
+        <div className="logo-box">
+          <div className="square"></div>
+          <div className="logo">BATH BOOST</div>
+          <Logout />
+        </div>
+      </div>
+    <div className="content">
       <CreateRoom />
       <JoinRoom />
       <SelectRoom />
-      <Logout />
     </div>
+      <div className="footer">
+        <p>@ライラック</p>
+      </div>
+  </div>
   );
 };
 

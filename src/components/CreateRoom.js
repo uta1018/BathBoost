@@ -9,6 +9,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { Context } from "../providers/Provider";
+import "./css/Home.css";
 
 const CreateRoom = () => {
   const { setRoomID } = useContext(Context);
@@ -35,7 +36,7 @@ const CreateRoom = () => {
   };
 
   return (
-    <div>
+    <div className="input-field-container">
       <h3>ルームを作成</h3>
       <p>ルーム名(必須)</p>
       <input
@@ -43,7 +44,7 @@ const CreateRoom = () => {
         placeholder="ルームの名前を入力してね"
         onChange={(e) => setRoomName(e.target.value)}
       />
-      <button className="postButton" onClick={createRoom}>
+      <button className="post-button" onClick={createRoom}>
         作成！
       </button>
     </div>
