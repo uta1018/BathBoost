@@ -1,0 +1,137 @@
+.roominfo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 16px;
+    background-color: #F5F5F5;
+    text-align: center;
+    /* font-family: 'Arial', sans-serif; */
+  }
+  
+  .header {
+    background-color: #D4F1E8;
+    padding: 0 20px;
+    color: #FFFFFF;
+    text-align: left;
+    height: 100px; 
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed; /* ヘッダーを固定 */
+    top: 0; /* 上部に固定 */
+    left: 0; /* 左端に固定 */
+    z-index: 100; /* 他の要素の上に表示 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-box {
+    display: flex;
+    align-items: center;
+    height: 100px;
+  }
+  
+  .logo {
+    font-size: 16px;
+    font-weight: bold;
+    color: #795548;
+  }
+
+  .square {
+    margin-right: 16px; /* ロゴとの間隔 */
+    margin-left: 8px; 
+    width: 28px;
+    height: 24px;
+    background-color: #795548;
+    z-index: 2; /* 四角形を前面に表示する */
+  }
+
+  .content {
+    text-align: center;
+  }
+
+  .content p{
+    font-size: 20px;
+    color: #695443;
+  }
+  
+  .speech-bubble {
+    background-color: #FFD4BC;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 0;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .speech-bubble p {
+    font-size: 20px;
+  }
+
+  .speech-bubble h1 {
+    font-size: 24px;
+    color: #695443;
+  }
+  
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: #FFD4BC;
+    border-bottom: 0;
+    border-left: 0;
+    margin-left: 160px;
+    margin-bottom: -20px;
+  }
+  
+  .tell-id-img {
+    width: 300px;
+    height: auto;
+    margin: 10px 0;
+    margin-left: -80px;
+  }
+  
+  .room-link {
+    display: inline-block;
+    background-color: #695443;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 10px 0;
+    cursor: pointer;
+    width: 200px;
+  }
+  
+  .room-link:hover {
+    background-color: #695443;
+  }
+
+  .footer {
+    position: fixed;
+    background-color: #695443;
+    padding: 0 10px;
+    color: #FFFFFF;
+    text-align: center;
+    height: 80px; 
+    bottom: 0;
+    left: 0;
+    width: 100%; 
+    box-sizing: border-box; 
+    font-size: 12px;
+  }
+  
+  .footer p {
+    position: fixed;
+    bottom: 24px;
+    left: 168px;
+    margin: 0;
+  }
+  
+
