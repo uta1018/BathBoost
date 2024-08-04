@@ -38,7 +38,7 @@
 
 .roomContainer header .roomID {
   font-size: 14px;
-  padding-bottom: 4px;
+  /* padding-bottom: 4px; */
 }
 
 .roomContainer .postContainer {
@@ -80,7 +80,7 @@
   width: 32px; /* 円の直径 */
   height: 32px; /* 円の直径 */
   border-radius: 50%; /* 円形にする */
-  background-color: #b59b86; /* 円の背景色 */
+  background-color: #695443; /* 円の背景色 */
   display: flex;
   justify-content: center; /* 円内で中央揃え */
   align-items: center; /* 円内で中央揃え */
@@ -100,7 +100,7 @@
 }
 
 .roomContainer .goalTime {
-  color: #b59b86;
+  color: #695443;
   text-align: center;
   margin-bottom: 2px;
   font-size: 32px;
@@ -136,7 +136,7 @@
   display: flex;
   align-items: center; 
   justify-content: center; 
-  background-color: #b59b86;
+  background-color: #695443;
   cursor: pointer;
   color: white;
   font-size: 16px;

@@ -1,0 +1,86 @@
+.TimeSelect_container {
+  padding: 120px 0px 60px;
+}
+
+/* コンテナ全体のスタイル */
+.TimeSelect_container {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+    text-align: center;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  /* 見出しのスタイル */
+  .TimeSelect_container h3 {
+    color: #695443;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  
+  /* 入力フィールドのスタイル */
+  .TimeSelect_container input[type="datetime-local"] {
+    display: block;
+    padding: 10px;
+    font-size: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    width: 80%;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    margin: 0 auto; /* 中央揃え */
+  }
+  
+  .TimeSelect_container input[type="datetime-local"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  /* ボタンコンテナのスタイル */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+  
+  
+  /* ボタンのスタイル */
+  .TimeSelect_container button {
+    margin-top: 24px;
+    padding: 12px 100px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #695443;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* 画像のスタイル */
+  .TimeSelect_container .image {
+    display: block;
+    margin: 0px auto;
+    max-width: 400px;
+    height: auto;
+  }
+
+  .TimeSelect_container .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .TimeSelect_container .footer h2 {
+    font-size: 12px;
+    font-weight: normal;
+  }
+
