@@ -1,5 +1,5 @@
 import { signInWithPopup } from "firebase/auth";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { auth, db, provider } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../providers/Provider";
@@ -8,8 +8,9 @@ import "./css/Login.css";
 
 const Login = () => {
   // グローバル変数を取得
-  const { setIsAuth } = useContext(Context);
+  const { setUserID } = useContext(Context);
   const navigate = useNavigate();
+  console.log("ログイン画面");
 
   // ログインボタンを押したときの関数
   const logInWithGoogle = async () => {
@@ -18,9 +19,9 @@ const Login = () => {
     const user = auth.currentUser;
 
     // ローカルストレージに保存する
-    localStorage.setItem("isAuth", "true");
+    localStorage.setItem("userID", user.uid);
     // グローバル変数を変更
-    setIsAuth(true);
+    setUserID(user.uid);
 
     // DBのuserコレクションからログインしたユーザーのドキュメントを取得
     const userDocRef = doc(db, "user", user.uid);

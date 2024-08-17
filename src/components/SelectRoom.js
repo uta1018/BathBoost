@@ -1,80 +1,102 @@
-import { doc, getDoc } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
-import { auth, db } from "../firebase";
+import {
+  collection,
+  doc,
+  documentId,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import React, { memo, useContext, useEffect, useState } from "react";
+import { db } from "../firebase";
 import { Context } from "../providers/Provider";
 import { useNavigate } from "react-router-dom";
 import "./css/Home.css";
 
-const SelectRoom = () => {
+const SelectRoom = memo(() => {
   // グローバル変数を取得
-  const { setRoomID } = useContext(Context);
+  const { userID, setRoomID } = useContext(Context);
   // 入室済みのルーム情報を保存する配列を宣言
   const [roomList, setRoomList] = useState([]);
-  // 読み込み中か否かを保存する変数を宣言
+  // ロード状態を管理する変数を宣言
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
+  console.log("selectRoom");
+
   // 読み込み時に実行
   useEffect(() => {
+    if(!userID) return;
     // 入室済みのルーム情報を読み込む関数
     const getRooms = async () => {
-      // ロード中に設定
-      setIsLoading(true);
-      const userID = auth.currentUser.uid;
-      // userドキュメントを取得
-      const userDocSnap = await getDoc(doc(db, "user", userID));
-      const userData = userDocSnap.data();
-      // userドキュメントのrooms配列を保存
-      const roomIDList = userData.rooms;
+      try {
+        // ローディング中に設定
+        setIsLoading(true);
+        // userドキュメントを取得
+        const userDocSnap = await getDoc(doc(db, "user", userID));
+        const userData = userDocSnap.data();
+        // userドキュメントのrooms配列を保存
+        const roomIDList = userData.rooms;
 
-      // それぞれのルームに対してデータを返す関数
-      const roomPromises = roomIDList.map(async (roomID) => {
-        // roomドキュメントを取得
-        const roomDocRef = doc(db, "rooms", roomID);
-        const roomDocSnap = await getDoc(roomDocRef);
-        // roomドキュメントのデータにルームIDを加えて返す
-        return { id: roomID, ...roomDocSnap.data() };
-      });
+        // roomIDListに存在するルームについて情報を取得
+        const roomsQuery = query(
+          collection(db, "rooms"),
+          where(documentId(), "in", roomIDList)
+        );
+        const roomsSnapshot = await getDocs(roomsQuery);
+        const rooms = roomsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-      // roomPromisesを非同期で実行
-      const rooms = await Promise.all(roomPromises);
-      // ルーム情報を変数に保存
-      setRoomList(rooms);
-      // ロード中を解除
-      setIsLoading(false);
-    };
+        // // それぞれのルームに対してデータを返す関数
+        // const roomPromises = roomIDList.map(async (roomID) => {
+        //   // roomドキュメントを取得
+        //   const roomDocRef = doc(db, "rooms", roomID);
+        //   const roomDocSnap = await getDoc(roomDocRef);
+        //   // roomドキュメントのデータにルームIDを加えて返す
+        //   return { id: roomID, ...roomDocSnap.data() };
+        // });
 
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        getRooms();
-      } else {
-        setRoomList([]);
+        // // roomPromisesを非同期で実行
+        // const rooms = await Promise.all(roomPromises);
+
+        // ルーム情報を変数に保存
+        setRoomList(rooms);
+        
+      } finally {
+        // ロード状態を解除
         setIsLoading(false);
       }
-    });
+    };
 
-    return () => unsubscribe();
+    getRooms();
   }, []);
 
+  // ボタンを押したときに実行する関数
   const handleRoute = (roomID) => {
     // console.log(roomID);
     setRoomID(roomID);
     localStorage.setItem("roomID", roomID);
     navigate("/room");
   };
+  
+  if (isLoading) return <div>ロード中</div>;
 
   return (
     roomList.length > 0 && (
       <div className="input-field-container">
         <h3>ルームを選択</h3>
-        {isLoading ? <div>Loading...</div> : null}
         {roomList.map((room) => {
           return (
             <div key={room.id}>
               <div>
-                <button className="room-select-button" onClick={() => handleRoute(room.id)}>
-                  {room.roomName}  に入室
+                <button
+                  className="room-select-button"
+                  onClick={() => handleRoute(room.id)}
+                >
+                  {room.roomName} に入室
                   {/* {room.id} */}
                 </button>
               </div>
@@ -84,6 +106,6 @@ const SelectRoom = () => {
       </div>
     )
   );
-};
+});
 
 export default SelectRoom;

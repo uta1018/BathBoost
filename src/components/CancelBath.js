@@ -12,15 +12,12 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const CancelBath = () => {
-  const { roomID, setRoomID } = useContext(Context);
+  const { roomID, userID } = useContext(Context);
 
   const navigate = useNavigate();
 
   const postData = async () => {
-    const currentRoomID = roomID || localStorage.getItem("roomID");
-    setRoomID(currentRoomID);
-    const userID = auth.currentUser.uid;
-    if (!currentRoomID || !userID) return;
+    if (!roomID || !userID) return;
 
     // ユーザーのポイントを更新
     const userDocRef = doc(db, "user", userID);
@@ -30,13 +27,12 @@ const CancelBath = () => {
     const userDocSnap = await getDoc(userDocRef);
     const currentLevel = userDocSnap.data().level;
     const level = Math.floor(userDocSnap.data().point / 2);
-    // レベルを更新
-    await updateDoc(userDocRef, {
-      level,
-    });
-
     // レベルダウンした際、レベルアップ画面へ
     if (currentLevel !== level) {
+      // レベルを更新
+      await updateDoc(userDocRef, {
+        level,
+      });
       navigate("/levelup", {
         state: {
           currentLevel,
@@ -48,7 +44,7 @@ const CancelBath = () => {
 
     // ポストを保存
     await addDoc(collection(db, "posts"), {
-      roomid: currentRoomID,
+      roomid: roomID,
       author: userID,
       type: "cancelBath",
       date: new Date().getTime(),

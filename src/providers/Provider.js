@@ -1,17 +1,16 @@
-import React, { createContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+import React, { createContext, useState } from "react";
 
 export const Context = createContext({});
 
 export const Provider = (props) => {
   const { children } = props;
 
-  const [isAuth, setIsAuth] = useState(false);
-  const [roomID, setRoomID] = useState("");
+  const [userID, setUserID] = useState(localStorage.getItem('userID'));
+  const [roomID, setRoomID] = useState(localStorage.getItem('roomID'));
 
   return (
     // グローバル変数を宣言
-    <Context.Provider value={{ isAuth, setIsAuth, roomID, setRoomID }}>
+    <Context.Provider value={{ userID, setUserID, roomID, setRoomID }}>
       {children}
     </Context.Provider>
   );

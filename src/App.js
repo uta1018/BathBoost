@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
@@ -10,6 +9,7 @@ import { Provider } from "./providers/Provider";
 import LevelUp from "./components/LevelUp";
 
 function App() {
+
   return (
     <Provider>
       <Router>

@@ -7,8 +7,9 @@ import "./css/Home.css";
 
 const Logout = () => {
   // グローバル変数を取得
-  const { setIsAuth, setRoomID } = useContext(Context);
+  const { setUserID, setRoomID } = useContext(Context);
   const navigate = useNavigate();
+  console.log("Logout");
 
   // ログアウトボタンを押したときの関数
   const logOut = () => {
@@ -17,8 +18,8 @@ const Logout = () => {
       // ローカルストレージをクリア
       localStorage.clear();
       // グローバル変数を変更
-      setIsAuth(false);
-      setRoomID("");
+      setUserID(null);
+      setRoomID(null);
       // ログイン画面にリダイレクト
       navigate("/login");
     });

@@ -5,14 +5,14 @@ import "./css/RoomInfo.css";
 
 const RoomInfo = () => {
   // グローバル変数を取得
-  const { roomID } = useContext(Context);
+  const { userID, roomID } = useContext(Context);
 
   const navigate = useNavigate();
 
   // 読み込み時に実行
   useEffect(() => {
     // ログインしていなかったらログイン画面へリダイレクト
-    if (!localStorage.getItem("isAuth")) {
+    if (!userID) {
       navigate("/login");
     }
   }, []);

@@ -1,29 +1,28 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../providers/Provider";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import "./css/Home.css";
 
 const JoinRoom = () => {
   // グローバル変数を取得
-  const { setRoomID } = useContext(Context);
-  // 入力されたルームの名前を保存する変数を定義
+  const { userID, setRoomID } = useContext(Context);
+  // 入力されたルームIDを保存する変数を定義
   const [inputRoomID, setInputRoomID] = useState("");
 
   const navigate = useNavigate();
+  console.log("JoinRoom");
 
   // ルーム入室ボタンを押したときの関数
   const joinRoom = async () => {
-    // ユーザーIDとルームIDを取得
-    const userID = auth.currentUser.uid;
     const roomID = inputRoomID;
     
     // roomsコレクションからroomドキュメントを取得
     const roomDocRef = doc(db, "rooms", roomID);
-    const roomrDocSnap = await getDoc(roomDocRef);
+    const roomDocSnap = await getDoc(roomDocRef);
     // 存在しない場合、アラート
-    if(!roomrDocSnap.exists()) {
+    if(!roomDocSnap.exists()) {
       alert("存在しないルームIDです")
       setInputRoomID("");
       return;
@@ -42,6 +41,7 @@ const JoinRoom = () => {
 
     // グローバル変数にルームIDを保存
     setRoomID(roomID);
+    localStorage.setItem("roomID", roomID);
 
     // ルーム画面にリダイレクト
     navigate("/room");

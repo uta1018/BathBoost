@@ -4,12 +4,11 @@ import {
   collection,
   doc,
   getDoc,
-  getDocs,
   onSnapshot,
   query,
   where,
 } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import StartBath from "./StartBath";
 import SetBathGoal from "./SetBathGoal";
@@ -37,19 +36,18 @@ const formatHHMMforTimeStamp = (timestamp) => {
 };
 
 const Room = () => {
-  const { roomID, setRoomID, setIsAuth } = useContext(Context);
+  const { roomID, userID } = useContext(Context);
   // ルーム情報を保存する配列を宣言
   const [roomData, setRoomData] = useState(null);
   // ポスト情報を保存する配列を宣言
   const [postList, setPostList] = useState([]);
   // ルームのユーザーの情報を保存する配列を宣言
   const [userList, setUserList] = useState([]);
-  // 現在のユーザーIDを保存する変数を宣言
-  const [currentUser, setCurrentUser] = useState(null);
   // 現在のユーザーによる最後のポストの種類を保存する変数を宣言
   const [lastPostType, setLastPostType] = useState("");
 
   const navigate = useNavigate();
+  console.log("Room");
 
   // ポストリストにポストを追加する関数
   const addPostList = (id, data) => {
@@ -63,34 +61,49 @@ const Room = () => {
     );
   };
 
-  // roomIDが変わったときに実行
+  // 読み込み時実行
   useEffect(() => {
-    // 現在のルームIDを取得
-    const currentRoomID = roomID || localStorage.getItem("roomID");
-    setRoomID(currentRoomID);
-    if (!currentRoomID) return;
+    console.log("fetch");
+    // ルーム情報とユーザー情報をセットする関数
+    const fetchData = async () => {
+      // ログインしていなかったらログイン画面へ
+      if (!userID) {
+        navigate("/login");
+        return;
+      } else if(!roomID) {
+        navigate("/");
+        return;
+      }
 
-    // ルーム情報を取得する関数
-    const getRoom = async () => {
-      const roomDocRef = doc(db, "rooms", currentRoomID);
+      // ルーム情報を取得
+      const roomDocRef = doc(db, "rooms", roomID);
       const roomDocSnap = await getDoc(roomDocRef);
-      const roomData = { id: currentRoomID, ...roomDocSnap.data() };
+      const roomData = { id: roomID, ...roomDocSnap.data() };
       setRoomData(roomData);
+
+      // roomDataのメンバーリストを使用して、各メンバーのユーザー情報を取得
+      const userDocs = await Promise.all(
+        roomData.member.map(async (userID) => {
+          const userDocRef = doc(db, "user", userID);
+          const userDocSnap = await getDoc(userDocRef);
+          return { id: userDocSnap.id, ...userDocSnap.data() };
+        })
+      );
+      setUserList(userDocs);
     };
 
-    getRoom();
+    fetchData();
 
     // 指定されたルームIDに関連するポストをリアルタイムで取得し、ポストリストを更新する関数
     const getPostsRealtime = () => {
       const postsQuery = query(
         collection(db, "posts"),
-        where("roomid", "==", currentRoomID)
+        where("roomid", "==", roomID)
       );
 
       const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
           if (change.type === "added") {
-            // console.log(change.doc.data());
             addPostList(change.doc.id, change.doc.data());
 
             // 画面最下部へスクロール
@@ -111,41 +124,14 @@ const Room = () => {
     return () => {
       unsubscribePosts();
     };
-  }, [roomID]);
+  }, []);
 
-  // roomDataかpostListが変わったときに実行
+  // postListが変わったときに実行
   useEffect(() => {
-    // roomDataのメンバーリストを使用して、各メンバーのユーザー情報を取得する関数
-    const getUsers = async () => {
-      if (!roomData?.member) return;
-
-      const userDocs = await Promise.all(
-        roomData.member.map(async (userID) => {
-          const userDocRef = doc(db, "user", userID);
-          const userDocSnap = await getDoc(userDocRef);
-          return { id: userDocSnap.id, ...userDocSnap.data() };
-        })
-      );
-      setUserList(userDocs);
-    };
-
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setCurrentUser(user);
-        getUsers();
-      }
-    });
-
-    return () => unsubscribe();
-  }, [roomData, postList]);
-
-  // postListかcurrentUserが変わったときに実行
-  useEffect(() => {
-    if (postList.length > 0 && currentUser) {
+    console.log("postList");
+    if (postList.length > 0 && userID) {
       // 自分の投稿だけをフィルタリング
-      const userPosts = postList.filter(
-        (post) => post.author === currentUser.uid
-      );
+      const userPosts = postList.filter((post) => post.author === userID);
 
       // 最新の投稿を取得（postListが昇順なので、最後の投稿が最新）
       if (userPosts.length > 0) {
@@ -155,22 +141,9 @@ const Room = () => {
         setLastPostType("");
       }
     }
-  }, [postList, currentUser]);
-
-  // 読み込み時に実行
-  useEffect(() => {
-    // ログインしていなかったらログイン画面へ
-    setIsAuth(localStorage.getItem("isAuth"));
-    if (!localStorage.getItem("isAuth")) {
-      navigate("/login");
-    }
-  }, []);
+  }, [postList]);
 
   const roomName = roomData ? roomData.roomName : "";
-  const userlevel =
-    currentUser && userList.length > 0
-      ? "Level" + userList.find((user) => user.id === currentUser.uid)?.level
-      : "";
 
   return (
     <div className="roomContainer">
@@ -180,7 +153,6 @@ const Room = () => {
         </Link>
         <p className="roomName">{roomName}</p>
         <p className="roomID">id:{roomID}</p>
-        {/* <p className="userLevel">{userlevel}</p> */}
       </header>
       <div className="postContainer">
         {/* ポストリストの各ポストごとに描画 */}
@@ -197,7 +169,7 @@ const Room = () => {
           return (
             // ポストの投稿者が自分かそれ以外かでクラスを変える
             <div
-              className={`post_${currentUser.uid === post.author ? "r" : "l"}`}
+              className={`post_${userID === post.author ? "r" : "l"}`}
               key={post.id}
             >
               <div className="post">

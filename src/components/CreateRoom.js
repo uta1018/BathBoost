@@ -7,21 +7,20 @@ import {
 } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { Context } from "../providers/Provider";
 import "./css/Home.css";
 
 const CreateRoom = () => {
   // グローバル変数を取得
-  const { setRoomID } = useContext(Context);
+  const { userID, setRoomID } = useContext(Context);
   const [roomName, setRoomName] = useState("");
 
   const navigate = useNavigate();
+  console.log("CreateRoom");
 
   // ルーム作成ボタンを押したときの関数
   const createRoom = async () => {
-    // ユーザーIDを保存
-    const userID = auth.currentUser.uid;
     // roomsコレクションにドキュメントを保存
     const roomRef = await addDoc(collection(db, "rooms"), {
       roomName: roomName,
@@ -29,9 +28,11 @@ const CreateRoom = () => {
       member: [userID],
     });
 
-    // グローバル変数にルームIDを保存
-    setRoomID(roomRef.id);
     const roomID = roomRef.id;
+    // グローバル変数にルームIDを保存
+    setRoomID(roomID);
+    localStorage.setItem("roomID", roomID);
+    
     // userドキュメントのrooms配列にルームIDを追加
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {

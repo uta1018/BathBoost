@@ -9,15 +9,15 @@ import "./css/Home.css";
 
 const Home = () => {
   // グローバル変数を取得
-  const { setIsAuth } = useContext(Context);
+  const { userID } = useContext(Context);
+
   const navigate = useNavigate();
+  console.log("ホーム画面");
 
   // 読み込み時に実行
   useEffect(() => {
-    // ローカルストレージからログインしているか確認
-    setIsAuth(localStorage.getItem("isAuth"));
     // ログインしていなかったら、ログイン画面へリダイレクト
-    if (!localStorage.getItem("isAuth")) {
+    if (!userID) {
       navigate("/login");
     }
   }, []);
@@ -26,7 +26,7 @@ const Home = () => {
     <div className="home-container">
       <div className="header">
         <div className="logo-box">
-          <img src="/logo.png" className="logoImg"></img>
+          <img src="/logo.png" className="logoImg" alt="Logo" />
           <div className="logo">BATH BOOST</div>
           <Logout />
         </div>
