@@ -6,39 +6,44 @@ import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import "./css/Home.css";
 
 const JoinRoom = () => {
+  // グローバル変数を取得
   const { setRoomID } = useContext(Context);
+  // 入力されたルームの名前を保存する変数を定義
   const [inputRoomID, setInputRoomID] = useState("");
 
   const navigate = useNavigate();
 
+  // ルーム入室ボタンを押したときの関数
   const joinRoom = async () => {
+    // ユーザーIDとルームIDを取得
     const userID = auth.currentUser.uid;
     const roomID = inputRoomID;
-    // const roomRef = await addDoc(collection(db, "rooms"), {
-    //   roomName: roomName,
-    //   author: userID,
-    //   member: [userID],
-    // });
     
+    // roomsコレクションからroomドキュメントを取得
     const roomDocRef = doc(db, "rooms", roomID);
     const roomrDocSnap = await getDoc(roomDocRef);
+    // 存在しない場合、アラート
     if(!roomrDocSnap.exists()) {
       alert("存在しないルームIDです")
       setInputRoomID("");
       return;
     }
 
+    // roomドキュメントのmember配列にユーザーIDを追加する
     await updateDoc(roomDocRef, {
       member: arrayUnion(userID),
     });
 
+    // userドキュメントのrooms配列にルームIDを追加する
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
       rooms: arrayUnion(roomID),
     });
 
+    // グローバル変数にルームIDを保存
     setRoomID(roomID);
 
+    // ルーム画面にリダイレクト
     navigate("/room");
   };
 

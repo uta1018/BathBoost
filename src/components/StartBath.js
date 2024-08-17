@@ -12,8 +12,10 @@ import { auth, db } from "../firebase";
 import { Context } from "../providers/Provider";
 
 const StartBath = () => {
+  // グローバル変数を取得
   const { roomID, setRoomID } = useContext(Context);
 
+  // ボタンを押したときに実行される関数
   const postData = async () => {
     const currentRoomID = roomID || localStorage.getItem("roomID");
     setRoomID(currentRoomID);
@@ -22,6 +24,7 @@ const StartBath = () => {
     // console.log(userID)
     if (!currentRoomID || !userID) return;
 
+    // 同じルームの自分の最新の投稿を1件取得
     const postsQuery = query(
       collection(db, "posts"),
       where("roomid", "==", currentRoomID),
@@ -38,7 +41,7 @@ const StartBath = () => {
       // console.log(lastPost);
       const goalTime = lastPost.goalTime ? lastPost.goalTime.toDate() : null;
       // console.log("Goal Time:", goalTime);
-
+      // isGoalAchievedに目標が達成されているか保存
       if (goalTime) {
         const now = new Date();
         // console.log("Now Time:", now);
@@ -46,7 +49,7 @@ const StartBath = () => {
         isGoalAchieved = now <= goalTime;
       }
     }
-
+    // ポストを保存
     await addDoc(collection(db, "posts"), {
       roomid: currentRoomID,
       author: userID,

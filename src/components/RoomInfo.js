@@ -4,11 +4,14 @@ import { Context } from '../providers/Provider';
 import "./css/RoomInfo.css";
 
 const RoomInfo = () => {
+  // グローバル変数を取得
   const { roomID } = useContext(Context);
 
   const navigate = useNavigate();
 
+  // 読み込み時に実行
   useEffect(() => {
+    // ログインしていなかったらログイン画面へリダイレクト
     if (!localStorage.getItem("isAuth")) {
       navigate("/login");
     }
@@ -29,7 +32,8 @@ const RoomInfo = () => {
           <p>です</p>
         </div>
         <img src="/tellID.png" className="tell-id-img" />
-        <p>友達にリンク、ルームIDをシェアしよう！</p>
+        <p>友達にルームIDをシェアしよう！</p>
+      {/* ルーム画面へのリンク */}
       <Link to="/room" className="room-link">ルームへ</Link>
       </div>
       <div className="footer">

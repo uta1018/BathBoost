@@ -13,23 +13,27 @@ const toLocalISOString = (date) => {
 };
 
 const TimeSelect = () => {
+  // グローバル変数を取得
   const { roomID, setRoomID } = useContext(Context);
+  // 目標時間を現在の時間に初期化
   const [goalTime, setGoalTime] = useState(toLocalISOString(new Date()));
 
   const navigate = useNavigate();
 
+  // ログインしていなかったらログイン画面へ
   useEffect(() => {
     if (!localStorage.getItem("isAuth")) {
       navigate("/login");
     }
   }, []);
 
+  // 決定ボタンを押したときに実行する関数
   const postData = async () => {
     const currentRoomID = roomID || localStorage.getItem("roomID");
     setRoomID(currentRoomID);
     const userID = auth.currentUser.uid;
     if (!currentRoomID || !userID) return;
-
+    // ポストを保存
     await addDoc(collection(db, "posts"), {
       roomid: currentRoomID,
       author: userID,
@@ -38,6 +42,7 @@ const TimeSelect = () => {
       goalTime: new Date(goalTime),
     });
 
+    // ルーム画面へ
     navigate("/room");
   };
 

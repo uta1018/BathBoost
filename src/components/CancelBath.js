@@ -22,6 +22,7 @@ const CancelBath = () => {
     const userID = auth.currentUser.uid;
     if (!currentRoomID || !userID) return;
 
+    // ユーザーのポイントを更新
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
       point: increment(-1),
@@ -29,10 +30,12 @@ const CancelBath = () => {
     const userDocSnap = await getDoc(userDocRef);
     const currentLevel = userDocSnap.data().level;
     const level = Math.floor(userDocSnap.data().point / 2);
+    // レベルを更新
     await updateDoc(userDocRef, {
       level,
     });
 
+    // レベルダウンした際、レベルアップ画面へ
     if (currentLevel !== level) {
       navigate("/levelup", {
         state: {
@@ -43,6 +46,7 @@ const CancelBath = () => {
       });
     }
 
+    // ポストを保存
     await addDoc(collection(db, "posts"), {
       roomid: currentRoomID,
       author: userID,

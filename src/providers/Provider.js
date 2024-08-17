@@ -10,6 +10,7 @@ export const Provider = (props) => {
   const [roomID, setRoomID] = useState("");
 
   return (
+    // グローバル変数を宣言
     <Context.Provider value={{ isAuth, setIsAuth, roomID, setRoomID }}>
       {children}
     </Context.Provider>

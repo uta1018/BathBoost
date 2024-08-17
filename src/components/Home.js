@@ -8,11 +8,15 @@ import { Context } from "../providers/Provider";
 import "./css/Home.css";
 
 const Home = () => {
+  // グローバル変数を取得
   const { setIsAuth } = useContext(Context);
   const navigate = useNavigate();
 
+  // 読み込み時に実行
   useEffect(() => {
+    // ローカルストレージからログインしているか確認
     setIsAuth(localStorage.getItem("isAuth"));
+    // ログインしていなかったら、ログイン画面へリダイレクト
     if (!localStorage.getItem("isAuth")) {
       navigate("/login");
     }

@@ -18,6 +18,7 @@ const LevelUp = () => {
       </div>
 
       <div className="text">
+        {/* レベルアップかダウンに応じて表示を変更 */}
         {currentLevel < newLevel ? (
           <div>
             <h3>Level up!</h3>

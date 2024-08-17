@@ -6,30 +6,43 @@ import { useNavigate } from "react-router-dom";
 import "./css/Home.css";
 
 const SelectRoom = () => {
-  const { isAuth, setRoomID } = useContext(Context);
+  // グローバル変数を取得
+  const { setRoomID } = useContext(Context);
+  // 入室済みのルーム情報を保存する配列を宣言
   const [roomList, setRoomList] = useState([]);
+  // 読み込み中か否かを保存する変数を宣言
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
+  // 読み込み時に実行
   useEffect(() => {
+    // 入室済みのルーム情報を読み込む関数
     const getRooms = async () => {
+      // ロード中に設定
       setIsLoading(true);
       const userID = auth.currentUser.uid;
+      // userドキュメントを取得
       const userDocSnap = await getDoc(doc(db, "user", userID));
       const userData = userDocSnap.data();
+      // userドキュメントのrooms配列を保存
       const roomIDList = userData.rooms;
 
+      // それぞれのルームに対してデータを返す関数
       const roomPromises = roomIDList.map(async (roomID) => {
+        // roomドキュメントを取得
         const roomDocRef = doc(db, "rooms", roomID);
         const roomDocSnap = await getDoc(roomDocRef);
+        // roomドキュメントのデータにルームIDを加えて返す
         return { id: roomID, ...roomDocSnap.data() };
       });
 
+      // roomPromisesを非同期で実行
       const rooms = await Promise.all(roomPromises);
+      // ルーム情報を変数に保存
       setRoomList(rooms);
+      // ロード中を解除
       setIsLoading(false);
-      // console.log(rooms);
     };
 
     const unsubscribe = auth.onAuthStateChanged((user) => {

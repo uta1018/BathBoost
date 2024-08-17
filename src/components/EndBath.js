@@ -22,6 +22,7 @@ const EndBath = () => {
 
   const navigate = useNavigate();
 
+  // ボタンを押したときに実行される関数
   const postData = async () => {
     const currentRoomID = roomID || localStorage.getItem("roomID");
     setRoomID(currentRoomID);
@@ -30,6 +31,7 @@ const EndBath = () => {
     // console.log(userID)
     if (!currentRoomID || !userID) return;
 
+    // 同じルームの自分の最新の投稿を1件取得
     const postsQuery = query(
       collection(db, "posts"),
       where("roomid", "==", currentRoomID),
@@ -43,6 +45,7 @@ const EndBath = () => {
       // 最新の投稿からgoalTimeを取得
       const lastPost = querySnapshot.docs[0].data();
       // console.log(lastPost);
+      // 目標を達成できたか否かでユーザーのポイントを更新
       const userDocRef = doc(db, "user", userID);
       if (lastPost.isGoalAchieved) {
         await updateDoc(userDocRef, {
@@ -54,14 +57,17 @@ const EndBath = () => {
         });
       }
 
+      // ユーザー情報を取得
       const userDocSnap = await getDoc(userDocRef);
       const currentLevel = userDocSnap.data().level;
       const level = Math.floor(userDocSnap.data().point / 2);
+      // ユーザーのレベルを更新
       await updateDoc(userDocRef, {
         level,
       });
       // console.log(currentLevel);
       // console.log(level);
+      // レベルが変わったときレベルアップ画面へ
       if (currentLevel !== level) {
         navigate("/levelup", {
           state: {
@@ -72,7 +78,7 @@ const EndBath = () => {
         });
       }
     }
-
+    // ポストを保存
     await addDoc(collection(db, "posts"), {
       roomid: currentRoomID,
       author: userID,

@@ -7,19 +7,26 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import "./css/Login.css";
 
 const Login = () => {
+  // グローバル変数を取得
   const { setIsAuth } = useContext(Context);
   const navigate = useNavigate();
 
+  // ログインボタンを押したときの関数
   const logInWithGoogle = async () => {
+    // ログインする
     await signInWithPopup(auth, provider);
     const user = auth.currentUser;
 
+    // ローカルストレージに保存する
     localStorage.setItem("isAuth", "true");
+    // グローバル変数を変更
     setIsAuth(true);
 
+    // DBのuserコレクションからログインしたユーザーのドキュメントを取得
     const userDocRef = doc(db, "user", user.uid);
     const docSnap = await getDoc(userDocRef);
 
+    // ユーザードキュメントが存在しなかったら各種情報を保存する
     if (!docSnap.exists()) {
       await setDoc(doc(db, "user", user.uid), {
         username: user.displayName,
@@ -29,6 +36,7 @@ const Login = () => {
       });
     }
 
+    // ホーム画面にリダイレクト
     navigate("/");
   };
 

@@ -19,6 +19,7 @@ import "./css/Room.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
+// 時間表示を○○：○○にする関数
 const formatHHMM = (time) => {
   const date = new Date(time);
   const hours = date.getHours();
@@ -37,29 +38,39 @@ const formatHHMMforTimeStamp = (timestamp) => {
 
 const Room = () => {
   const { roomID, setRoomID, setIsAuth } = useContext(Context);
+  // ルーム情報を保存する配列を宣言
   const [roomData, setRoomData] = useState(null);
+  // ポスト情報を保存する配列を宣言
   const [postList, setPostList] = useState([]);
+  // ルームのユーザーの情報を保存する配列を宣言
   const [userList, setUserList] = useState([]);
+  // 現在のユーザーIDを保存する変数を宣言
   const [currentUser, setCurrentUser] = useState(null);
+  // 現在のユーザーによる最後のポストの種類を保存する変数を宣言
   const [lastPostType, setLastPostType] = useState("");
 
   const navigate = useNavigate();
 
+  // ポストリストにポストを追加する関数
   const addPostList = (id, data) => {
     const newPost = {
       id: id,
       ...data,
     };
+    // ポストリストに、ポストを昇順に保存する
     setPostList((prev) =>
       [...prev, newPost].sort((a, b) => a.date.valueOf() - b.date.valueOf())
     );
   };
 
+  // roomIDが変わったときに実行
   useEffect(() => {
+    // 現在のルームIDを取得
     const currentRoomID = roomID || localStorage.getItem("roomID");
     setRoomID(currentRoomID);
     if (!currentRoomID) return;
 
+    // ルーム情報を取得する関数
     const getRoom = async () => {
       const roomDocRef = doc(db, "rooms", currentRoomID);
       const roomDocSnap = await getDoc(roomDocRef);
@@ -69,6 +80,7 @@ const Room = () => {
 
     getRoom();
 
+    // 指定されたルームIDに関連するポストをリアルタイムで取得し、ポストリストを更新する関数
     const getPostsRealtime = () => {
       const postsQuery = query(
         collection(db, "posts"),
@@ -101,7 +113,9 @@ const Room = () => {
     };
   }, [roomID]);
 
+  // roomDataかpostListが変わったときに実行
   useEffect(() => {
+    // roomDataのメンバーリストを使用して、各メンバーのユーザー情報を取得する関数
     const getUsers = async () => {
       if (!roomData?.member) return;
 
@@ -125,6 +139,7 @@ const Room = () => {
     return () => unsubscribe();
   }, [roomData, postList]);
 
+  // postListかcurrentUserが変わったときに実行
   useEffect(() => {
     if (postList.length > 0 && currentUser) {
       // 自分の投稿だけをフィルタリング
@@ -142,7 +157,9 @@ const Room = () => {
     }
   }, [postList, currentUser]);
 
+  // 読み込み時に実行
   useEffect(() => {
+    // ログインしていなかったらログイン画面へ
     setIsAuth(localStorage.getItem("isAuth"));
     if (!localStorage.getItem("isAuth")) {
       navigate("/login");
@@ -166,6 +183,7 @@ const Room = () => {
         {/* <p className="userLevel">{userlevel}</p> */}
       </header>
       <div className="postContainer">
+        {/* ポストリストの各ポストごとに描画 */}
         {postList.map((post) => {
           // console.log("Current User:", currentUser.uid);
           // console.log("Post Author:", post.author);
@@ -177,6 +195,7 @@ const Room = () => {
             : "";
 
           return (
+            // ポストの投稿者が自分かそれ以外かでクラスを変える
             <div
               className={`post_${currentUser.uid === post.author ? "r" : "l"}`}
               key={post.id}
@@ -188,7 +207,7 @@ const Room = () => {
                   </div>
                   <p className="userLevel">{authorLevel}</p>
                 </div>
-
+                {/* ポストの種類によってスタンプを変える */}
                 <div className="stamp">
                   {post.type === "startBath" ? (
                     <img
@@ -241,6 +260,7 @@ const Room = () => {
         })}
       </div>
 
+      {/* 最後のポストの種類によって表示するボタンを変える */}
       <div className="menu">
         {lastPostType === "setBathGoal" ? (
           <>
