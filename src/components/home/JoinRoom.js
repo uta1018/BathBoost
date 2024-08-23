@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Context } from "../providers/Provider";
+import { Context } from "../../providers/Provider";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
-import "./css/Home.css";
+// import "./css/Home.css";
 
 const JoinRoom = () => {
   // グローバル変数を取得
@@ -17,13 +17,13 @@ const JoinRoom = () => {
   // ルーム入室ボタンを押したときの関数
   const joinRoom = async () => {
     const roomID = inputRoomID;
-    
+
     // roomsコレクションからroomドキュメントを取得
     const roomDocRef = doc(db, "rooms", roomID);
     const roomDocSnap = await getDoc(roomDocRef);
     // 存在しない場合、アラート
-    if(!roomDocSnap.exists()) {
-      alert("存在しないルームIDです")
+    if (!roomDocSnap.exists()) {
+      alert("存在しないルームIDです");
       setInputRoomID("");
       return;
     }

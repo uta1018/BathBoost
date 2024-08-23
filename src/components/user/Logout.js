@@ -1,9 +1,9 @@
-import { signOut } from 'firebase/auth'
-import React, { useContext } from 'react'
-import { auth } from '../firebase'
-import { useNavigate } from 'react-router-dom'
-import { Context } from '../providers/Provider'
-import "./css/Home.css";
+import { signOut } from "firebase/auth";
+import React, { useContext } from "react";
+import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../../providers/Provider";
+// import "./css/Home.css";
 
 const Logout = () => {
   // グローバル変数を取得
@@ -23,13 +23,15 @@ const Logout = () => {
       // ログイン画面にリダイレクト
       navigate("/login");
     });
-  }
+  };
 
   return (
     <div>
-      <button className="logout-button" onClick={logOut}>ログアウト</button>
+      <button className="logout-button" onClick={logOut}>
+        ログアウト
+      </button>
     </div>
-  )
-}
+  );
+};
 
 export default Logout;

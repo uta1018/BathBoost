@@ -8,8 +8,8 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useContext } from "react";
-import { db } from "../firebase";
-import { Context } from "../providers/Provider";
+import { db } from "../../firebase";
+import { Context } from "../../providers/Provider";
 
 const StartBath = () => {
   // グローバル変数を取得

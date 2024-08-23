@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../providers/Provider";
-import { db } from "../firebase";
+import { Context } from "../../providers/Provider";
+import { db } from "../../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import './css/TimeSelect.css';
+// import './css/TimeSelect.css';
 
 const toLocalISOString = (date) => {
   const localDate = new Date(date - date.getTimezoneOffset() * 60000);

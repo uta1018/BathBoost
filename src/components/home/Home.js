@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
 import SelectRoom from "./SelectRoom";
-import Logout from "./Logout";
-import { Context } from "../providers/Provider";
-import "./css/Home.css";
+import Logout from "../user/Logout";
+import { Context } from "../../providers/Provider";
+// import "./css/Home.css";
 
 const Home = () => {
   // グローバル変数を取得
@@ -26,7 +26,6 @@ const Home = () => {
     <div className="home-container">
       <div className="header">
         <div className="logo-box">
-          <img src="/logo.png" className="logoImg" alt="Logo" />
           <div className="logo">BATH BOOST</div>
           <Logout />
         </div>

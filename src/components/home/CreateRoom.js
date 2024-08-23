@@ -7,9 +7,9 @@ import {
 } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
-import { Context } from "../providers/Provider";
-import "./css/Home.css";
+import { db } from "../../firebase";
+import { Context } from "../../providers/Provider";
+// import "./css/Home.css";
 
 const CreateRoom = () => {
   // グローバル変数を取得
@@ -32,7 +32,7 @@ const CreateRoom = () => {
     // グローバル変数にルームIDを保存
     setRoomID(roomID);
     localStorage.setItem("roomID", roomID);
-    
+
     // userドキュメントのrooms配列にルームIDを追加
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {

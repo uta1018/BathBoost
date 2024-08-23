@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import { Context } from '../providers/Provider';
-import "./css/RoomInfo.css";
+import { Context } from '../../providers/Provider';
+// import "./css/RoomInfo.css";
 
 const RoomInfo = () => {
   // グローバル変数を取得

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../providers/Provider";
+import { Context } from "../../providers/Provider";
 import {
   collection,
   doc,
@@ -8,13 +8,13 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import StartBath from "./StartBath";
 import SetBathGoal from "./SetBathGoal";
 import EndBath from "./EndBath";
 import CancelBath from "./CancelBath";
-import "./css/Room.css";
+// import "./css/Room.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -70,7 +70,7 @@ const Room = () => {
       if (!userID) {
         navigate("/login");
         return;
-      } else if(!roomID) {
+      } else if (!roomID) {
         navigate("/");
         return;
       }

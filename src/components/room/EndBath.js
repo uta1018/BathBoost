@@ -12,8 +12,8 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useContext } from "react";
-import { db } from "../firebase";
-import { Context } from "../providers/Provider";
+import { db } from "../../firebase";
+import { Context } from "../../providers/Provider";
 import { useNavigate } from "react-router-dom";
 
 const EndBath = () => {

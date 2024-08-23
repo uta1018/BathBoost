@@ -8,10 +8,10 @@ import {
   where,
 } from "firebase/firestore";
 import React, { memo, useContext, useEffect, useState } from "react";
-import { db } from "../firebase";
-import { Context } from "../providers/Provider";
+import { db } from "../../firebase";
+import { Context } from "../../providers/Provider";
 import { useNavigate } from "react-router-dom";
-import "./css/Home.css";
+// import "./css/Home.css";
 
 const SelectRoom = memo(() => {
   // グローバル変数を取得
@@ -27,7 +27,7 @@ const SelectRoom = memo(() => {
 
   // 読み込み時に実行
   useEffect(() => {
-    if(!userID) return;
+    if (!userID) return;
     // 入室済みのルーム情報を読み込む関数
     const getRooms = async () => {
       try {
@@ -64,7 +64,6 @@ const SelectRoom = memo(() => {
 
         // ルーム情報を変数に保存
         setRoomList(rooms);
-        
       } finally {
         // ロード状態を解除
         setIsLoading(false);
@@ -81,7 +80,7 @@ const SelectRoom = memo(() => {
     localStorage.setItem("roomID", roomID);
     navigate("/room");
   };
-  
+
   if (isLoading) return <div>ロード中</div>;
 
   return (

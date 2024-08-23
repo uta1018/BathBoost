@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Context } from "../providers/Provider";
-import { auth, db } from "../firebase";
+import { Context } from "../../providers/Provider";
+import { auth, db } from "../../firebase";
 import {
   addDoc,
   collection,
