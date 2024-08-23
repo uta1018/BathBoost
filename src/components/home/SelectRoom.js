@@ -88,7 +88,6 @@ const SelectRoom = memo(() => {
   return (
     roomList.length > 0 && (
       <div className="input-field-container">
-        <h3>ルームを選択</h3>
         {roomList.map((room) => {
           return (
             <div key={room.id}>

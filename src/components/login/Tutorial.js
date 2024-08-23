@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Tutorial = () => {
+const Tutorial = ({closeHelp, showCloseButton=false}) => {
   return (
-    <div>Tutorial</div>
+    <div>
+      Tutorial
+      {/* ボタンを押したときチュートリアルを閉じる */}
+      {showCloseButton &&<button onClick={closeHelp}>閉じる</button>}
+    </div>
   )
 }
 
