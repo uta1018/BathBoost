@@ -40,15 +40,20 @@ const SelectRoom = memo(() => {
         const roomIDList = userData.rooms;
 
         // roomIDListに存在するルームについて情報を取得
-        const roomsQuery = query(
-          collection(db, "rooms"),
-          where(documentId(), "in", roomIDList)
-        );
-        const roomsSnapshot = await getDocs(roomsQuery);
-        const rooms = roomsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        if (roomIDList && roomIDList.length > 0) {
+          const roomsQuery = query(
+            collection(db, "rooms"),
+            where(documentId(), "in", roomIDList)
+          );
+          const roomsSnapshot = await getDocs(roomsQuery);
+          const rooms = roomsSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+          // ルーム情報を変数に保存
+          setRoomList(rooms);
+        }
 
         // // それぞれのルームに対してデータを返す関数
         // const roomPromises = roomIDList.map(async (roomID) => {
@@ -61,9 +66,6 @@ const SelectRoom = memo(() => {
 
         // // roomPromisesを非同期で実行
         // const rooms = await Promise.all(roomPromises);
-
-        // ルーム情報を変数に保存
-        setRoomList(rooms);
       } finally {
         // ロード状態を解除
         setIsLoading(false);
