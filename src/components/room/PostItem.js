@@ -24,7 +24,7 @@ const PostItem = memo(({ post, userList }) => {
   console.log(post.id);
 
   const authorUser = userList.find((user) => user.id === post.author);
-  const authorName = authorUser ? authorUser.username : "Unknown User";
+  const authorName = authorUser ? authorUser.userName : "Unknown User";
   const authorLevel = authorUser ? "Level " + authorUser.level : "";
   const goalTime = post.goalTime
     ? `${formatHHMMforTimeStamp(post.goalTime)}`

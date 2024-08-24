@@ -72,8 +72,8 @@ const Room = () => {
 
       // roomDataのメンバーリストを使用して、各メンバーのユーザー情報を取得
       const userDocs = await Promise.all(
-        roomData.member.map(async (userID) => {
-          const userDocRef = doc(db, "user", userID);
+        roomData.member.map(async (user) => {
+          const userDocRef = doc(db, "user", user.userID);
           const userDocSnap = await getDoc(userDocRef);
           return { id: userDocSnap.id, ...userDocSnap.data() };
         })

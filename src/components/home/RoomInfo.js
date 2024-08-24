@@ -11,6 +11,7 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo }) => {
 
   const navigate = useNavigate();
   console.log("RoomInfo");
+  console.log(roomData);
 
   // 読み込み時に実行
   useEffect(() => {
@@ -21,20 +22,26 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo }) => {
       const roomData = { id: joinRoomID, ...roomDocSnap.data() };
       setRoomData(roomData);
     };
-    
+
     fetchData();
   }, []);
 
   // OKボタンを押したときの関数
   const roomInfo = async () => {
+    // userドキュメントを取得
+    const userDocRef = doc(db, "user", userID);
+    const userDocSnap = await getDoc(userDocRef);
+    const userData = userDocSnap.data();
+    const userName = userData.userName;
+    const icon = userData.icon;
+
     const roomDocRef = doc(db, "rooms", joinRoomID);
-    // roomドキュメントのmember配列にユーザーIDを追加する
+    // roomドキュメントのmember配列にユーザー情報を追加する
     await updateDoc(roomDocRef, {
-      member: arrayUnion(userID),
+      member: arrayUnion({ userID: userID, userName: userName, icon: icon }),
     });
 
     // userドキュメントのrooms配列にルームIDを追加する
-    const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
       rooms: arrayUnion(joinRoomID),
     });
@@ -51,12 +58,19 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo }) => {
     <div className="roominfo-container">
       <div className="content">
         {roomData && roomData.roomName}
-        {/* {roomData.member} */}
+        {roomData && (
+          <div>
+            <p>メンバー:</p>
+            {roomData.member.map((member, index) => (
+              <span key={member.userID}>
+                {member.userName}
+                {index < roomData.member.length - 1 && ", "}
+              </span>
+            ))}
+          </div>
+        )}
         <button onClick={closeRoomInfo}>キャンセル</button>
         <button onClick={roomInfo}>OK</button>
-      </div>
-      <div className="footer">
-        <p>@ライラック</p>
       </div>
     </div>
   );

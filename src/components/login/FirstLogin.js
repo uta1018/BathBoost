@@ -8,7 +8,7 @@ import { Context } from "../../providers/Provider";
 const FirstLogin = () => {
   const {userID} = useContext(Context);
   // 入力されたユーザーネームを保存する変数
-  const [username, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   // 選択されたアイコンを保存する変数
   const [icon, setIcon] = useState("/icon/paw1.png");
   // バリデーションのメッセージを管理する変数
@@ -33,7 +33,7 @@ const FirstLogin = () => {
   // username の入力変更時にバリデーションを実行
   const handleUsernameChange = (e) => {
     const name = e.target.value;
-    setUsername(name);
+    setUserName(name);
     const error = validateUsername(name);
     setUsernameError(error);
   };
@@ -41,7 +41,7 @@ const FirstLogin = () => {
   // 決定ボタンを押したときの関数
   const handleFirstLogin = async () => {
     await setDoc(doc(db, "user", userID), {
-      username: username,
+      userName: userName,
       icon: icon,
       themeColor: "theme1",
       level: 0,
@@ -71,7 +71,7 @@ const FirstLogin = () => {
       <input
         type="text"
         placeholder="名前を入力してください"
-        value={username}
+        value={userName}
         onChange={handleUsernameChange}
       />
       <p style={{ color: usernameError.color }}>{usernameError.message}</p>
@@ -124,7 +124,7 @@ const FirstLogin = () => {
       {/* 決定ボタン */}
       <button
         onClick={handleFirstLogin}
-        disabled={username.length < 1 || 8 < username.length}
+        disabled={userName.length < 1 || 8 < userName.length}
       >
         決定
       </button>

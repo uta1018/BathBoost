@@ -3,11 +3,13 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDoc,
   updateDoc,
 } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 // import "./css/Home.css";
 
 const CreateRoom = ({closeCreateRoom, openRoomID}) => {
@@ -19,25 +21,34 @@ const CreateRoom = ({closeCreateRoom, openRoomID}) => {
 
   // ルーム作成ボタンを押したときの関数
   const createRoom = async () => {
-    // 保存するものを増やす
+    closeCreateRoom();
+
+    // userドキュメントを取得
+    const userDocRef = doc(db, "user", userID);
+    const userDocSnap = await getDoc(userDocRef);
+    const userData = userDocSnap.data();
+    const userName = userData.userName;
+    const icon = userData.icon;
+    
     // roomsコレクションにドキュメントを保存
     const roomRef = await addDoc(collection(db, "rooms"), {
       roomName: roomName,
-      author: userID,
-      member: [userID],
+      author: {userID: userID, userName: userName},
+      date: new Date().getTime(),
+      member: [{userID: userID, userName: userName, icon: icon}],
     });
 
     const roomID = roomRef.id;
+    
     // グローバル変数にルームIDを保存
     setRoomID(roomID);
     localStorage.setItem("roomID", roomID);
 
     // userドキュメントのrooms配列にルームIDを追加
-    const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
       rooms: arrayUnion(roomID),
     });
-    closeCreateRoom();
+    
     openRoomID();
   };
 
