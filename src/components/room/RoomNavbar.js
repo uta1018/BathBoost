@@ -5,6 +5,7 @@ import SelectStamp from "./SelectStamp";
 import SetBathGoal from "./SetBathGoal";
 import LevelUp from "./LevelUp";
 import PointUp from "./PointUp";
+import Overlay from "../common/Overlay";
 
 const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
   const [showSelectStamp, setShowSelectStamp] = useState(false);
@@ -15,6 +16,7 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
   const [nextPoint, setNextPoint] = useState();
   const [point, setPoint] = useState();
   const [stamp, setStamp] = useState();
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const navigate = useNavigate();
   console.log("RoomNavbar");
@@ -72,6 +74,14 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
     setStamp(stamp);
   }, []);
 
+  const applyOverlay = () => {
+    setShowOverlay(true);
+  };
+
+  const removeOverlay = () => {
+    setShowOverlay(false);
+  };
+
   return (
     <div>
       <button onClick={() => navigate("/")}>もどる</button>
@@ -97,6 +107,7 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
           </>
         )}
       </div>
+      {showOverlay && <Overlay />}
       {showCancelDialog && (
         <CancelDialog
           closeCancelDialog={closeCancelDialog}
@@ -116,12 +127,14 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
           settingNextPoint={settingNextPoint}
           settingPoint={settingPoint}
           settingStamp={settingStamp}
+          applyOverlay={applyOverlay}
         />
       )}
       {showSetBathGoal && (
         <SetBathGoal
           closeSetBathGoal={closeSetBathGoal}
           closeSelectStamp={closeSelectStamp}
+          removeOverlay={removeOverlay}
           stamp={stamp}
         />
       )}

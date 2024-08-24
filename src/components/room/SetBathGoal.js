@@ -11,7 +11,12 @@ const toLocalISOString = (date) => {
   return localDate.toISOString().slice(0, 16);
 };
 
-const SetBathGoal = ({ closeSetBathGoal, closeSelectStamp, stamp }) => {
+const SetBathGoal = ({
+  closeSetBathGoal,
+  closeSelectStamp,
+  stamp,
+  removeOverlay,
+}) => {
   // グローバル変数を取得
   const { userID, roomID } = useContext(Context);
   // 目標時間を現在の時間に初期化
@@ -26,6 +31,7 @@ const SetBathGoal = ({ closeSetBathGoal, closeSelectStamp, stamp }) => {
     // ルーム画面へ
     closeSelectStamp();
     closeSetBathGoal();
+    removeOverlay();
 
     // ポストを保存
     await addDoc(collection(db, "posts"), {
@@ -39,7 +45,7 @@ const SetBathGoal = ({ closeSetBathGoal, closeSelectStamp, stamp }) => {
   };
 
   return (
-    <div className="TimeSelect_container">
+    <div className="popup-content">
       <div className="timeSelect">
         <h3>何時に入る?</h3>
         <input
@@ -48,7 +54,7 @@ const SetBathGoal = ({ closeSetBathGoal, closeSelectStamp, stamp }) => {
           onChange={(e) => setGoalTime(e.target.value)}
         />
         <div className="button-container">
-          <button onClick={closeSetBathGoal}>キャンセル</button>
+          <button onClick={() => {closeSetBathGoal(); removeOverlay();}}>キャンセル</button>
           <button onClick={postData}>決定</button>
         </div>
       </div>

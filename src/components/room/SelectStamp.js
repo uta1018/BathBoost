@@ -25,6 +25,7 @@ const SelectStamp = memo(
     settingNextPoint,
     settingPoint,
     settingStamp,
+    applyOverlay
   }) => {
     // グローバル変数を取得
     const { userID, roomID } = useContext(Context);
@@ -220,6 +221,7 @@ const SelectStamp = memo(
         lastPostType === "cancelBath"
       ) {
         settingStamp(stamp);
+        applyOverlay();
         // 時間選択ポップアップを表示
         openSetBathGoal();
       }
