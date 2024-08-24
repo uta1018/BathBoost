@@ -16,6 +16,7 @@ const CancelDialog = ({
   openLevelUp,
   settingNextPoint,
   settingPoint,
+  removeOverlay,
 }) => {
   const { roomID, userID } = useContext(Context);
 
@@ -59,14 +60,21 @@ const CancelDialog = ({
       author: userID,
       type: "cancelBath",
       date: new Date().getTime(),
-      stamp: "/cancelBathStamp/1.png"
+      stamp: "/cancelBathStamp/1.png",
     });
   };
 
   return (
-    <div>
+    <div className="popup-content">
       <p>本当にやめますか？</p>
-      <button onClick={closeCancelDialog}>いいえ</button>
+      <button
+        onClick={() => {
+          closeCancelDialog();
+          removeOverlay();
+        }}
+      >
+        いいえ
+      </button>
       <button onClick={postData}>はい</button>
     </div>
   );

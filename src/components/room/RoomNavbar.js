@@ -90,13 +90,27 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
         {lastPostType === "setBathGoal" && (
           <>
             <button onClick={openSelectStamp}>おふろ</button>
-            <button onClick={openCancelDialog}>やめる</button>
+            <button
+              onClick={() => {
+                openCancelDialog();
+                applyOverlay();
+              }}
+            >
+              やめる
+            </button>
           </>
         )}
         {lastPostType === "startBath" && (
           <>
             <button onClick={openSelectStamp}>せいこう</button>
-            <button onClick={openCancelDialog}>やめる</button>
+            <button
+              onClick={() => {
+                openCancelDialog();
+                applyOverlay();
+              }}
+            >
+              やめる
+            </button>
           </>
         )}
         {(!lastPostType ||
@@ -115,6 +129,7 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
           openLevelUp={openLevelUp}
           settingNextPoint={settingNextPoint}
           settingPoint={settingPoint}
+          removeOverlay={removeOverlay}
         />
       )}
       {showSelectStamp && (
