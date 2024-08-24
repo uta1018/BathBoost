@@ -15,7 +15,15 @@ import React, { useContext } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
 
-const SelectStamp = ({ lastPostType, closeSelectStamp, openSetBathGoal }) => {
+const SelectStamp = ({
+  lastPostType,
+  closeSelectStamp,
+  openSetBathGoal,
+  openPointUp,
+  openLevelUp,
+  settingNextPoint,
+  settingPoint,
+}) => {
   // グローバル変数を取得
   const { userID, roomID } = useContext(Context);
 
@@ -86,31 +94,45 @@ const SelectStamp = ({ lastPostType, closeSelectStamp, openSetBathGoal }) => {
             await updateDoc(userDocRef, {
               point: increment(3),
             });
+            // ポイントの増減を更新
+            settingPoint(+3);
           } else {
             await updateDoc(userDocRef, {
               point: increment(1),
             });
+            // ポイントの増減を更新
+            settingPoint(+1);
           }
+
+          // ポストを保存
+          await addDoc(collection(db, "posts"), {
+            roomid: roomID,
+            author: userID,
+            type: "endBath",
+            date: new Date().getTime(),
+          });
 
           // ユーザー情報を取得
           const userDocSnap = await getDoc(userDocRef);
           const currentLevel = userDocSnap.data().level;
-          const level = Math.floor(userDocSnap.data().point / 2);
+          const point = userDocSnap.data().point;
+          const level = Math.floor(point / 2);
+
+          // レベルアップポップアップ・ポイントアップポップアップに渡す変数を更新
+          // 次のレベルまでのポイント
+          settingNextPoint(2 * (level + 1) - point);
+
           // レベルが変わったとき
           if (currentLevel !== level) {
             // ユーザーのレベルを更新
             await updateDoc(userDocRef, {
               level,
             });
+            openLevelUp();
+          } else {
+            openPointUp();
           }
         }
-        // ポストを保存
-        await addDoc(collection(db, "posts"), {
-          roomid: roomID,
-          author: userID,
-          type: "endBath",
-          date: new Date().getTime(),
-        });
       };
 
       postData();
