@@ -11,7 +11,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
 
@@ -24,11 +24,62 @@ const SelectStamp = memo(
     openLevelUp,
     settingNextPoint,
     settingPoint,
+    settingStamp,
   }) => {
     // グローバル変数を取得
     const { userID, roomID } = useContext(Context);
+    // スタンプの種類を保存する変数
+    const [stampType, setStampType] = useState();
+    // 選択されたスタンプを保存する変数
+    const [stamp, setStamp] = useState("");
+    // スタンプリストを保存する変数
+    const [stampList, setStampList] = useState([]);
+    // ユーザー情報を保存
+    const [userData, setUserData] = useState();
 
     console.log("スタンプ選択画面");
+
+    // 読み込み時に実行
+    useEffect(() => {
+      if (lastPostType === "setBathGoal") {
+        setStampType("startBath");
+      } else if (lastPostType === "startBath") {
+        setStampType("endBath");
+      } else if (
+        !lastPostType ||
+        lastPostType === "endBath" ||
+        lastPostType === "cancelBath"
+      ) {
+        setStampType("setBathGoal");
+      }
+    }, []);
+
+    // stampTypeが変わった後にスタンプリストを取得する
+    useEffect(() => {
+      // スタンプリストをuserドキュメントから取得
+      const getStamps = async () => {
+        if (stampType) {
+          console.log("stampList");
+          // userドキュメントを取得
+          const userDocSnap = await getDoc(doc(db, "user", userID));
+          const userData = userDocSnap.data();
+          // userドキュメントのスタンプリストを保存
+          const stamps = userData[`${stampType}Stamp`];
+          // スタンプリストを変数に保存
+          setStampList(stamps);
+          // ユーザー情報を変数に保存
+          setUserData({ id: userDocSnap.id, ...userData });
+        }
+      };
+      getStamps();
+    }, [stampType]);
+
+    // stampListが変わった後に、stampを初期化する
+    useEffect(() => {
+      if (stampList.length > 0) {
+        setStamp(stampList[0]);
+      }
+    }, [stampList]);
 
     const handleSubmit = () => {
       if (lastPostType === "setBathGoal") {
@@ -65,6 +116,7 @@ const SelectStamp = memo(
             author: userID,
             type: "startBath",
             date: new Date().getTime(),
+            stamp: stamp,
             isGoalAchieved,
           });
         };
@@ -89,34 +141,57 @@ const SelectStamp = memo(
           if (!querySnapshot.empty) {
             // 最新の投稿からgoalTimeを取得
             const lastPost = querySnapshot.docs[0].data();
-            // 目標を達成できたか否かでユーザーのポイントを更新
+
             const userDocRef = doc(db, "user", userID);
-            if (lastPost.isGoalAchieved) {
+            const currentLevel = userData.level;
+            let point = userData.point;
+
+            if (
+              lastPost.isGoalAchieved &&
+              userData.goalStreakCount + 1 > userData.longestGoalStreakCount
+            ) {
               await updateDoc(userDocRef, {
                 point: increment(3),
+                bathCount: increment(1),
+                goalStreakCount: increment(1),
+                longestGoalStreakCount: increment(1),
               });
               // ポイントの増減を更新
               settingPoint(+3);
+              point += 3;
+            } else if (lastPost.isGoalAchieved) {
+              await updateDoc(userDocRef, {
+                point: increment(3),
+                bathCount: increment(1),
+                goalStreakCount: increment(1),
+              });
+              // ポイントの増減を更新
+              settingPoint(+3);
+              point += 3;
             } else {
               await updateDoc(userDocRef, {
                 point: increment(1),
+                bathCount: increment(1),
+                goalStreakCount: 0,
               });
               // ポイントの増減を更新
               settingPoint(+1);
+              point += 1;
             }
 
-            // ユーザー情報を取得
-            const userDocSnap = await getDoc(userDocRef);
-            const currentLevel = userDocSnap.data().level;
-            const point = userDocSnap.data().point;
             const level = Math.floor(point / 2);
-
-            // レベルアップポップアップ・ポイントアップポップアップに渡す変数を更新
             // 次のレベルまでのポイント
             settingNextPoint(2 * (level + 1) - point);
 
             // レベルが変わったとき
-            if (currentLevel !== level) {
+            if (currentLevel !== level && userData.highestLevel < level) {
+              // ユーザーのレベルと最高レベルを更新
+              await updateDoc(userDocRef, {
+                level,
+                highestLevel: level,
+              });
+              openLevelUp();
+            } else if (currentLevel !== level) {
               // ユーザーのレベルを更新
               await updateDoc(userDocRef, {
                 level,
@@ -132,6 +207,7 @@ const SelectStamp = memo(
               author: userID,
               type: "endBath",
               date: new Date().getTime(),
+              stamp: stamp,
             });
           }
         };
@@ -139,10 +215,11 @@ const SelectStamp = memo(
         closeSelectStamp();
         postData();
       } else if (
-        lastPostType === null ||
+        !lastPostType ||
         lastPostType === "endBath" ||
         lastPostType === "cancelBath"
       ) {
+        settingStamp(stamp);
         // 時間選択ポップアップを表示
         openSetBathGoal();
       }
@@ -152,7 +229,23 @@ const SelectStamp = memo(
       <div>
         <button onClick={closeSelectStamp}>とじる</button>
         <button onClick={handleSubmit}>決定</button>
-        {/* スタンプ選択する部分 */}
+        {/* スタンプリストのスタンプを表示 */}
+        {stampList.map((s) => {
+          return (
+            <img
+              src={s}
+              alt="スタンプ"
+              onClick={() => setStamp(s)}
+              style={{
+                width: "100px",
+                height: "100%",
+                borderRadius: "20%",
+                outlineOffset: "3px",
+                outline: stamp === s ? "3px solid #B9B9B9" : "",
+              }}
+            />
+          );
+        })}
       </div>
     );
   }

@@ -26,6 +26,8 @@ const Room = () => {
   // 現在のユーザーによる最後のポストの種類を保存する変数を宣言
   const [lastPostType, setLastPostType] = useState(null);
   const [showRoomDetail, setShowRoomDetail] = useState(false);
+  // 自分のレベルが変わったときに感知して、自分のpostItemだけ読み直す
+  const [changeLevel, setChangeLevel] = useState(false);
 
   const navigate = useNavigate();
   console.log("Room");
@@ -36,6 +38,10 @@ const Room = () => {
 
   const closeRoomDetail = () => {
     setShowRoomDetail(false);
+  };
+
+  const changeLevelToggle = () => {
+    setChangeLevel(!changeLevel);
   };
 
   // ポストリストにポストを追加する関数
@@ -115,6 +121,27 @@ const Room = () => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log("userData更新");
+    const fetchOwnData = async () => {
+      if (!userID) return;
+
+      // 自分のユーザー情報を取得
+      const userDocRef = doc(db, "user", userID);
+      const userDocSnap = await getDoc(userDocRef);
+      const ownUserData = { id: userDocSnap.id, ...userDocSnap.data() };
+
+      // userListの自分の情報を更新
+      setUserList((prevUserList) =>
+        prevUserList.map((user) =>
+          user.id === ownUserData.id ? ownUserData : user
+        )
+      );
+    };
+
+    fetchOwnData();
+  }, [changeLevel]);
+
   // postListが変わったときに実行
   useEffect(() => {
     console.log("postList");
@@ -139,11 +166,15 @@ const Room = () => {
       <button onClick={openRoomDetail}>{roomName}</button>
       <div className="postContainer">
         {/* ポストリストの各ポストごとに描画 */}
-        {postList.map((post) => (
-          <PostItem post={post} userList={userList}/>
-        ))}
+        {postList.map((post) => {
+          const authorUser = userList.find((user) => user.id === post.author);
+          return <PostItem post={post} authorUser={authorUser} />;
+        })}
       </div>
-      <RoomNavbar lastPostType={lastPostType} />
+      <RoomNavbar
+        lastPostType={lastPostType}
+        changeLevelToggle={changeLevelToggle}
+      />
 
       {showRoomDetail && (
         <RoomDetail closeRoomDetail={closeRoomDetail} {...roomData} />

@@ -18,14 +18,14 @@ const formatHHMMforTimeStamp = (timestamp) => {
   return `${hours}:${minutes.toString().padStart(2, "0")}`;
 };
 
-const PostItem = memo(({ post, userList }) => {
+const PostItem = memo(({ post, authorUser }) => {
   const { userID } = useContext(Context);
 
   console.log(post.id);
 
-  const authorUser = userList.find((user) => user.id === post.author);
-  const authorName = authorUser ? authorUser.userName : "Unknown User";
-  const authorLevel = authorUser ? "Level " + authorUser.level : "";
+  const authorName = authorUser && authorUser.userName;
+  const authorIcon = authorUser && authorUser.icon;
+  const authorLevel = authorUser && "Level " + authorUser.level;
   const goalTime = post.goalTime
     ? `${formatHHMMforTimeStamp(post.goalTime)}`
     : "";
@@ -36,54 +36,32 @@ const PostItem = memo(({ post, userList }) => {
       <div className="post">
         <div className="user">
           <div className="userIcon">
+            <img src={authorIcon} alt="アイコン" width="40px"/>
             <p>{authorName}</p>
           </div>
           <p className="userLevel">{authorLevel}</p>
         </div>
-        {/* ポストの種類によってスタンプを変える */}
         <div className="stamp">
-          {post.type === "startBath" ? (
-            <img
-              src="/startBathStamp/1.png"
-              alt="入浴"
-              width="200px"
-              height="200px"
-            />
-          ) : (
-            ""
-          )}
-          {post.type === "cancelBath" ? (
-            <img
-              src="/cancelStamp/1.png"
-              alt="お風呂キャンセル"
-              width="200px"
-              height="200px"
-            />
-          ) : (
-            ""
-          )}
-          {post.type === "endBath" ? (
-            <img
-              src="/EndBathStamp/1.png"
-              alt="上がった!"
-              width="200px"
-              height="200px"
-            />
-          ) : (
-            ""
-          )}
-          {post.type === "setBathGoal" ? (
+          {post.type === "setBathGoal" && (
             <div>
               <h3 className="goalTime">{goalTime}</h3>
               <img
-                src="/setBathGoalStamp/1.png"
-                alt="にお風呂に入る!"
+                src={post.stamp}
+                alt="スタンプ"
                 width="200px"
-                height="200px"
+                height="100%"
               />
             </div>
-          ) : (
-            ""
+          )}
+          {post.type !== "setBathGoal" && (
+            <div>
+              <img
+                src={post.stamp}
+                alt="スタンプ"
+                width="200px"
+                height="100%"
+              />
+            </div>
           )}
           <p className="timeStamp">{formatHHMM(post.date)}</p>
         </div>
