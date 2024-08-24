@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import RoomNavbar from "./RoomNavbar";
 import RoomDetail from "../common/RoomDetail";
 import PostItem from "./PostItem";
+import Overlay from "../common/Overlay";
 
 const Room = () => {
   const { roomID, userID } = useContext(Context);
@@ -28,16 +29,19 @@ const Room = () => {
   const [showRoomDetail, setShowRoomDetail] = useState(false);
   // 自分のレベルが変わったときに感知して、自分のpostItemだけ読み直す
   const [changeLevel, setChangeLevel] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const navigate = useNavigate();
   console.log("Room");
 
   const openRoomDetail = () => {
     setShowRoomDetail(true);
+    setShowOverlay(true);
   };
 
   const closeRoomDetail = () => {
     setShowRoomDetail(false);
+    setShowOverlay(false);
   };
 
   const changeLevelToggle = () => {
@@ -179,6 +183,7 @@ const Room = () => {
       {showRoomDetail && (
         <RoomDetail closeRoomDetail={closeRoomDetail} {...roomData} />
       )}
+      {showOverlay && <Overlay />}
     </div>
   );
 };

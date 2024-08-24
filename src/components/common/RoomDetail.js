@@ -9,14 +9,14 @@ const RoomDetail = ({
   date,
 }) => {
   return (
-    <div>
+    <div className="popup-content">
       <p>Room Name: {roomName}</p>
       <p>Room ID: {id}</p>
       <div>
         <p>メンバー:</p>
         {member.map((user, index) => (
           <span key={user.userID}>
-            <img src={user.icon} alt="" />
+            <img src={user.icon} alt="" width="40px" />
             {user.userName}
             {index < member.length - 1 && ", "}
           </span>
