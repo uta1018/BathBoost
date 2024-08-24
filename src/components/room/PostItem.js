@@ -44,7 +44,7 @@ const PostItem = memo(({ post, userList }) => {
         <div className="stamp">
           {post.type === "startBath" ? (
             <img
-              src="/nyuyokutyu.png"
+              src="/startBathStamp/1.png"
               alt="入浴"
               width="200px"
               height="200px"
@@ -54,7 +54,7 @@ const PostItem = memo(({ post, userList }) => {
           )}
           {post.type === "cancelBath" ? (
             <img
-              src="/cancel.png"
+              src="/cancelStamp/1.png"
               alt="お風呂キャンセル"
               width="200px"
               height="200px"
@@ -64,7 +64,7 @@ const PostItem = memo(({ post, userList }) => {
           )}
           {post.type === "endBath" ? (
             <img
-              src="agatta.png"
+              src="/EndBathStamp/1.png"
               alt="上がった!"
               width="200px"
               height="200px"
@@ -76,7 +76,7 @@ const PostItem = memo(({ post, userList }) => {
             <div>
               <h3 className="goalTime">{goalTime}</h3>
               <img
-                src="setGoalTime.png"
+                src="/setBathGoalStamp/1.png"
                 alt="にお風呂に入る!"
                 width="200px"
                 height="200px"

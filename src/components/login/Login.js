@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { auth, db, provider } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../providers/Provider";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import FirstLogin from "./FirstLogin";
 import Tutorial from "./Tutorial";
 // import "./css/Login.css";
@@ -60,7 +60,7 @@ const Login = () => {
         <div className="image-container">
           <div className="circle"></div>
           <img
-            src="/img/login_img.png"
+            src="/login/login.png"
             alt="Animal"
             width={200}
             className="login_image"

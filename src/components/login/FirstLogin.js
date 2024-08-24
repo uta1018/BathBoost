@@ -1,16 +1,23 @@
-import React, {  useState } from 'react'
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Subheading from "../common/Subheading";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { Context } from "../../providers/Provider";
 
 const FirstLogin = () => {
-  const navigate = useNavigate();
-
+  const {userID} = useContext(Context);
   // 入力されたユーザーネームを保存する変数
   const [username, setUsername] = useState("");
   // 選択されたアイコンを保存する変数
   const [icon, setIcon] = useState("/icon/paw1.png");
   // バリデーションのメッセージを管理する変数
-  const [usernameError, setUsernameError] = useState({ message: "※8文字まで入力することができます。", color: "black" });
+  const [usernameError, setUsernameError] = useState({
+    message: "※8文字まで入力することができます。",
+    color: "black",
+  });
+
+  const navigate = useNavigate();
 
   // usename のバリデーション関数
   const validateUsername = (name) => {
@@ -32,23 +39,29 @@ const FirstLogin = () => {
   };
 
   // 決定ボタンを押したときの関数
-  const handleFirstLogin = () => {
-
-    // console.log("username:", username);
-    // console.log("icon:", icon);
-
-    // 入力エリアの情報を読み取って、userに保存
-    // 例 await setDoc(doc(db, "user", user.uid), {
-      //   username: user.displayName,
-      //   level: 0,
-      //   point: 0,
-      //   rooms: [],
-      // });
+  const handleFirstLogin = async () => {
+    await setDoc(doc(db, "user", userID), {
+      username: username,
+      icon: icon,
+      themeColor: "theme1",
+      level: 0,
+      highestLevel: 0,
+      point: 0,
+      date: new Date().getTime(),
+      bathCount: 0,
+      goalStreakCount: 0,
+      rooms: [],
+      setBathGoalStamp: ["/setBathGoalStamp/1.png"],
+      startBathStamp: ["/startBathStamp/1.png"],
+      endBathStamp: ["/endBathStamp/1.png"],
+      iconList: ["/icon/paw1.png", "/icon/paw2.png", "/icon/paw3.png"],
+      themeColorList: ["theme1"],
+    });
     navigate("/");
   };
 
   return (
-    <div> 
+    <div>
       {/* タイトル */}
       <div>プロフィール設定</div>
       <div>※後で設定で変更できます</div>
@@ -71,13 +84,13 @@ const FirstLogin = () => {
           src="/icon/paw1.png"
           alt="アイコン1"
           onClick={() => setIcon("/icon/paw1.png")}
-          style={{ 
+          style={{
             width: "60px",
             height: "60px",
             borderRadius: "50%",
             outlineOffset: "3px",
             outline: icon === "/icon/paw1.png" ? "3px solid #B9B9B9" : "",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         />
         <img
@@ -90,7 +103,7 @@ const FirstLogin = () => {
             borderRadius: "50%",
             outlineOffset: "3px",
             outline: icon === "/icon/paw2.png" ? "3px solid #B9B9B9" : "",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         />
         <img
@@ -103,13 +116,13 @@ const FirstLogin = () => {
             borderRadius: "50%",
             outlineOffset: "3px",
             outline: icon === "/icon/paw3.png" ? "3px solid #B9B9B9" : "",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         />
       </div>
 
       {/* 決定ボタン */}
-      <button 
+      <button
         onClick={handleFirstLogin}
         disabled={username.length < 1 || 8 < username.length}
       >
