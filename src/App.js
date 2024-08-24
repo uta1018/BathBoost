@@ -14,6 +14,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          {/* <Route path="/user" element={<User />}></Route>
+          <Route path="/log" element={<Log />}></Route> */}
           <Route path="/login" element={<Login />}></Route>
           <Route path="/room" element={<Room />}></Route>
           <Route path="/roominfo" element={<RoomInfo />}></Route>

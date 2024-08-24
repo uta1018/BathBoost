@@ -4,6 +4,7 @@ import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
 import SelectRoom from "./SelectRoom";
 import Logout from "../user/Logout";
+import Navbar from "../common/Navbar";
 import { Context } from "../../providers/Provider";
 // import "./css/Home.css";
 
@@ -36,7 +37,7 @@ const Home = () => {
         <SelectRoom />
       </div>
       <div className="footer">
-        <p>@ライラック</p>
+        <Navbar currentPage="home" />
       </div>
     </div>
   );
