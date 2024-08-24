@@ -19,17 +19,12 @@ const CancelDialog = ({
 }) => {
   const { roomID, userID } = useContext(Context);
 
+  console.log("キャンセルポップアップ");
+
   // はいボタンを押したときの関数
   const postData = async () => {
     if (!roomID || !userID) return;
-
-    // ポストを保存
-    await addDoc(collection(db, "posts"), {
-      roomid: roomID,
-      author: userID,
-      type: "cancelBath",
-      date: new Date().getTime(),
-    });
+    closeCancelDialog();
 
     // ユーザーのポイントを更新
     const userDocRef = doc(db, "user", userID);
@@ -57,7 +52,13 @@ const CancelDialog = ({
       openPointUp();
     }
 
-    closeCancelDialog();
+    // ポストを保存
+    await addDoc(collection(db, "posts"), {
+      roomid: roomID,
+      author: userID,
+      type: "cancelBath",
+      date: new Date().getTime(),
+    });
   };
 
   return (

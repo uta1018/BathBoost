@@ -1,7 +1,7 @@
 import React from "react";
 
 const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
-
+  console.log("レベルUPポップアップ");
 
   return (
     <div>

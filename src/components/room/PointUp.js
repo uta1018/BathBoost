@@ -1,6 +1,8 @@
 import React from "react";
 
 const PointUp = ({ nextPoint, point, closePointUp }) => {
+  console.log("ポイントUPポップアップ");
+
   return (
     <div>
       {point > 0 ? (

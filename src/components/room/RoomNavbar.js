@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CancelDialog from "./CancelDialog";
 import SelectStamp from "./SelectStamp";
@@ -6,7 +6,7 @@ import SetBathGoal from "./SetBathGoal";
 import LevelUp from "./LevelUp";
 import PointUp from "./PointUp";
 
-const RoomNavbar = ({ lastPostType }) => {
+const RoomNavbar = memo(({ lastPostType }) => {
   const [showSelectStamp, setShowSelectStamp] = useState(false);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showSetBathGoal, setShowSetBathGoal] = useState(false);
@@ -18,53 +18,53 @@ const RoomNavbar = ({ lastPostType }) => {
   const navigate = useNavigate();
   console.log("RoomNavbar");
 
-  const openSelectStamp = () => {
+  const openSelectStamp = useCallback(() => {
     setShowSelectStamp(true);
-  };
+  }, []);
 
-  const closeSelectStamp = () => {
+  const closeSelectStamp = useCallback(() => {
     setShowSelectStamp(false);
-  };
+  }, []);
 
-  const openCancelDialog = () => {
+  const openCancelDialog = useCallback(() => {
     setShowCancelDialog(true);
-  };
+  }, []);
 
-  const closeCancelDialog = () => {
+  const closeCancelDialog = useCallback(() => {
     setShowCancelDialog(false);
-  };
+  }, []);
 
-  const openSetBathGoal = () => {
+  const openSetBathGoal = useCallback(() => {
     setShowSetBathGoal(true);
-  };
+  }, []);
 
-  const closeSetBathGoal = () => {
+  const closeSetBathGoal = useCallback(() => {
     setShowSetBathGoal(false);
-  };
+  }, []);
 
-  const openPointUp = () => {
+  const openPointUp = useCallback(() => {
     setShowPointUp(true);
-  };
+  }, []);
 
-  const closePointUp = () => {
+  const closePointUp = useCallback(() => {
     setShowPointUp(false);
-  };
+  }, []);
 
-  const openLevelUp = () => {
+  const openLevelUp = useCallback(() => {
     setShowLevelUp(true);
-  };
+  }, []);
 
-  const closeLevelUp = () => {
+  const closeLevelUp = useCallback(() => {
     setShowLevelUp(false);
-  };
+  }, []);
 
-  const settingNextPoint = (point) => {
+  const settingNextPoint = useCallback((point) => {
     setNextPoint(point);
-  };
+  }, []);
 
-  const settingPoint = (point) => {
+  const settingPoint = useCallback((point) => {
     setPoint(point);
-  };
+  }, []);
 
   return (
     <div>
@@ -117,10 +117,22 @@ const RoomNavbar = ({ lastPostType }) => {
           closeSelectStamp={closeSelectStamp}
         />
       )}
-      {showPointUp && <PointUp nextPoint={nextPoint} point={point} closePointUp={closePointUp}/>}
-      {showLevelUp && <LevelUp nextPoint={nextPoint} point={point} closeLevelUp={closeLevelUp} />}
+      {showPointUp && (
+        <PointUp
+          nextPoint={nextPoint}
+          point={point}
+          closePointUp={closePointUp}
+        />
+      )}
+      {showLevelUp && (
+        <LevelUp
+          nextPoint={nextPoint}
+          point={point}
+          closeLevelUp={closeLevelUp}
+        />
+      )}
     </div>
   );
-};
+});
 
 export default RoomNavbar;

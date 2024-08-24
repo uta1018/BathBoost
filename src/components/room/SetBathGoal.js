@@ -22,6 +22,11 @@ const SetBathGoal = ({closeSetBathGoal, closeSelectStamp}) => {
   // 決定ボタンを押したときに実行する関数
   const postData = async () => {
     if (!roomID || !userID) return;
+
+    // ルーム画面へ
+    closeSelectStamp();
+    closeSetBathGoal();
+
     // ポストを保存
     await addDoc(collection(db, "posts"), {
       roomid: roomID,
@@ -30,10 +35,6 @@ const SetBathGoal = ({closeSetBathGoal, closeSelectStamp}) => {
       date: new Date().getTime(),
       goalTime: new Date(goalTime),
     });
-
-    // ルーム画面へ
-    closeSelectStamp();
-    closeSetBathGoal();
   };
 
   return (
