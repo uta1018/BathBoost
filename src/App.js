@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
 import Room from "./components/room/Room";
-import RoomInfo from "./components/room/RoomInfo";
-import TimeSelect from "./components/room/TimeSelect";
 import { Provider } from "./providers/Provider";
 import LevelUp from "./components/room/LevelUp";
 
@@ -16,7 +14,6 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/room" element={<Room />}></Route>
-          <Route path="/timeselect" element={<TimeSelect />}></Route>
           <Route path="/levelup" element={<LevelUp />}></Route>
         </Routes>
       </Router>
