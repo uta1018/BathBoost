@@ -158,6 +158,7 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
           nextPoint={nextPoint}
           point={point}
           closePointUp={closePointUp}
+          removeOverlay={removeOverlay}
         />
       )}
       {showLevelUp && (

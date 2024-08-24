@@ -1,10 +1,10 @@
 import React from "react";
 
-const PointUp = ({ nextPoint, point, closePointUp }) => {
+const PointUp = ({ nextPoint, point, closePointUp, removeOverlay }) => {
   console.log("ポイントUPポップアップ");
 
   return (
-    <div>
+    <div className="popup-content">
       {point > 0 ? (
         <div>
           <p>おふろポイントUP</p>
@@ -16,7 +16,14 @@ const PointUp = ({ nextPoint, point, closePointUp }) => {
       )}
       <p>{point}pt</p>
       <p>つぎのレベルまであと{nextPoint}pt</p>
-      <button onClick={closePointUp}>OK</button>
+      <button
+        onClick={() => {
+          closePointUp();
+          removeOverlay();
+        }}
+      >
+        OK
+      </button>
     </div>
   );
 };

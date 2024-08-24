@@ -44,7 +44,7 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
   }, []);
 
   return (
-    <div>
+    <div className="levelup-content">
       {point > 0 ? (
         <div>
           <p>おふろレベルUP</p>

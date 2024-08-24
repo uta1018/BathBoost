@@ -200,6 +200,7 @@ const SelectStamp = memo(
               openLevelUp();
             } else {
               openPointUp();
+              applyOverlay();
             }
 
             // ポストを保存
