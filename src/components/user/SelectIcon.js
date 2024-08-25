@@ -2,9 +2,15 @@ import React, { useContext, useState } from "react";
 import PopupHeader from "../common/PopupHeader";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-const SelectIcon = ({ closeSelectIcon, iconList, icon, changeLevelToggle }) => {
+const SelectIcon = ({
+  closeSelectIcon,
+  iconList,
+  icon,
+  changeLevelToggle,
+  rooms,
+}) => {
   const { userID } = useContext(Context);
   // 選択されたアイコンを保存する変数
   const [selectedIcon, setSelectedIcon] = useState(icon);
@@ -14,11 +20,30 @@ const SelectIcon = ({ closeSelectIcon, iconList, icon, changeLevelToggle }) => {
   // 変更ボタンを押したときの関数
   async function changeIcon() {
     closeSelectIcon();
+
     // userドキュメントを更新
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
       icon: selectedIcon,
     });
+
+    // ユーザーが所属するルームのアイコンも更新
+    const updatePromises = rooms.map(async (roomID) => {
+      const roomRef = doc(db, "rooms", roomID);
+      const roomDocSnap = await getDoc(roomRef);
+      const roomData = roomDocSnap.data();
+
+      // ルームのメンバー情報を更新
+      const updatedMembers = roomData.member.map((member) =>
+        member.userID === userID ? { ...member, icon: selectedIcon } : member
+      );
+
+      return updateDoc(roomRef, {
+        member: updatedMembers,
+      });
+    });
+
+    await Promise.all(updatePromises);
 
     changeLevelToggle();
   }

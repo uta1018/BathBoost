@@ -12,6 +12,7 @@ const Profile = ({
   level,
   point,
   iconList,
+  rooms
 }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [showChangeUserName, setShowChangeUserName] = useState(false);
@@ -67,6 +68,7 @@ const Profile = ({
           iconList={iconList}
           icon={icon}
           changeLevelToggle={changeLevelToggle}
+          rooms={rooms}
         />
       )}
       {showChangeUserName && (
@@ -74,6 +76,7 @@ const Profile = ({
           closeChangeUserName={closeChangeUserName}
           changeLevelToggle={changeLevelToggle}
           userName={userName}
+          rooms={rooms}
         />
       )}
     </div>

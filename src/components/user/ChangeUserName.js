@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import PopupHeader from "../common/PopupHeader";
 import { Context } from "../../providers/Provider";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 const ChangeUserName = ({
   closeChangeUserName,
   changeLevelToggle,
   userName,
+  rooms,
 }) => {
   const { userID } = useContext(Context);
   // 入力されたユーザーネームを保存する変数
@@ -45,6 +46,33 @@ const ChangeUserName = ({
     await updateDoc(userDocRef, {
       userName: inputUserName,
     });
+
+    // ユーザーが所属するルームのアイコンも更新
+    const updatePromises = rooms.map(async (roomID) => {
+      const roomRef = doc(db, "rooms", roomID);
+      const roomDocSnap = await getDoc(roomRef);
+      const roomData = roomDocSnap.data();
+
+      // ルームのメンバー情報を更新
+      const updatedMembers = roomData.member.map((member) =>
+        member.userID === userID
+          ? { ...member, userName: inputUserName }
+          : member
+      );
+      const updatedData = {
+        member: updatedMembers,
+      };
+
+      // ルームのauthorもユーザーの場合の更新
+      if (roomData.author.userID === userID) {
+        updatedData.author = { ...roomData.author, userName: inputUserName };
+      }
+
+      // ルーム情報の更新
+      return updateDoc(roomRef, updatedData);
+    });
+
+    await Promise.all(updatePromises);
 
     changeLevelToggle();
   };
