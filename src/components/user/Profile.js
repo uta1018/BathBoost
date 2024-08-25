@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Overlay from "../common/Overlay";
 import ChangeUserName from "./ChangeUserName";
 import SelectIcon from "./SelectIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
-const Profile = () => {
+const Profile = ({ userName, icon, level, point, iconList }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [showChangeUserName, setShowChangeUserName] = useState(false);
   const [showSelectIcon, setShowSelectIcon] = useState(false);
@@ -34,10 +36,23 @@ const Profile = () => {
     setShowSelectIcon(false);
   };
 
+  const nextPoint = 2 * (level + 1) - point;
+
   return (
     <div>
-      <button onClick={openSelectIcon}>アイコン変更</button>
-      <button onClick={openChangeUserName}>ユーザーネーム変更</button>
+      <div onClick={openSelectIcon}>
+        <img src={icon} alt="アイコン" width="80px" />
+        <button>アイコン変更</button>
+      </div>
+      <div onClick={openChangeUserName}>
+        <p>ユーザーネーム変更</p>
+        <h3>
+          {userName}
+          <FontAwesomeIcon icon={faPen} />
+        </h3>
+      </div>
+      <p>おふろレベル Lv.{level}</p>
+      <p>つぎのレベルまで{nextPoint}pt</p>
       {showOverlay && <Overlay />}
       {showChangeUserName && (
         <ChangeUserName closeChangeUserName={closeChangeUserName} />
