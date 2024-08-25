@@ -23,7 +23,7 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
       setUserData(userData);
 
       // 報酬を取得
-      if (userData.highestLevel === userData.level - 1) {
+      if (userData.highestLevel < userData.level) {
         const rewardDocRef = doc(db, "reward", userData.level.toString());
         const rewardDocSnap = await getDoc(rewardDocRef);
 
