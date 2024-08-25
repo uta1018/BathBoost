@@ -5,7 +5,14 @@ import SelectIcon from "./SelectIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
-const Profile = ({ userName, icon, level, point, iconList }) => {
+const Profile = ({
+  changeLevelToggle,
+  userName,
+  icon,
+  level,
+  point,
+  iconList,
+}) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [showChangeUserName, setShowChangeUserName] = useState(false);
   const [showSelectIcon, setShowSelectIcon] = useState(false);
@@ -54,10 +61,21 @@ const Profile = ({ userName, icon, level, point, iconList }) => {
       <p>おふろレベル Lv.{level}</p>
       <p>つぎのレベルまで{nextPoint}pt</p>
       {showOverlay && <Overlay />}
-      {showChangeUserName && (
-        <ChangeUserName closeChangeUserName={closeChangeUserName} />
+      {showSelectIcon && (
+        <SelectIcon
+          closeSelectIcon={closeSelectIcon}
+          iconList={iconList}
+          icon={icon}
+          changeLevelToggle={changeLevelToggle}
+        />
       )}
-      {showSelectIcon && <SelectIcon closeSelectIcon={closeSelectIcon} />}
+      {showChangeUserName && (
+        <ChangeUserName
+          closeChangeUserName={closeChangeUserName}
+          changeLevelToggle={changeLevelToggle}
+          userName={userName}
+        />
+      )}
     </div>
   );
 };

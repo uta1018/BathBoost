@@ -15,8 +15,15 @@ const User = () => {
   const { userID } = useContext(Context);
   // ユーザー情報を保存
   const [userData, setUserData] = useState();
+  // ユーザー情報の更新を感知
+  const [changeData, setChangeData] = useState(false);
 
   console.log("ユーザー画面");
+
+  const changeLevelToggle = () => {
+    console.log("トグル");
+    setChangeData((prevChangeData) => !prevChangeData);
+  };
 
   useEffect(() => {
     console.log("fetchData");
@@ -32,13 +39,14 @@ const User = () => {
     };
 
     fetchData();
-  }, []);
+  }, [changeData]);
 
   return (
     <div>
       <PageHeader title="せってい" />
       <Help />
-      <Profile {...userData}/>
+      <Profile changeLevelToggle={changeLevelToggle} {...userData}/>
+      <img src="/user/cat_front.png" alt="猫のイラスト" width="100px" />
       <PageSubheading title="テーマカラー" />
       <SelectColor {...userData}/>
       <PageSubheading title="ルーム" />
