@@ -10,8 +10,8 @@ const RoomID = () => {
   const [copyStatus, setCopyStatus] = useState('コピー');
 
   // クリップボードにroomIDをコピーする関数
-  const copyRoomID = () => {
-    navigator.clipboard.writeText(roomID)
+  const copyRoomID = (text) => {
+    navigator.clipboard.writeText(text)
       .then(() => {
         // コピー成功時にボタンのテキストを変更
         setCopyStatus('コピー完了！');
@@ -30,7 +30,7 @@ const RoomID = () => {
           <p>ルームIDは</p>
           <h1>
             {/* コピーボタン */}
-            {roomID} <button onClick={copyRoomID}>{copyStatus}</button>
+            {roomID} <button onClick={() => copyRoomID(roomID)}>{copyStatus}</button>
           </h1>
           <p>です</p>
         </div>
