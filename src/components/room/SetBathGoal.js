@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
 import { addDoc, collection } from "firebase/firestore";
+import PopupHeader from "../common/PopupHeader";
+import { faBath } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import './css/TimeSelect.css';
 
 const toLocalISOString = (date) => {
@@ -46,15 +49,28 @@ const SetBathGoal = ({
 
   return (
     <div className="popup-content">
+      <PopupHeader title="おふろ宣言をする" />
       <div className="timeSelect">
-        <h3>何時に入る?</h3>
+        <h3>
+          <FontAwesomeIcon icon={faBath} />
+          おふろの日時
+        </h3>
         <input
           type="datetime-local"
           value={goalTime}
           onChange={(e) => setGoalTime(e.target.value)}
         />
+        <p>お風呂に入る目標時間を選択してください</p>
+        <p>※後から変更できません</p>
         <div className="button-container">
-          <button onClick={() => {closeSetBathGoal(); removeOverlay();}}>キャンセル</button>
+          <button
+            onClick={() => {
+              closeSetBathGoal();
+              removeOverlay();
+            }}
+          >
+            キャンセル
+          </button>
           <button onClick={postData}>決定</button>
         </div>
       </div>
