@@ -171,9 +171,19 @@ const Room = () => {
       <button onClick={openRoomDetail}>{roomName}</button>
       <div className="postContainer">
         {/* ポストリストの各ポストごとに描画 */}
-        {postList.map((post) => {
+        {postList.map((post, index) => {
           const authorUser = userList.find((user) => user.id === post.author);
-          return <PostItem post={post} authorUser={authorUser} />;
+          const previousPostDate =
+            index > 0
+              ? new Date(postList[index - 1].date).setHours(0, 0, 0, 0)
+              : null;
+          return (
+            <PostItem
+              post={post}
+              authorUser={authorUser}
+              previousPostDate={previousPostDate}
+            />
+          );
         })}
       </div>
       <RoomNavbar
