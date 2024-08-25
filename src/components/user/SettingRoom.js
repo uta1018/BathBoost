@@ -13,6 +13,8 @@ import { faPaw, faPen } from "@fortawesome/free-solid-svg-icons";
 // import DeleteRoom from "./DeleteRoom";
 import ExitRoom from "./ExitRoom";
 import Overlay from "../common/Overlay";
+import ChangeRoomName from "./ChangeRoomName";
+import RoomDetail from "../common/RoomDetail";
 
 const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
   // const { userID } = useContext(Context);
@@ -21,6 +23,9 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
   // const [showDeleteRoom, setShowDeleteRoom] = useState(false);
   const [showExitRoom, setShowExitRoom] = useState(false);
   const [roomData, setRoomData] = useState();
+  const [showChangeRoomName, setShowChangeRoomName] = useState(false);
+  const [changeRoom, setChangeRoom] = useState(false);
+  const [showRoomDetail, setShowRoomDetail] = useState(false);
 
   console.log("SettingRoom");
 
@@ -46,6 +51,33 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
     setShowExitRoom(false);
   };
 
+  const openChangeRoomName = (room) => {
+    setRoomData(room);
+    setShowOverlay(true);
+    setShowChangeRoomName(true);
+  };
+
+  const closeChangeRoomName = () => {
+    setShowOverlay(false);
+    setShowChangeRoomName(false);
+  };
+
+  const changeRoomToggle = () => {
+    console.log("トグル");
+    setChangeRoom((prevChangeData) => !prevChangeData);
+  };
+
+  const openRoomDetail = (room) => {
+    setRoomData(room);
+    setShowOverlay(true);
+    setShowRoomDetail(true);
+  };
+
+  const closeRoomDetail = () => {
+    setShowOverlay(false);
+    setShowRoomDetail(false);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       // ルーム情報を取得
@@ -67,7 +99,7 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
     };
 
     fetchData();
-  }, [rooms]);
+  }, [rooms, changeRoom]);
 
   return (
     <div>
@@ -75,8 +107,8 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
         return (
           <div key={room.id}>
             <FontAwesomeIcon icon={faPaw} />
-            <div>{room.roomName}</div>
-            <div>
+            <div onClick={() => openRoomDetail(room)}>{room.roomName}</div>
+            <div onClick={() => openChangeRoomName(room)}>
               <FontAwesomeIcon icon={faPen} />
             </div>
             <button onClick={() => openExitRoom(room)}>退出</button>
@@ -96,6 +128,16 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
           changeLevelToggle={changeLevelToggle}
         />
       )} */}
+      {showRoomDetail && (
+        <RoomDetail closeRoomDetail={closeRoomDetail} {...roomData} />
+      )}
+      {showChangeRoomName && (
+        <ChangeRoomName
+          closeChangeRoomName={closeChangeRoomName}
+          roomData={roomData}
+          changeRoomToggle={changeRoomToggle}
+        />
+      )}
       {showExitRoom && (
         <ExitRoom
           closeExitRoom={closeExitRoom}

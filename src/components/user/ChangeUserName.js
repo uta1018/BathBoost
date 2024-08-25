@@ -89,7 +89,12 @@ const ChangeUserName = ({
       />
       <p style={{ color: usernameError.color }}>{usernameError.message}</p>
       <button onClick={closeChangeUserName}>キャンセル</button>
-      <button onClick={changeUserName}>変更</button>
+      <button
+        onClick={changeUserName}
+        disabled={inputUserName.length < 1 || 8 < inputUserName.length}
+      >
+        変更
+      </button>
     </div>
   );
 };
