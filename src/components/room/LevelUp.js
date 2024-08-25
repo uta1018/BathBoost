@@ -37,6 +37,11 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
               [rewardData.stampType]: arrayUnion(rewardData.path),
               highestLevel: userData.level,
             });
+          } else if (rewardData.type === "icon") {
+            await updateDoc(userDocRef, {
+              iconList: arrayUnion(rewardData.path),
+              highestLevel: userData.level,
+            });
           }
           setRewardData(rewardData);
         }
