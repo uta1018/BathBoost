@@ -6,6 +6,8 @@ import SetBathGoal from "./SetBathGoal";
 import LevelUp from "./LevelUp";
 import PointUp from "./PointUp";
 import Overlay from "../common/Overlay";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBath, faBullhorn, faFaceSmile } from "@fortawesome/free-solid-svg-icons";
 
 const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
   const [showSelectStamp, setShowSelectStamp] = useState(false);
@@ -89,7 +91,7 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
       <div className="menu">
         {lastPostType === "setBathGoal" && (
           <>
-            <button onClick={openSelectStamp}>おふろ</button>
+            <button onClick={openSelectStamp}><FontAwesomeIcon icon={faBath} />おふろ</button>
             <button
               onClick={() => {
                 openCancelDialog();
@@ -102,7 +104,7 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
         )}
         {lastPostType === "startBath" && (
           <>
-            <button onClick={openSelectStamp}>せいこう</button>
+            <button onClick={openSelectStamp}><FontAwesomeIcon icon={faFaceSmile} />せいこう</button>
             <button
               onClick={() => {
                 openCancelDialog();
@@ -117,7 +119,7 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
           lastPostType === "endBath" ||
           lastPostType === "cancelBath") && (
           <>
-            <button onClick={openSelectStamp}>せんげん</button>
+            <button onClick={openSelectStamp}><FontAwesomeIcon icon={faBullhorn} />せんげん</button>
           </>
         )}
       </div>

@@ -14,6 +14,8 @@ import {
 import React, { memo, useContext, useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SelectStamp = memo(
   ({
@@ -25,7 +27,7 @@ const SelectStamp = memo(
     settingNextPoint,
     settingPoint,
     settingStamp,
-    applyOverlay
+    applyOverlay,
   }) => {
     // グローバル変数を取得
     const { userID, roomID } = useContext(Context);
@@ -221,27 +223,40 @@ const SelectStamp = memo(
       }
     };
 
+    // ロックされたスタンプの数を計算
+    const lockedStampsCount = 6 - stampList.length;
+
     return (
       <div>
         <button onClick={closeSelectStamp}>とじる</button>
         <button onClick={handleSubmit}>決定</button>
         {/* スタンプリストのスタンプを表示 */}
-        {stampList.map((s) => {
-          return (
-            <img
-              src={s}
-              alt="スタンプ"
-              onClick={() => setStamp(s)}
-              style={{
-                width: "100px",
-                height: "100%",
-                borderRadius: "20%",
-                outlineOffset: "3px",
-                outline: stamp === s ? "3px solid #B9B9B9" : "",
-              }}
-            />
-          );
-        })}
+        <div>
+          {stampList.map((s) => {
+            return (
+              <img
+                src={s}
+                alt="スタンプ"
+                onClick={() => setStamp(s)}
+                style={{
+                  width: "100px",
+                  height: "100%",
+                  borderRadius: "20%",
+                  outlineOffset: "3px",
+                  outline: stamp === s ? "3px solid #B9B9B9" : "",
+                }}
+              />
+            );
+          })}
+          {/* ロックされたスタンプを追加 */}
+          {Array.from({ length: lockedStampsCount }, (_, i) => (
+            <div
+              key={`locked-${i}`}
+            >
+              <FontAwesomeIcon icon={faLock} />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
