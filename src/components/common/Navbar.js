@@ -5,10 +5,10 @@ const Navbar = ({ currentPage }) => {
 
     const navigate = useNavigate();
 
-    // 現在のページに基づいてボタンのスタイルを決定する関数
+    // ボタンの色を変更する関数
     const buttonStyle = (page) => {
         // 現在のページと一致する場合、背景色を変更
-        return currentPage === page ? { backgroundColor: '#ccc' } : {};
+        return currentPage === page ? { backgroundColor: '#97D0BE' } : {};
     };
 
     return (
