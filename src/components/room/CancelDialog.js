@@ -9,6 +9,7 @@ import {
   increment,
   updateDoc,
 } from "firebase/firestore";
+import PopupHeader from "../common/PopupHeader";
 
 const CancelDialog = ({
   closeCancelDialog,
@@ -66,7 +67,9 @@ const CancelDialog = ({
 
   return (
     <div className="popup-content">
+      <PopupHeader title="おふろ報告の確認"/>
       <p>本当にやめますか？</p>
+      <p>※おふろポイントが1ポイント減ります</p>
       <button
         onClick={() => {
           closeCancelDialog();
