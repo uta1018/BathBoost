@@ -40,7 +40,7 @@ const Profile = ({
     setShowSelectIcon(false);
   };
 
-  const nextPoint = 2 * (level + 1) - point;
+  const nextPoint = 3 * (level + 1) - point;
 
   return (
     <div>

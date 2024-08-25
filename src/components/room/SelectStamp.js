@@ -182,9 +182,9 @@ const SelectStamp = memo(
               point += 1;
             }
 
-            const level = Math.floor(point / 2);
+            const level = Math.floor(point / 3);
             // 次のレベルまでのポイント
-            settingNextPoint(2 * (level + 1) - point);
+            settingNextPoint(3 * (level + 1) - point);
 
             // レベルが変わったとき
             if (currentLevel !== level) {

@@ -37,11 +37,11 @@ const CancelDialog = ({
     const userDocSnap = await getDoc(userDocRef);
     const currentLevel = userDocSnap.data().level;
     const point = userDocSnap.data().point;
-    const level = Math.floor(point / 2);
+    const level = Math.floor(point / 3);
 
     // レベルアップポップアップ・ポイントアップポップアップに渡す変数を更新
     // 次のレベルまでのポイント
-    settingNextPoint(2 * (currentLevel + 1) - point);
+    settingNextPoint(3 * (currentLevel + 1) - point);
     // ポイントの増減
     settingPoint(-1);
     // レベルダウンした際、レベルアップ画面へ
