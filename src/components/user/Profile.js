@@ -20,10 +20,6 @@ const Profile = ({
 
   console.log("Profile");
 
-  const removeOverlay = () => {
-    setShowOverlay(false);
-  };
-
   const openChangeUserName = () => {
     setShowOverlay(true);
     setShowChangeUserName(true);

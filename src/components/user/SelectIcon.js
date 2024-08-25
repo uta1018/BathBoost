@@ -53,9 +53,10 @@ const SelectIcon = ({
       <PopupHeader title="アイコンの変更" />
       <p>アイコンを選択してください</p>
       <div>
-        {iconList.map((i) => {
+        {iconList.map((i, index) => {
           return (
             <img
+              key={index}
               src={i}
               alt="アイコン"
               onClick={() => setSelectedIcon(i)}

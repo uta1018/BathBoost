@@ -10,6 +10,7 @@ import SettingRoom from "./SettingRoom";
 import { Context } from "../../providers/Provider";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 const User = () => {
   const { userID } = useContext(Context);
@@ -18,6 +19,7 @@ const User = () => {
   // ユーザー情報の更新を感知
   const [changeData, setChangeData] = useState(false);
 
+  const navigate = useNavigate();
   console.log("ユーザー画面");
 
   const changeLevelToggle = () => {
@@ -27,6 +29,12 @@ const User = () => {
 
   useEffect(() => {
     console.log("fetchData");
+    // ログインしていなかったらログイン画面へ
+    if (!userID) {
+      navigate("/login");
+      return;
+    }
+
     const fetchData = async () => {
       if (!userID) return;
 
@@ -45,12 +53,12 @@ const User = () => {
     <div>
       <PageHeader title="せってい" />
       <Help />
-      <Profile changeLevelToggle={changeLevelToggle} {...userData}/>
+      <Profile changeLevelToggle={changeLevelToggle} {...userData} />
       <img src="/user/cat_front.png" alt="猫のイラスト" width="100px" />
       <PageSubheading title="テーマカラー" />
-      <SelectColor {...userData}/>
+      <SelectColor {...userData} />
       <PageSubheading title="ルーム" />
-      <SettingRoom {...userData}/>
+      <SettingRoom changeLevelToggle={changeLevelToggle} {...userData} />
       <Logout />
       <Navbar currentPage="user" />
     </div>
