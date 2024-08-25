@@ -63,8 +63,8 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
   };
 
   const changeRoomToggle = () => {
-    console.log("トグル");
-    setChangeRoom((prevChangeData) => !prevChangeData);
+    console.log("SettingRoomトグル");
+    setChangeRoom((prevChangeRoom) => !prevChangeRoom);
   };
 
   const openRoomDetail = (room) => {
@@ -82,7 +82,7 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
     const fetchData = async () => {
       // ルーム情報を取得
       if (rooms && rooms.length > 0) {
-        console.log("ユーザーデータ取得");
+        console.log("ルームデータ取得");
         const roomsQuery = query(
           collection(db, "rooms"),
           where(documentId(), "in", rooms)
@@ -95,6 +95,8 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
 
         // ルーム情報を変数に保存
         setRoomList(roomData);
+      } else {
+        setRoomList([]);
       }
     };
 
