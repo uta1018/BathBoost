@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
   const { userID } = useContext(Context);
@@ -47,13 +49,14 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
     <div className="levelup-content">
       {point > 0 ? (
         <div>
-          <p>おふろレベルUP</p>
+          <p>おふろレベルUP!</p>
         </div>
       ) : (
         <div>
-          <p>おふろレベルDOWN</p>
+          <p>おふろレベルDOWN…</p>
         </div>
       )}
+      <FontAwesomeIcon icon={faStar} />
       <p>Lv.{userData && userData.level}</p>
       {rewardData && (
         <div>
@@ -61,7 +64,14 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
           <img src={rewardData.path} alt="" width="200px" height="100%" />
         </div>
       )}
-
+      {point < 0 && (
+        <div>
+          <img src="/levelUp/cat_sad.png" alt="ねこが悲しむイラスト" width="200px"/>
+          <p>時間までにお風呂に入る +3pt</p>
+          <p>遅れてお風呂に入る +1pt</p>
+          <p>お風呂キャンセル -1pt</p>
+        </div>
+      )}
       <p>つぎのレベルまであと{nextPoint}pt</p>
       <button onClick={closeLevelUp}>OK</button>
     </div>

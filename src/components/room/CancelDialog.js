@@ -27,6 +27,7 @@ const CancelDialog = ({
   const postData = async () => {
     if (!roomID || !userID) return;
     closeCancelDialog();
+    removeOverlay();
 
     // ユーザーのポイントを更新
     const userDocRef = doc(db, "user", userID);
@@ -67,7 +68,7 @@ const CancelDialog = ({
 
   return (
     <div className="popup-content">
-      <PopupHeader title="おふろ報告の確認"/>
+      <PopupHeader title="おふろ報告の確認" />
       <p>本当にやめますか？</p>
       <p>※おふろポイントが1ポイント減ります</p>
       <button
