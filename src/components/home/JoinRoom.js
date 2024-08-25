@@ -1,50 +1,41 @@
-import React, { useContext, useState } from "react";
-import { Context } from "../../providers/Provider";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { db } from "../../firebase";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 // import "./css/Home.css";
 
-const JoinRoom = () => {
-  // グローバル変数を取得
-  const { userID, setRoomID } = useContext(Context);
+const JoinRoom = ({ closeJoinRoom, openRoomInfo, settingRoomID }) => {
   // 入力されたルームIDを保存する変数を定義
   const [inputRoomID, setInputRoomID] = useState("");
+  // 見つかりませんでした表示を管理
+  const [showAlertRoomID, setShowAlertRoomID] = useState(false);
 
-  const navigate = useNavigate();
   console.log("JoinRoom");
 
   // ルーム入室ボタンを押したときの関数
   const joinRoom = async () => {
     const roomID = inputRoomID;
-
-    // roomsコレクションからroomドキュメントを取得
-    const roomDocRef = doc(db, "rooms", roomID);
-    const roomDocSnap = await getDoc(roomDocRef);
-    // 存在しない場合、アラート
-    if (!roomDocSnap.exists()) {
-      alert("存在しないルームIDです");
+    
+    // 何も入力されてないとき（クエリでエラーが出るため分けた）
+    if(!roomID) {
+      setShowAlertRoomID(true);
       setInputRoomID("");
       return;
     }
 
-    // roomドキュメントのmember配列にユーザーIDを追加する
-    await updateDoc(roomDocRef, {
-      member: arrayUnion(userID),
-    });
+    // roomsコレクションからroomドキュメントを取得
+    const roomDocRef = doc(db, "rooms", roomID);
+    const roomDocSnap = await getDoc(roomDocRef);
+    // 存在しない場合、アラートを表示
+    if (!roomDocSnap.exists()) {
+      setShowAlertRoomID(true);
+      setInputRoomID("");
+      return;
+    }
 
-    // userドキュメントのrooms配列にルームIDを追加する
-    const userDocRef = doc(db, "user", userID);
-    await updateDoc(userDocRef, {
-      rooms: arrayUnion(roomID),
-    });
-
-    // グローバル変数にルームIDを保存
-    setRoomID(roomID);
-    localStorage.setItem("roomID", roomID);
-
-    // ルーム画面にリダイレクト
-    navigate("/room");
+    setShowAlertRoomID(false);
+    closeJoinRoom();
+    openRoomInfo();
+    settingRoomID(roomID);
   };
 
   return (
@@ -57,8 +48,10 @@ const JoinRoom = () => {
         value={inputRoomID}
         onChange={(e) => setInputRoomID(e.target.value)}
       />
+      {showAlertRoomID && <p>※ルームが見つかりませんでした</p>}
+      <button onClick={closeJoinRoom}>キャンセル</button>
       <button className="post-button" onClick={joinRoom}>
-        参加！
+        OK
       </button>
     </div>
   );
