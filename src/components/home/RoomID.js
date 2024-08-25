@@ -24,7 +24,7 @@ const RoomID = ({ removeOverlay }) => {
           </div>
           <p>ルームIDを共有しておふろ報告をしよう！</p>
           {/* ルーム画面へのリンク */}
-          <Link to="/room" className="room-link" onClick={removeOverlay}>
+          <Link to="/room" className="room-link">
             OK
           </Link>
         </div>

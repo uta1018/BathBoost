@@ -13,6 +13,10 @@ import { Context } from "../../providers/Provider";
 import { useNavigate } from "react-router-dom";
 // import "./css/Home.css";
 
+//アイコンのインポート
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
+
 const SelectRoom = memo(() => {
   // グローバル変数を取得
   const { userID, setRoomID } = useContext(Context);
@@ -96,8 +100,23 @@ const SelectRoom = memo(() => {
                   className="room-select-button"
                   onClick={() => handleRoute(room.id)}
                 >
-                  {room.roomName} に入室
-                  {/* {room.id} */}
+                  <FontAwesomeIcon icon={faPaw} />
+                  <div>
+                    {room.roomName}
+                    <div>
+                      メンバー:{" "}
+                      {(() => {
+                        const membersText = room.member
+                          .map((member) => member.userName)
+                          .join("、");
+                        return membersText.length > 13
+                          ? `${membersText.slice(0, 13)}…(${
+                              room.member.length
+                            })`
+                          : `${membersText} (${room.member.length})`;
+                      })()}
+                    </div>
+                  </div>
                 </button>
               </div>
             </div>
