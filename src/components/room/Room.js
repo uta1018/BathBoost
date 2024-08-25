@@ -45,7 +45,8 @@ const Room = () => {
   };
 
   const changeLevelToggle = () => {
-    setChangeLevel(!changeLevel);
+    console.log("トグル");
+    setChangeLevel((prevChangeLevel) => !prevChangeLevel);
   };
 
   // ポストリストにポストを追加する関数

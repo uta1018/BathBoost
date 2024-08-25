@@ -27,7 +27,6 @@ const CancelDialog = ({
   const postData = async () => {
     if (!roomID || !userID) return;
     closeCancelDialog();
-    removeOverlay();
 
     // ユーザーのポイントを更新
     const userDocRef = doc(db, "user", userID);
@@ -51,6 +50,7 @@ const CancelDialog = ({
       await updateDoc(userDocRef, {
         level,
       });
+      removeOverlay();
       openLevelUp();
     } else {
       openPointUp();

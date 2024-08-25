@@ -23,7 +23,7 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
       setUserData(userData);
 
       // 報酬を取得
-      if (userData.highestLevel === userData.level) {
+      if (userData.highestLevel === userData.level - 1) {
         const rewardDocRef = doc(db, "reward", userData.level.toString());
         const rewardDocSnap = await getDoc(rewardDocRef);
 
@@ -35,6 +35,7 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
           if (rewardData.type === "stamp") {
             await updateDoc(userDocRef, {
               [rewardData.stampType]: arrayUnion(rewardData.path),
+              highestLevel: userData.level,
             });
           }
           setRewardData(rewardData);
@@ -66,7 +67,11 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
       )}
       {point < 0 && (
         <div>
-          <img src="/levelUp/cat_sad.png" alt="ねこが悲しむイラスト" width="200px"/>
+          <img
+            src="/levelUp/cat_sad.png"
+            alt="ねこが悲しむイラスト"
+            width="200px"
+          />
           <p>時間までにお風呂に入る +3pt</p>
           <p>遅れてお風呂に入る +1pt</p>
           <p>お風呂キャンセル -1pt</p>

@@ -58,8 +58,8 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
   }, []);
 
   const closeLevelUp = useCallback(() => {
-    setShowLevelUp(false);
     changeLevelToggle();
+    setShowLevelUp(false);
   }, []);
 
   const settingNextPoint = useCallback((point) => {

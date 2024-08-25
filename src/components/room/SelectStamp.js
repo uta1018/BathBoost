@@ -185,14 +185,7 @@ const SelectStamp = memo(
             settingNextPoint(2 * (level + 1) - point);
 
             // レベルが変わったとき
-            if (currentLevel !== level && userData.highestLevel < level) {
-              // ユーザーのレベルと最高レベルを更新
-              await updateDoc(userDocRef, {
-                level,
-                highestLevel: level,
-              });
-              openLevelUp();
-            } else if (currentLevel !== level) {
+            if (currentLevel !== level) {
               // ユーザーのレベルを更新
               await updateDoc(userDocRef, {
                 level,
