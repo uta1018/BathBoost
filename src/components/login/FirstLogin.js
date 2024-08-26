@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import Subheading from "../common/Subheading";
 
 const FirstLogin = () => {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ const FirstLogin = () => {
       <div>※後で設定で変更できます</div>
 
       {/* ユーザーネーム入力エリア */}
+      <Subheading title="ユーザーネーム" />
       <input
         type="text"
         placeholder="名前を入力してください"
@@ -70,6 +72,7 @@ const FirstLogin = () => {
       {usernameError && <p style={{ color: "red" }}>{usernameError}</p>}
 
       {/* アイコン選択エリア */}
+      <Subheading title="アイコン" />
       <div>
         <p>アイコンを選択してください</p>
         <img

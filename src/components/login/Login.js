@@ -40,7 +40,7 @@ const Login = () => {
     const docSnap = await getDoc(userDocRef);
 
     // ユーザードキュメントが存在しなかったらポップアップを表示するように変数切り替え
-    if (docSnap.exists()) {
+    if (!docSnap.exists()) {
       setShowFirstLogin(true);
     } else {
       // ホーム画面にリダイレクト
