@@ -5,9 +5,9 @@ import Subheading from "../common/Subheading";
 const FirstLogin = () => {
   const navigate = useNavigate();
 
-  // username を管理する変数
+  // 入力されたユーザーネームを保存する変数
   const [username, setUsername] = useState("");
-  // icon を管理する変数
+  // 選択されたアイコンを保存する変数
   const [icon, setIcon] = useState(null);
   // バリデーションのエラーを管理する変数
   const [usernameError, setUsernameError] = useState("名前を入力してください。");
@@ -35,7 +35,7 @@ const FirstLogin = () => {
   // アイコンが選択された時にエラーメッセージをクリア
   const handleIconSelect = (selectedIcon) => {
     setIcon(selectedIcon);
-    setIconError(""); // アイコンが選択されたのでエラーメッセージをクリア
+    setIconError("");
   };
 
   // 決定ボタンを押したときの関数
