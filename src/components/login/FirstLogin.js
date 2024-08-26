@@ -76,25 +76,46 @@ const FirstLogin = () => {
       <div>
         <p>アイコンを選択してください</p>
         <img
-          src="/logo.png"
+          src="/icon/paw1.png"
           width={100}
           alt="アイコン1"
-          onClick={() => handleIconSelect("/logo.png")}
-          style={{ border: icon === "/logo.png" ? "2px solid #B9B9B9" : "" }}
+          onClick={() => handleIconSelect("/icon/paw1.png")}
+          style={{ 
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            outlineOffset: "3px",
+            outline: icon === "/icon/paw1.png" ? "3px solid #B9B9B9" : "",
+            cursor: "pointer"
+          }}
         />
         <img
-          src="/tellID.png"
+          src="/icon/paw2.png"
           width={100}
           alt="アイコン2"
-          onClick={() => handleIconSelect("/tellID.png")}
-          style={{ border: icon === "/tellID.png" ? "2px solid #B9B9B9" : "" }}
+          onClick={() => handleIconSelect("/icon/paw2.png")}
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            outlineOffset: "3px",
+            outline: icon === "/icon/paw2.png" ? "3px solid #B9B9B9" : "",
+            cursor: "pointer"
+          }}
         />
         <img
-          src="/LevelDown.png"
+          src="/icon/paw3.png"
           width={100}
           alt="アイコン3"
-          onClick={() => handleIconSelect("/LevelDown.png")}
-          style={{ border: icon === "/LevelDown.png" ? "2px solid #B9B9B9" : "" }}
+          onClick={() => handleIconSelect("/icon/paw3.png")}
+          style={{
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            outlineOffset: "3px",
+            outline: icon === "/icon/paw3.png" ? "3px solid #B9B9B9" : "",
+            cursor: "pointer"
+          }}
         />
         {iconError && <p style={{ color: "red" }}>{iconError}</p>}
       </div>
