@@ -9,14 +9,10 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { Link, useNavigate } from "react-router-dom";
-import StartBath from "./StartBath";
-import SetBathGoal from "./SetBathGoal";
-import EndBath from "./EndBath";
-import CancelBath from "./CancelBath";
+import { useNavigate } from "react-router-dom";
 // import "./css/Room.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import RoomNavbar from "./RoomNavbar";
+import RoomDetail from "../common/RoomDetail";
 
 // 時間表示を○○：○○にする関数
 const formatHHMM = (time) => {
@@ -44,10 +40,19 @@ const Room = () => {
   // ルームのユーザーの情報を保存する配列を宣言
   const [userList, setUserList] = useState([]);
   // 現在のユーザーによる最後のポストの種類を保存する変数を宣言
-  const [lastPostType, setLastPostType] = useState("");
+  const [lastPostType, setLastPostType] = useState(null);
+  const [showRoomDetail, setShowRoomDetail] = useState(false);
 
   const navigate = useNavigate();
   console.log("Room");
+
+  const openRoomDetail = () => {
+    setShowRoomDetail(true);
+  };
+
+  const closeRoomDetail = () => {
+    setShowRoomDetail(false);
+  };
 
   // ポストリストにポストを追加する関数
   const addPostList = (id, data) => {
@@ -147,13 +152,7 @@ const Room = () => {
 
   return (
     <div className="roomContainer">
-      <header>
-        <Link to="/">
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </Link>
-        <p className="roomName">{roomName}</p>
-        <p className="roomID">id:{roomID}</p>
-      </header>
+      <button onClick={openRoomDetail}>{roomName}</button>
       <div className="postContainer">
         {/* ポストリストの各ポストごとに描画 */}
         {postList.map((post) => {
@@ -231,35 +230,11 @@ const Room = () => {
           );
         })}
       </div>
+      <RoomNavbar lastPostType={lastPostType} />
 
-      {/* 最後のポストの種類によって表示するボタンを変える */}
-      <div className="menu">
-        {lastPostType === "setBathGoal" ? (
-          <>
-            <StartBath />
-            <CancelBath />
-          </>
-        ) : (
-          ""
-        )}
-        {lastPostType === "startBath" ? (
-          <>
-            <EndBath />
-            <CancelBath />
-          </>
-        ) : (
-          ""
-        )}
-        {lastPostType === "" ||
-        lastPostType === "endBath" ||
-        lastPostType === "cancelBath" ? (
-          <>
-            <SetBathGoal />
-          </>
-        ) : (
-          ""
-        )}
-      </div>
+      {showRoomDetail && (
+        <RoomDetail closeRoomDetail={closeRoomDetail} {...roomData} />
+      )}
     </div>
   );
 };
