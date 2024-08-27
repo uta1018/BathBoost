@@ -10,16 +10,16 @@ const FirstLogin = () => {
   // 選択されたアイコンを保存する変数
   const [icon, setIcon] = useState("/icon/paw1.png");
   // バリデーションのメッセージを管理する変数
-  const [usernameError, setUsernameError] = useState("※8文字まで入力することができます。");
+  const [usernameError, setUsernameError] = useState({ message: "※8文字まで入力することができます。", color: "black" });
 
   // usename のバリデーション関数
   const validateUsername = (name) => {
     if (name.length < 1) {
-      return "名前を入力してください。";
+      return { message: "名前を入力してください。", color: "red" };
     } else if (1 <= name.length && name.length <= 8) {
-      return "※8文字まで入力することができます。";
+      return { message: "※8文字まで入力することができます。", color: "black" };
     } else if (8 < name.length) {
-      return "名前は8文字以内で入力してください。";
+      return { message: "名前は8文字以内で入力してください。", color: "red" };
     }
   };
 
@@ -61,9 +61,7 @@ const FirstLogin = () => {
         value={username}
         onChange={handleUsernameChange}
       />
-      {usernameError && 
-        <p style={{ color: usernameError.includes("※") ? "black" : "red" }}>{usernameError}</p>
-      }
+      <p style={{ color: usernameError.color }}>{usernameError.message}</p>
 
       {/* アイコン選択エリア */}
       <Subheading title="アイコン" />
