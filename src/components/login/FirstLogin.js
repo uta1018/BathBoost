@@ -8,20 +8,19 @@ const FirstLogin = () => {
   // 入力されたユーザーネームを保存する変数
   const [username, setUsername] = useState("");
   // 選択されたアイコンを保存する変数
-  const [icon, setIcon] = useState(null);
-  // バリデーションのエラーを管理する変数
-  const [usernameError, setUsernameError] = useState("名前を入力してください。");
-  // アイコン未選択のエラーを管理する変数
-  const [iconError, setIconError] = useState("アイコンを1つ選択する必要があります。");
+  const [icon, setIcon] = useState("/icon/paw1.png");
+  // バリデーションのメッセージを管理する変数
+  const [usernameError, setUsernameError] = useState("※8文字まで入力することができます。");
 
   // usename のバリデーション関数
   const validateUsername = (name) => {
     if (name.length < 1) {
       return "名前を入力してください。";
-    } else if (name.length > 8) {
+    } else if (1 <= name.length && name.length <= 8) {
+      return "※8文字まで入力することができます。";
+    } else if (8 < name.length) {
       return "名前は8文字以内で入力してください。";
     }
-    return "";
   };
 
   // username の入力変更時にバリデーションを実行
@@ -30,12 +29,6 @@ const FirstLogin = () => {
     setUsername(name);
     const error = validateUsername(name);
     setUsernameError(error);
-  };
-
-  // アイコンが選択された時にエラーメッセージをクリア
-  const handleIconSelect = (selectedIcon) => {
-    setIcon(selectedIcon);
-    setIconError("");
   };
 
   // 決定ボタンを押したときの関数
@@ -68,8 +61,9 @@ const FirstLogin = () => {
         value={username}
         onChange={handleUsernameChange}
       />
-      <div>※全角8文字まで入力することができます</div>
-      {usernameError && <p style={{ color: "red" }}>{usernameError}</p>}
+      {usernameError && 
+        <p style={{ color: usernameError.includes("※") ? "black" : "red" }}>{usernameError}</p>
+      }
 
       {/* アイコン選択エリア */}
       <Subheading title="アイコン" />
@@ -77,9 +71,8 @@ const FirstLogin = () => {
         <p>アイコンを選択してください</p>
         <img
           src="/icon/paw1.png"
-          width={100}
           alt="アイコン1"
-          onClick={() => handleIconSelect("/icon/paw1.png")}
+          onClick={() => setIcon("/icon/paw1.png")}
           style={{ 
             width: "60px",
             height: "60px",
@@ -91,9 +84,8 @@ const FirstLogin = () => {
         />
         <img
           src="/icon/paw2.png"
-          width={100}
           alt="アイコン2"
-          onClick={() => handleIconSelect("/icon/paw2.png")}
+          onClick={() => setIcon("/icon/paw2.png")}
           style={{
             width: "60px",
             height: "60px",
@@ -105,9 +97,8 @@ const FirstLogin = () => {
         />
         <img
           src="/icon/paw3.png"
-          width={100}
           alt="アイコン3"
-          onClick={() => handleIconSelect("/icon/paw3.png")}
+          onClick={() => setIcon("/icon/paw3.png")}
           style={{
             width: "60px",
             height: "60px",
@@ -117,13 +108,12 @@ const FirstLogin = () => {
             cursor: "pointer"
           }}
         />
-        {iconError && <p style={{ color: "red" }}>{iconError}</p>}
       </div>
 
       {/* 決定ボタン */}
       <button 
         onClick={handleFirstLogin}
-        disabled={usernameError !== "" || icon === null}
+        disabled={username.length < 1 || 8 < username.length}
       >
         決定
       </button>
