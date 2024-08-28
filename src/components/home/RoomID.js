@@ -1,48 +1,38 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Context } from '../../providers/Provider';
+import CopyButton from '../common/CopyButton';
+import PopupHeader from '../common/PopupHeader';
+import "../css/Popup.css";
 
 const RoomID = () => {
   const { roomID } = useContext(Context);
   console.log("RoomID");
 
-  // ボタンの表示テキストを管理する変数
-  const [copyStatus, setCopyStatus] = useState('コピー');
-
-  // クリップボードにroomIDをコピーする関数
-  const copyRoomID = (text) => {
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        // コピー成功時にボタンのテキストを変更
-        setCopyStatus('コピー完了！');
-        // 3秒後に元のテキストに戻す
-        setTimeout(() => setCopyStatus('コピー'), 3000);
-      })
-      .catch(err => {
-        console.error('コピーに失敗しました', err);
-      });
-  };
-
   return (
-    <div className="roominfo-container">
-      <div className="content">
-        <div className="speech-bubble">
-          <p>ルームIDは</p>
-          <h1>
-            {/* コピーボタン */}
-            {roomID} <button onClick={() => copyRoomID(roomID)}>{copyStatus}</button>
-          </h1>
-          <p>です</p>
+    <div className="overlay">
+      <div className="popup-content">
+        <div className="roominfo-container">
+          <div className="content">
+            <div className="speech-bubble">
+              <PopupHeader title="ルームの作成" />
+              <p>
+                作成したルームのID
+                {/* コピーボタン */}
+                <CopyButton text={roomID} />
+              </p>
+              <h2>{roomID}</h2>
+            </div>
+            <p>ルームIDを共有しておふろ報告をしよう！</p>
+            {/* ルーム画面へのリンク */}
+            <Link to="/room" className="room-link">
+              OK
+            </Link>
+          </div>
         </div>
-        <p>友達にルームIDをシェアしよう！</p>
-      {/* ルーム画面へのリンク */}
-      <Link to="/room" className="room-link">OK</Link>
-      </div>
-      <div className="footer">
-        <p>@ライラック</p>
       </div>
     </div>
-  )
+  );
 }
 
 export default RoomID
