@@ -10,6 +10,8 @@ import React, { useContext, useState } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
 import { icon } from "@fortawesome/fontawesome-svg-core";
+import PopupHeader from "../common/PopupHeader";
+import "../css/Popup.css";
 // import "./css/Home.css";
 
 const CreateRoom = ({closeCreateRoom, openRoomID}) => {
@@ -18,6 +20,31 @@ const CreateRoom = ({closeCreateRoom, openRoomID}) => {
   const [roomName, setRoomName] = useState("");
 
   console.log("CreateRoom");
+
+  // バリデーションのメッセージを管理する変数
+  const [roomNameError, setRoomNameError] = useState({
+    message: "※15文字まで入力することができます。",
+    color: "black",
+  });
+
+  // usename のバリデーション関数
+  const validateRoomName = (name) => {
+    if (name.length < 1) {
+      return { message: "ルームの名前を入力してください。", color: "red" };
+    } else if (1 <= name.length && name.length <= 15) {
+      return { message: "※15文字まで入力することができます。", color: "black" };
+    } else if (15 < name.length) {
+      return { message: "ルームの名前は15文字以内で入力してください。", color: "red" };
+    }
+  };
+
+  // username の入力変更時にバリデーションを実行
+  const handleRoomNameChange = (e) => {
+    const name = e.target.value;
+    setRoomName(name);
+    const error = validateRoomName(name);
+    setRoomNameError(error);
+  };
 
   // ルーム作成ボタンを押したときの関数
   const createRoom = async () => {
@@ -29,17 +56,17 @@ const CreateRoom = ({closeCreateRoom, openRoomID}) => {
     const userData = userDocSnap.data();
     const userName = userData.userName;
     const icon = userData.icon;
-    
+
     // roomsコレクションにドキュメントを保存
     const roomRef = await addDoc(collection(db, "rooms"), {
       roomName: roomName,
-      author: {userID: userID, userName: userName},
+      author: { userID: userID, userName: userName },
       date: new Date().getTime(),
-      member: [{userID: userID, userName: userName, icon: icon}],
+      member: [{ userID: userID, userName: userName, icon: icon }],
     });
 
     const roomID = roomRef.id;
-    
+
     // グローバル変数にルームIDを保存
     setRoomID(roomID);
     localStorage.setItem("roomID", roomID);
@@ -48,23 +75,34 @@ const CreateRoom = ({closeCreateRoom, openRoomID}) => {
     await updateDoc(userDocRef, {
       rooms: arrayUnion(roomID),
     });
-    
+
     openRoomID();
   };
 
   return (
-    <div className="input-field-container">
-      <h3>ルームを作成</h3>
-      <p>ルーム名(必須)</p>
-      <input
-        type="text"
-        placeholder="ルームの名前を入力してね"
-        onChange={(e) => setRoomName(e.target.value)}
-      />
-      <button onClick={closeCreateRoom}>キャンセル</button>
-      <button className="post-button" onClick={createRoom}>
-        決定
-      </button>
+    <div className="overlay">
+      <div className="popup-content">
+        <div className="input-field-container">
+          <PopupHeader title="ルームを作成" />
+          <p>ルームの名前を入力してください</p>
+          <input
+            type="text"
+            placeholder="ルームネーム"
+            value={roomName}
+            onChange={handleRoomNameChange}
+          />
+          <p style={{ color: roomNameError.color }}>{roomNameError.message}</p>
+          <p>あとで設定で変更もできます。</p>
+          <button onClick={closeCreateRoom}>キャンセル</button>
+          <button
+            className="post-button"
+            onClick={createRoom}
+            disabled={roomName.length < 1 || 15 < roomName.length}
+          >
+            決定
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
