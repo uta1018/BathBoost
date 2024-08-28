@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
 import SelectRoom from "./SelectRoom";
-import Logout from "../user/Logout";
 import Navbar from "../common/Navbar";
 import { Context } from "../../providers/Provider";
 import PageHeader from "../common/PageHeader";
@@ -11,6 +10,10 @@ import Help from "../common/Help";
 import RoomID from "./RoomID";
 import RoomInfo from "./RoomInfo";
 // import "./css/Home.css";
+
+//アイコンのインポート
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   // グローバル変数を取得
@@ -68,14 +71,26 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="header">
-        <Logout />
         <PageHeader title={"ホーム"} />
       </div>
       <Help />
       {/* 画像やテキスト */}
       <div className="content">
-        <button onClick={openCreateRoom}>ルームを作成する</button>
-        <button onClick={openJoinRoom}>ルームを検索する</button>
+        <p>入室するルームを選んでください</p>
+        <button onClick={openCreateRoom}>
+          <FontAwesomeIcon icon={faPlus} color="#FACBB1" />
+          <div>
+            <div>ルームを作成する</div>
+            <div>新しいルームを作成する</div>
+          </div>
+        </button>
+        <button onClick={openJoinRoom}>
+          <FontAwesomeIcon icon={faMagnifyingGlass} color="#FACBB1" />
+          <div>
+            <div>IDでルームを探す</div>
+            <div>作成済みのルームをIDで探す</div>
+          </div>
+        </button>
         <SelectRoom />
       </div>
       <div className="footer">
