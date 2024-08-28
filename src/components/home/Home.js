@@ -10,11 +10,13 @@ import PageHeader from "../common/PageHeader";
 import Help from "../common/Help";
 import RoomID from "./RoomID";
 import RoomInfo from "./RoomInfo";
+import Overlay from "../common/Overlay";
 // import "./css/Home.css";
 
 const Home = () => {
   // グローバル変数を取得
   const { userID } = useContext(Context);
+  const [showOverlay, setShowOverlay] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
   const [showJoinRoom, setShowJoinRoom] = useState(false);
   const [showRoomID, setShowRoomID] = useState(false);
@@ -32,6 +34,14 @@ const Home = () => {
       navigate("/login");
     }
   }, []);
+
+  const applyOverlay = () => {
+    setShowOverlay(true);
+  };
+
+  const removeOverlay = () => {
+    setShowOverlay(false);
+  };
 
   const openCreateRoom = () => {
     setShowCreateRoom(true);
@@ -74,15 +84,27 @@ const Home = () => {
       <Help />
       {/* 画像やテキスト */}
       <div className="content">
-        <button onClick={openCreateRoom}>ルームを作成する</button>
+        <button
+          onClick={() => {
+            openCreateRoom();
+            applyOverlay();
+          }}
+        >
+          ルームを作成する
+        </button>
         <button onClick={openJoinRoom}>ルームを検索する</button>
         <SelectRoom />
       </div>
       <div className="footer">
         <Navbar currentPage="home" />
       </div>
+      {showOverlay && <Overlay />}
       {showCreateRoom && (
-        <CreateRoom closeCreateRoom={closeCreateRoom} openRoomID={openRoomID} />
+        <CreateRoom
+          closeCreateRoom={closeCreateRoom}
+          openRoomID={openRoomID}
+          removeOverlay={removeOverlay}
+        />
       )}
       {showJoinRoom && (
         <JoinRoom
@@ -91,7 +113,7 @@ const Home = () => {
           settingRoomID={settingRoomID}
         />
       )}
-      {showRoomID && <RoomID />}
+      {showRoomID && <RoomID removeOverlay={removeOverlay} />}
       {showRoomInfo && (
         <RoomInfo joinRoomID={joinRoomID} closeRoomInfo={closeRoomInfo} />
       )}

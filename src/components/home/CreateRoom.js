@@ -14,7 +14,7 @@ import PopupHeader from "../common/PopupHeader";
 import "../css/Popup.css";
 // import "./css/Home.css";
 
-const CreateRoom = ({closeCreateRoom, openRoomID}) => {
+const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
   // グローバル変数を取得
   const { userID, setRoomID } = useContext(Context);
   const [roomName, setRoomName] = useState("");
@@ -34,7 +34,10 @@ const CreateRoom = ({closeCreateRoom, openRoomID}) => {
     } else if (1 <= name.length && name.length <= 15) {
       return { message: "※15文字まで入力することができます。", color: "black" };
     } else if (15 < name.length) {
-      return { message: "ルームの名前は15文字以内で入力してください。", color: "red" };
+      return {
+        message: "ルームの名前は15文字以内で入力してください。",
+        color: "red",
+      };
     }
   };
 
@@ -80,28 +83,26 @@ const CreateRoom = ({closeCreateRoom, openRoomID}) => {
   };
 
   return (
-    <div className="overlay">
-      <div className="popup-content">
-        <div className="input-field-container">
-          <PopupHeader title="ルームを作成" />
-          <p>ルームの名前を入力してください</p>
-          <input
-            type="text"
-            placeholder="ルームネーム"
-            value={roomName}
-            onChange={handleRoomNameChange}
-          />
-          <p style={{ color: roomNameError.color }}>{roomNameError.message}</p>
-          <p>あとで設定で変更もできます。</p>
-          <button onClick={closeCreateRoom}>キャンセル</button>
-          <button
-            className="post-button"
-            onClick={createRoom}
-            disabled={roomName.length < 1 || 15 < roomName.length}
-          >
-            決定
-          </button>
-        </div>
+    <div className="popup-content">
+      <div className="input-field-container">
+        <PopupHeader title="ルームを作成" />
+        <p>ルームの名前を入力してください</p>
+        <input
+          type="text"
+          placeholder="ルームネーム"
+          value={roomName}
+          onChange={handleRoomNameChange}
+        />
+        <p style={{ color: roomNameError.color }}>{roomNameError.message}</p>
+        <p>あとで設定で変更もできます。</p>
+        <button onClick={() => {closeCreateRoom(); removeOverlay();}}>キャンセル</button>
+        <button
+          className="post-button"
+          onClick={createRoom}
+          disabled={roomName.length < 1 || 15 < roomName.length}
+        >
+          決定
+        </button>
       </div>
     </div>
   );
