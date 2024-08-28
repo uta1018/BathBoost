@@ -102,7 +102,16 @@ const SelectRoom = memo(() => {
                 >
                   <FontAwesomeIcon icon={faPaw} color="#FACBB1" />
                   {room.roomName} に入室
-                  {/* {room.id} */}
+                  <p>
+                    メンバー:
+                    {/* メンバーを表記 */}
+                    {room.member.map((member, index) => (
+                      <span key={member.userID}>
+                        {member.userName}
+                        {index < room.member.length - 1 && ", "}
+                      </span>
+                    ))}
+                  </p>
                 </button>
               </div>
             </div>

@@ -75,6 +75,7 @@ const Home = () => {
       </div>
       <Help />
       {/* 画像やテキスト */}
+      <img src="/tellID.png" className="ID-img" width={100}></img>
       <div className="content">
         <p>入室するルームを選んでください</p>
         <button onClick={openCreateRoom}>
