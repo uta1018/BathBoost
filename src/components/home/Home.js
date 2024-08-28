@@ -92,7 +92,14 @@ const Home = () => {
         >
           ルームを作成する
         </button>
-        <button onClick={openJoinRoom}>ルームを検索する</button>
+        <button
+          onClick={() => {
+            openJoinRoom();
+            applyOverlay();
+          }}
+        >
+          ルームを検索する
+        </button>
         <SelectRoom />
       </div>
       <div className="footer">
@@ -111,11 +118,16 @@ const Home = () => {
           closeJoinRoom={closeJoinRoom}
           openRoomInfo={openRoomInfo}
           settingRoomID={settingRoomID}
+          removeOverlay={removeOverlay}
         />
       )}
       {showRoomID && <RoomID removeOverlay={removeOverlay} />}
       {showRoomInfo && (
-        <RoomInfo joinRoomID={joinRoomID} closeRoomInfo={closeRoomInfo} />
+        <RoomInfo
+          joinRoomID={joinRoomID}
+          closeRoomInfo={closeRoomInfo}
+          removeOverlay={removeOverlay}
+        />
       )}
     </div>
   );

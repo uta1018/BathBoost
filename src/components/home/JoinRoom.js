@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import "../css/Popup.css";
 // import "./css/Home.css";
 
-const JoinRoom = ({ closeJoinRoom, openRoomInfo, settingRoomID }) => {
+const JoinRoom = ({
+  closeJoinRoom,
+  openRoomInfo,
+  settingRoomID,
+  removeOverlay,
+}) => {
   // 入力されたルームIDを保存する変数を定義
   const [inputRoomID, setInputRoomID] = useState("");
   // 見つかりませんでした表示を管理
@@ -14,9 +20,9 @@ const JoinRoom = ({ closeJoinRoom, openRoomInfo, settingRoomID }) => {
   // ルーム入室ボタンを押したときの関数
   const joinRoom = async () => {
     const roomID = inputRoomID;
-    
+
     // 何も入力されてないとき（クエリでエラーが出るため分けた）
-    if(!roomID) {
+    if (!roomID) {
       setShowAlertRoomID(true);
       setInputRoomID("");
       return;
@@ -39,20 +45,28 @@ const JoinRoom = ({ closeJoinRoom, openRoomInfo, settingRoomID }) => {
   };
 
   return (
-    <div className="input-field-container">
-      <h3>ルームに入室</h3>
-      <p>ルームIDを入力</p>
-      <input
-        type="text"
-        placeholder="ルームIDを入力してね"
-        value={inputRoomID}
-        onChange={(e) => setInputRoomID(e.target.value)}
-      />
-      {showAlertRoomID && <p>※ルームが見つかりませんでした</p>}
-      <button onClick={closeJoinRoom}>キャンセル</button>
-      <button className="post-button" onClick={joinRoom}>
-        OK
-      </button>
+    <div className="popup-content">
+      <div className="input-field-container">
+        <h3>ルームに入室</h3>
+        <p>ルームIDを入力</p>
+        <input
+          type="text"
+          placeholder="ルームIDを入力してね"
+          value={inputRoomID}
+          onChange={(e) => setInputRoomID(e.target.value)}
+        />
+        {showAlertRoomID && <p>※ルームが見つかりませんでした</p>}
+        <button 
+          onClick={() => {
+            closeJoinRoom();
+            removeOverlay();}}
+        >
+          キャンセル
+        </button>
+        <button className="post-button" onClick={joinRoom}>
+          OK
+        </button>
+      </div>
     </div>
   );
 };

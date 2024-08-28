@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../providers/Provider";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import Overlay from "../common/Overlay";
 
-const RoomInfo = ({ joinRoomID, closeRoomInfo }) => {
+const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
   const { userID, setRoomID } = useContext(Context);
   // ルーム情報を保存する配列を宣言
   const [roomData, setRoomData] = useState(null);
@@ -55,22 +56,24 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo }) => {
   };
 
   return (
-    <div className="roominfo-container">
-      <div className="content">
-        {roomData && roomData.roomName}
-        {roomData && (
-          <div>
-            <p>メンバー:</p>
-            {roomData.member.map((member, index) => (
-              <span key={member.userID}>
-                {member.userName}
-                {index < roomData.member.length - 1 && ", "}
-              </span>
-            ))}
-          </div>
-        )}
-        <button onClick={closeRoomInfo}>キャンセル</button>
-        <button onClick={roomInfo}>OK</button>
+    <div className="popup-content">
+      <div className="roominfo-container">
+        <div className="content">
+          {roomData && roomData.roomName}
+          {roomData && (
+            <div>
+              <p>メンバー:</p>
+              {roomData.member.map((member, index) => (
+                <span key={member.userID}>
+                  {member.userName}
+                  {index < roomData.member.length - 1 && ", "}
+                </span>
+              ))}
+            </div>
+          )}
+          <button onClick={() => {closeRoomInfo(); removeOverlay();}}>キャンセル</button>
+          <button onClick={() => {roomInfo(); removeOverlay();}}>OK</button>
+        </div>
       </div>
     </div>
   );
