@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../providers/Provider";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import Overlay from "../common/Overlay";
+import PopupHeader from "../common/PopupHeader";
 
 const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
   const { userID, setRoomID } = useContext(Context);
@@ -59,6 +59,8 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
     <div className="popup-content">
       <div className="roominfo-container">
         <div className="content">
+          <PopupHeader title="ルームを探す" />
+          {roomData && <p>ルームが見つかりました</p>}
           {roomData && roomData.roomName}
           {roomData && (
             <div>
@@ -71,8 +73,22 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
               ))}
             </div>
           )}
-          <button onClick={() => {closeRoomInfo(); removeOverlay();}}>キャンセル</button>
-          <button onClick={() => {roomInfo(); removeOverlay();}}>OK</button>
+          <button
+            onClick={() => {
+              closeRoomInfo();
+              removeOverlay();
+            }}
+          >
+            キャンセル
+          </button>
+          <button
+            onClick={() => {
+              roomInfo();
+              removeOverlay();
+            }}
+          >
+            OK
+          </button>
         </div>
       </div>
     </div>

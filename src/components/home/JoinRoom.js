@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import PopupHeader from "../common/PopupHeader";
 import "../css/Popup.css";
 // import "./css/Home.css";
 
@@ -47,25 +48,28 @@ const JoinRoom = ({
   return (
     <div className="popup-content">
       <div className="input-field-container">
-        <h3>ルームに入室</h3>
-        <p>ルームIDを入力</p>
+        <PopupHeader title="ルームを探す" />
+        <p>ルームのIDを入力してください</p>
         <input
           type="text"
-          placeholder="ルームIDを入力してね"
+          placeholder="ルームID"
           value={inputRoomID}
           onChange={(e) => setInputRoomID(e.target.value)}
         />
-        {showAlertRoomID && <p>※ルームが見つかりませんでした</p>}
-        <button 
-          onClick={() => {
-            closeJoinRoom();
-            removeOverlay();}}
-        >
-          キャンセル
-        </button>
-        <button className="post-button" onClick={joinRoom}>
-          OK
-        </button>
+        {showAlertRoomID && <p style={{ color: "red" }}>※ルームが見つかりませんでした</p>}
+        <p>
+          <button
+            onClick={() => {
+              closeJoinRoom();
+              removeOverlay();
+            }}
+          >
+            キャンセル
+          </button>
+          <button className="post-button" onClick={joinRoom}>
+            OK
+          </button>
+        </p>
       </div>
     </div>
   );
