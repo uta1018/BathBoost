@@ -60,7 +60,7 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
       <div className="roominfo-container">
         <div className="content">
           <PopupHeader title="ルームを探す" />
-          {roomData && <p>ルームが見つかりました</p>}
+          {roomData && <p>このルームに入室しますか？</p>}
           {roomData && roomData.roomName}
           {roomData && (
             <div>
