@@ -56,7 +56,9 @@ const JoinRoom = ({
           value={inputRoomID}
           onChange={(e) => setInputRoomID(e.target.value)}
         />
-        {showAlertRoomID && <p style={{ color: "red" }}>※ルームが見つかりませんでした</p>}
+        {showAlertRoomID && (
+          <p style={{ color: "red" }}>※ルームが見つかりませんでした</p>
+        )}
         <p>
           <button
             onClick={() => {
@@ -66,7 +68,11 @@ const JoinRoom = ({
           >
             キャンセル
           </button>
-          <button className="post-button" onClick={joinRoom}>
+          <button
+            className="post-button"
+            onClick={joinRoom}
+            disabled={inputRoomID.length < 1}
+          >
             OK
           </button>
         </p>
