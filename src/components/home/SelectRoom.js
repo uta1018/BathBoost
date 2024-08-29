@@ -99,11 +99,10 @@ const SelectRoom = memo(() => {
                 <button
                   className="room-select-button"
                   onClick={() => handleRoute(room.id)}
-                  style={{ display: "flex", alignItems: "center" }}
                 >
-                  <FontAwesomeIcon icon={faPaw} color="#FACBB1" />
+                  <FontAwesomeIcon icon={faPaw} />
                   <div>
-                    {room.roomName} に入室
+                    {room.roomName}
                     <div>
                       メンバー:{" "}
                       {(() => {
