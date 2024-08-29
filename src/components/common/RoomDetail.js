@@ -35,7 +35,6 @@ const RoomDetail = ({
           <span key={user.userID}>
             <img src={user.icon} alt="" width="40px" />
             {user.userName}
-            {index < member.length - 1 && ", "}
           </span>
         ))}
       </div>

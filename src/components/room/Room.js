@@ -172,7 +172,7 @@ const Room = () => {
       <button onClick={openRoomDetail}>
         {roomName}
         {/* ここにメンバーの数を表示 */}
-        {roomData && roomData.member && (
+        {roomData && (
           <span className="memberCount">({roomData.member.length})</span>
         )}
       </button>
