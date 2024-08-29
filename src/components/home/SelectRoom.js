@@ -99,19 +99,25 @@ const SelectRoom = memo(() => {
                 <button
                   className="room-select-button"
                   onClick={() => handleRoute(room.id)}
+                  style={{ display: "flex", alignItems: "center" }}
                 >
                   <FontAwesomeIcon icon={faPaw} color="#FACBB1" />
-                  {room.roomName} に入室
-                  <p>
-                    メンバー:
-                    {/* メンバーを表記 */}
-                    {room.member.map((member, index) => (
-                      <span key={member.userID}>
-                        {member.userName}
-                        {index < room.member.length - 1 && ", "}
-                      </span>
-                    ))}
-                  </p>
+                  <div>
+                    {room.roomName} に入室
+                    <div>
+                      メンバー:{" "}
+                      {(() => {
+                        const membersText = room.member
+                          .map((member) => member.userName)
+                          .join("、");
+                        return membersText.length > 13
+                          ? `${membersText.slice(0, 13)}…(${
+                              room.member.length
+                            })`
+                          : `${membersText} (${room.member.length})`;
+                      })()}
+                    </div>
+                  </div>
                 </button>
               </div>
             </div>
