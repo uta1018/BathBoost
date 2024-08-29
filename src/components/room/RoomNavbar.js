@@ -6,7 +6,7 @@ import SetBathGoal from "./SetBathGoal";
 import LevelUp from "./LevelUp";
 import PointUp from "./PointUp";
 
-const RoomNavbar = memo(({ lastPostType }) => {
+const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
   const [showSelectStamp, setShowSelectStamp] = useState(false);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showSetBathGoal, setShowSetBathGoal] = useState(false);
@@ -14,6 +14,7 @@ const RoomNavbar = memo(({ lastPostType }) => {
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [nextPoint, setNextPoint] = useState();
   const [point, setPoint] = useState();
+  const [stamp, setStamp] = useState();
 
   const navigate = useNavigate();
   console.log("RoomNavbar");
@@ -56,6 +57,7 @@ const RoomNavbar = memo(({ lastPostType }) => {
 
   const closeLevelUp = useCallback(() => {
     setShowLevelUp(false);
+    changeLevelToggle();
   }, []);
 
   const settingNextPoint = useCallback((point) => {
@@ -64,6 +66,10 @@ const RoomNavbar = memo(({ lastPostType }) => {
 
   const settingPoint = useCallback((point) => {
     setPoint(point);
+  }, []);
+
+  const settingStamp = useCallback((stamp) => {
+    setStamp(stamp);
   }, []);
 
   return (
@@ -83,7 +89,7 @@ const RoomNavbar = memo(({ lastPostType }) => {
             <button onClick={openCancelDialog}>やめる</button>
           </>
         )}
-        {(lastPostType === null ||
+        {(!lastPostType ||
           lastPostType === "endBath" ||
           lastPostType === "cancelBath") && (
           <>
@@ -109,12 +115,14 @@ const RoomNavbar = memo(({ lastPostType }) => {
           openLevelUp={openLevelUp}
           settingNextPoint={settingNextPoint}
           settingPoint={settingPoint}
+          settingStamp={settingStamp}
         />
       )}
       {showSetBathGoal && (
         <SetBathGoal
           closeSetBathGoal={closeSetBathGoal}
           closeSelectStamp={closeSelectStamp}
+          stamp={stamp}
         />
       )}
       {showPointUp && (

@@ -50,6 +50,7 @@ const FirstLogin = () => {
       date: new Date().getTime(),
       bathCount: 0,
       goalStreakCount: 0,
+      longestGoalStreakCount: 0,
       rooms: [],
       setBathGoalStamp: ["/setBathGoalStamp/1.png"],
       startBathStamp: ["/startBathStamp/1.png"],

@@ -6,12 +6,12 @@ import { addDoc, collection } from "firebase/firestore";
 
 const toLocalISOString = (date) => {
   const localDate = new Date(date - date.getTimezoneOffset() * 60000);
-  localDate.setSeconds(0); 
+  localDate.setSeconds(0);
   localDate.setMilliseconds(0);
   return localDate.toISOString().slice(0, 16);
 };
 
-const SetBathGoal = ({closeSetBathGoal, closeSelectStamp}) => {
+const SetBathGoal = ({ closeSetBathGoal, closeSelectStamp, stamp }) => {
   // グローバル変数を取得
   const { userID, roomID } = useContext(Context);
   // 目標時間を現在の時間に初期化
@@ -33,6 +33,7 @@ const SetBathGoal = ({closeSetBathGoal, closeSelectStamp}) => {
       author: userID,
       type: "setBathGoal",
       date: new Date().getTime(),
+      stamp: stamp,
       goalTime: new Date(goalTime),
     });
   };

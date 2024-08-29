@@ -30,6 +30,7 @@ const CancelDialog = ({
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
       point: increment(-1),
+      goalStreakCount: 0,
     });
     const userDocSnap = await getDoc(userDocRef);
     const currentLevel = userDocSnap.data().level;
@@ -58,6 +59,7 @@ const CancelDialog = ({
       author: userID,
       type: "cancelBath",
       date: new Date().getTime(),
+      stamp: "/cancelBathStamp/1.png"
     });
   };
 

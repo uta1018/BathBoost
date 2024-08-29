@@ -9,6 +9,7 @@ import PageHeader from "../common/PageHeader";
 import Help from "../common/Help";
 import RoomID from "./RoomID";
 import RoomInfo from "./RoomInfo";
+import Overlay from "../common/Overlay";
 // import "./css/Home.css";
 
 //アイコンのインポート
@@ -18,6 +19,7 @@ import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 const Home = () => {
   // グローバル変数を取得
   const { userID } = useContext(Context);
+  const [showOverlay, setShowOverlay] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
   const [showJoinRoom, setShowJoinRoom] = useState(false);
   const [showRoomID, setShowRoomID] = useState(false);
@@ -35,6 +37,14 @@ const Home = () => {
       navigate("/login");
     }
   }, []);
+
+  const applyOverlay = () => {
+    setShowOverlay(true);
+  };
+
+  const removeOverlay = () => {
+    setShowOverlay(false);
+  };
 
   const openCreateRoom = () => {
     setShowCreateRoom(true);
@@ -83,14 +93,24 @@ const Home = () => {
       ></img>
       <div className="content">
         <p>入室するルームを選んでください</p>
-        <button onClick={openCreateRoom}>
+        <button
+          onClick={() => {
+            openCreateRoom();
+            applyOverlay();
+          }}
+        >
           <FontAwesomeIcon icon={faPlus} />
           <div>
             <div>ルームを作成する</div>
             <div>新しいルームを作成する</div>
           </div>
         </button>
-        <button onClick={openJoinRoom}>
+        <button
+          onClick={() => {
+            openJoinRoom();
+            applyOverlay();
+          }}
+        >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
           <div>
             <div>IDでルームを探す</div>
@@ -102,19 +122,29 @@ const Home = () => {
       <div className="footer">
         <Navbar currentPage="home" />
       </div>
+      {showOverlay && <Overlay />}
       {showCreateRoom && (
-        <CreateRoom closeCreateRoom={closeCreateRoom} openRoomID={openRoomID} />
+        <CreateRoom
+          closeCreateRoom={closeCreateRoom}
+          openRoomID={openRoomID}
+          removeOverlay={removeOverlay}
+        />
       )}
       {showJoinRoom && (
         <JoinRoom
           closeJoinRoom={closeJoinRoom}
           openRoomInfo={openRoomInfo}
           settingRoomID={settingRoomID}
+          removeOverlay={removeOverlay}
         />
       )}
-      {showRoomID && <RoomID />}
+      {showRoomID && <RoomID removeOverlay={removeOverlay} />}
       {showRoomInfo && (
-        <RoomInfo joinRoomID={joinRoomID} closeRoomInfo={closeRoomInfo} />
+        <RoomInfo
+          joinRoomID={joinRoomID}
+          closeRoomInfo={closeRoomInfo}
+          removeOverlay={removeOverlay}
+        />
       )}
     </div>
   );
