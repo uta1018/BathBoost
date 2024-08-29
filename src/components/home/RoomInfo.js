@@ -12,7 +12,6 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
 
   const navigate = useNavigate();
   console.log("RoomInfo");
-  console.log(roomData);
 
   // 読み込み時に実行
   useEffect(() => {
@@ -81,12 +80,7 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
           >
             キャンセル
           </button>
-          <button
-            onClick={() => {
-              roomInfo();
-              removeOverlay();
-            }}
-          >
+          <button onClick={roomInfo}>
             OK
           </button>
         </div>
