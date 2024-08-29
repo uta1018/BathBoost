@@ -15,6 +15,7 @@ import RoomNavbar from "./RoomNavbar";
 import RoomDetail from "../common/RoomDetail";
 import PostItem from "./PostItem";
 import Overlay from "../common/Overlay";
+import Help from "../common/Help";
 
 const Room = () => {
   const { roomID, userID } = useContext(Context);
@@ -168,7 +169,14 @@ const Room = () => {
 
   return (
     <div className="roomContainer">
-      <button onClick={openRoomDetail}>{roomName}</button>
+      <button onClick={openRoomDetail}>
+        {roomName}
+        {/* ここにメンバーの数を表示 */}
+        {roomData && roomData.member && (
+          <span className="memberCount">({roomData.member.length})</span>
+        )}
+      </button>
+      <Help />
       <div className="postContainer">
         {/* ポストリストの各ポストごとに描画 */}
         {postList.map((post, index) => {
