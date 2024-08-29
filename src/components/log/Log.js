@@ -38,6 +38,7 @@ const Log = () => {
             const currentDate = new Date();
             // 登録日をUnix timeから日付に変換
             const registrationDate = new Date(userData.date);
+            registrationDate.setHours(0, 0, 0, 0);
             // 登録日からの経過日数を計算
             const daysSinceRegistration = Math.floor(
               (currentDate - registrationDate) / (1000 * 60 * 60 * 24)
