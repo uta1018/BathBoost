@@ -33,7 +33,20 @@ const Log = () => {
         const userDocSnap = await getDoc(userDocRef);
 
         if (userDocSnap.exists()) {
-          setUserData({ id: userDocSnap.id, ...userDocSnap.data() });
+            const userData = userDocSnap.data();
+            // 現在の日付を取得
+            const currentDate = new Date();
+            // 登録日をUnix timeから日付に変換
+            const registrationDate = new Date(userData.date);
+            // 登録日からの経過日数を計算
+            const daysSinceRegistration = Math.floor(
+              (currentDate - registrationDate) / (1000 * 60 * 60 * 24)
+            );
+          setUserData({
+            id: userDocSnap.id,
+            ...userData,
+            daysSinceRegistration,
+          });
         } else {
           console.log("ユーザーデータが見つかりません");
         }
@@ -51,20 +64,20 @@ const Log = () => {
       <PageHeader title="きろく" />
       <Help />
       <div>
-        <FontAwesomeIcon icon={faFilePen} color={"#FFD4BC"} />
+        <FontAwesomeIcon icon={faFilePen} />
         おふろレベル Lv.{userData.level}
       </div>
       <div>
-        <FontAwesomeIcon icon={faFilePen} color={"#FFD4BC"} />
+        <FontAwesomeIcon icon={faFilePen} />
         おふろポイント {userData.point}pt
       </div>
       <div>
-        <FontAwesomeIcon icon={faFilePen} color={"#FFD4BC"} />
+        <FontAwesomeIcon icon={faFilePen} />
         おふろ回数 {userData.bathCount}回
       </div>
       <div>
-        <FontAwesomeIcon icon={faFilePen} color={"#FFD4BC"} />
-        登録から {userData.date}日
+        <FontAwesomeIcon icon={faFilePen} />
+        登録から {userData.daysSinceRegistration}日
       </div>
       <PageSubheading title="れんぞくおふろきろく" />
       <div>現在　最長</div>
