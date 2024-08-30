@@ -52,8 +52,13 @@ const Login = () => {
     <div className="login-container">
       <div className="header">
         <div className="logo-box">
-          <img src="/logo.png" className="logoImg" width={100}></img>
-          <img src="/login/logo_text.png" className="logoImg" width={100}></img>
+          <img src="/logo.png" alt="ロゴ" className="logoImg" width={100}></img>
+          <img
+            src="/login/logo_text.png"
+            alt="BATH BOOST"
+            className="logoImg"
+            width={100}
+          ></img>
         </div>
       </div>
       <div className="content">
