@@ -6,7 +6,7 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
 import PopupHeader from "../common/PopupHeader";
@@ -15,8 +15,13 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
   // グローバル変数を取得
   const { userID, setRoomID } = useContext(Context);
   const [roomName, setRoomName] = useState("");
+  const inputRef = useRef(null);
 
   console.log("CreateRoom");
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   // バリデーションのメッセージを管理する変数
   const [roomNameError, setRoomNameError] = useState({
@@ -88,6 +93,7 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
       <div className="flex-box">
         <h3>ルームの名前を入力してください</h3>
         <input
+          ref={inputRef}
           className="input"
           type="text"
           placeholder="ルームネーム"

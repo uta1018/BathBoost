@@ -8,13 +8,12 @@
   position: relative;
 }
 
-.ok-button-main {
-  color: var(--gray-0);
-  background-color: var(--main-500);
-  border: 1px solid var(--main-700);
-  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2),
-    inset 0px 2px 8px rgba(255, 255, 255, 0.4);
+.button-w140 {
+  width: 140px;
+}
+
+.button-w280 {
+  width: 280px;
 }
 
 .button:disabled::after {
@@ -29,8 +28,13 @@
   pointer-events: none;
 }
 
-.button-w140 {
-  width: 140px;
+.ok-button-main {
+  color: var(--gray-0);
+  background-color: var(--main-500);
+  border: 1px solid var(--main-700);
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2),
+    inset 0px 2px 8px rgba(255, 255, 255, 0.4);
 }
 
 .cancel-button {
@@ -38,3 +42,4 @@
   border: 1px solid var(--gray-500);
   box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
 }
+

@@ -9,7 +9,7 @@ const CopyButton = ({ text }) => {
       .writeText(text)
       .then(() => {
         // コピー成功時にボタンのテキストを変更
-        setCopyStatus("コピー完了！");
+        setCopyStatus("コピー完了");
         // 3秒後に元のテキストに戻す
         setTimeout(() => setCopyStatus("コピー"), 3000);
       })
@@ -18,7 +18,7 @@ const CopyButton = ({ text }) => {
       });
   };
 
-  return <button onClick={handleCopy}>{copyStatus}</button>;
+  return <button onClick={handleCopy} className="copy-button">{copyStatus}</button>;
 };
 
 export default CopyButton;
