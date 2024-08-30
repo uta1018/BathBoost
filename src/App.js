@@ -27,6 +27,9 @@ import "./components/css/home/RoomID.css";
 import "./components/css/home/RoomInfo.css";
 import "./components/css/home/SelectRoom.css";
 
+import "./components/css/login/FirstLogin.css";
+import "./components/css/login/Login.css";
+
 function App() {
   return (
     <ThemeProvider>

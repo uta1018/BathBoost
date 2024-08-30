@@ -49,35 +49,27 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="header">
-        <div className="logo-box">
-          <img src="/logo.png" alt="ロゴ" className="logoImg" width={100}></img>
+      <header>
+        <div className="logo-wrapper">
+          <img src="/logo.png" alt="ロゴ" className="logo"></img>
           <img
             src="/login/logo_text.png"
             alt="BATH BOOST"
-            className="logoImg"
-            width={100}
+            className="title"
           ></img>
         </div>
-      </div>
-      <div className="content">
-        <div className="image-container">
-          <div className="circle"></div>
-          <img
-            src="/login/cat_frog_bathboost.png"
-            alt="Animal"
-            width={200}
-            className="login_image"
-          />
-        </div>
+      </header>
+      <div className="flex-box">
+        <img src="/login/cat_frog_bathboost.png" alt="猫と蛙の画像" />
         <button onClick={logInWithGoogle} className="login-button">
-          Googleアカウントで<br></br>ログイン
+          <p>Googleアカウントで</p>
+          <p>ログイン</p>
         </button>
         <Tutorial />
       </div>
-      <div className="footer">
+      <footer>
         <p>@ライラック</p>
-      </div>
+      </footer>
       {/* ポップアップ */}
       {showFirstLogin ? <FirstLogin /> : <></>}
     </div>
