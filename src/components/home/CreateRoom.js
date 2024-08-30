@@ -115,7 +115,7 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
             キャンセル
           </button>
           <button
-            className="button button-w140 ok-button-main "
+            className="button button-w140 ok-button-main"
             onClick={createRoom}
             disabled={roomName.length < 1 || 15 < roomName.length}
           >

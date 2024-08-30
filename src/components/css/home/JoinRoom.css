@@ -1,0 +1,34 @@
+.join-room-container > .flex-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 0px 32px;
+  height: 280px;
+}
+
+.join-room-container > .flex-box h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.join-room-container > .flex-box h3 {
+  margin-bottom: 24px;
+}
+
+.join-room-container > .flex-box input {
+  margin-bottom: 16px;
+}
+
+.join-room-container > .flex-box .room-undefind-messeage {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 31px;
+}
+
+.join-room-container > .flex-box .button-wrapper {
+  display: flex;
+  gap: 14px;
+  margin-top: auto;
+}

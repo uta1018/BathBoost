@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import PopupHeader from "../common/PopupHeader";
@@ -13,8 +13,13 @@ const JoinRoom = ({
   const [inputRoomID, setInputRoomID] = useState("");
   // 見つかりませんでした表示を管理
   const [showAlertRoomID, setShowAlertRoomID] = useState(false);
+  const inputRef = useRef(null);
 
   console.log("JoinRoom");
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   // ルーム入室ボタンを押したときの関数
   const joinRoom = async () => {
@@ -44,21 +49,26 @@ const JoinRoom = ({
   };
 
   return (
-    <div className="popup-content">
-      <div className="input-field-container">
-        <PopupHeader title="ルームを探す" />
-        <p>ルームのIDを入力してください</p>
+    <div className="popup-content-h320 join-room-container">
+      <PopupHeader title="ルームを探す" />
+      <div className="flex-box">
+        <h3>ルームのIDを入力してください</h3>
         <input
+          ref={inputRef}
+          className="input"
           type="text"
           placeholder="ルームID"
           value={inputRoomID}
           onChange={(e) => setInputRoomID(e.target.value)}
         />
         {showAlertRoomID && (
-          <p style={{ color: "red" }}>※ルームが見つかりませんでした</p>
+          <p className="room-undefind-messeage">
+            ※ルームが見つかりませんでした
+          </p>
         )}
-        <p>
+        <div className="button-wrapper">
           <button
+            className="button button-w140 cancel-button"
             onClick={() => {
               closeJoinRoom();
               removeOverlay();
@@ -67,13 +77,13 @@ const JoinRoom = ({
             キャンセル
           </button>
           <button
-            className="post-button"
+            className="button button-w140 ok-button-main"
             onClick={joinRoom}
             disabled={inputRoomID.length < 1}
           >
             OK
           </button>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ import "./components/css/common/PopupHeader.css";
 
 import "./components/css/home/CreateRoom.css";
 import "./components/css/home/Home.css";
+import "./components/css/home/JoinRoom.css";
 import "./components/css/home/RoomID.css";
 import "./components/css/home/SelectRoom.css";
 
