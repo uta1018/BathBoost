@@ -53,21 +53,22 @@ const Login = () => {
       <div className="header">
         <div className="logo-box">
           <img src="/logo.png" className="logoImg" width={100}></img>
-          <div className="logo">BATH BOOST</div>
+          <img src="/login/logo_text.png" className="logoImg" width={100}></img>
+          {/* <div className="logo">BATH BOOST</div> */}
         </div>
       </div>
       <div className="content">
         <div className="image-container">
           <div className="circle"></div>
           <img
-            src="/login/login.png"
+            src="/login/cat_frog_bathboost.png"
             alt="Animal"
             width={200}
             className="login_image"
           />
         </div>
 
-        <div className="title">BATH BOOST</div>
+        {/* <div className="title">BATH BOOST</div> */}
         <button onClick={logInWithGoogle} className="login-button">
           Googleアカウントで<br></br>ログイン
         </button>

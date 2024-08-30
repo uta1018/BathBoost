@@ -6,7 +6,7 @@ import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
 
 const FirstLogin = () => {
-  const {userID} = useContext(Context);
+  const { userID } = useContext(Context);
   // 入力されたユーザーネームを保存する変数
   const [userName, setUserName] = useState("");
   // 選択されたアイコンを保存する変数
@@ -62,7 +62,7 @@ const FirstLogin = () => {
   };
 
   return (
-    <div>
+    <div className="levelup-content">
       {/* タイトル */}
       <div>プロフィール設定</div>
       <div>※後で設定で変更できます</div>
