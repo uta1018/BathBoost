@@ -2,9 +2,11 @@ import React, { memo, useContext, useEffect, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { themeContext } from "../../providers/Theme";
 
 const SelectColor = memo(({ themeColor, themeColorList }) => {
   const { userID } = useContext(Context);
+  const setThemeColor = useContext(themeContext);
   // 選択されたアイコンを保存する変数
   const [selectedColor, setSelectedColor] = useState(themeColor);
 
@@ -17,16 +19,18 @@ const SelectColor = memo(({ themeColor, themeColorList }) => {
   // 選択したときの関数
   const changeColor = async (color) => {
     setSelectedColor(color);
+    setThemeColor(color);
 
     // userドキュメントを更新
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
-      theme: selectedColor,
+      themeColor: color,
     });
   };
 
   return (
     <div>
+      <p style={{ color: "var(--main-300)" }}>てすと</p>
       {themeColorList &&
         themeColorList.map((color, index) => {
           return (
