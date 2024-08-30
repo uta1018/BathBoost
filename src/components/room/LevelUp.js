@@ -42,6 +42,11 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
               iconList: arrayUnion(rewardData.path),
               highestLevel: userData.level,
             });
+          } else if (rewardData.type === "themeColor") {
+            await updateDoc(userDocRef, {
+              themeColorList: arrayUnion(rewardData.themeColor),
+              highestLevel: userData.level,
+            });
           }
           setRewardData(rewardData);
         }

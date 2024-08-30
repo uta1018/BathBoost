@@ -18,7 +18,7 @@ const SelectIcon = ({
   console.log("アイコン変更");
 
   // 変更ボタンを押したときの関数
-  async function changeIcon() {
+  const changeIcon = async () => {
     closeSelectIcon();
 
     // userドキュメントを更新
@@ -46,7 +46,7 @@ const SelectIcon = ({
     await Promise.all(updatePromises);
 
     changeLevelToggle();
-  }
+  };
 
   return (
     <div className="popup-content">
