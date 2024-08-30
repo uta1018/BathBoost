@@ -1,0 +1,55 @@
+.navbar-container {
+  display: flex;
+  background-color: var(--brown-700);
+  height: 72px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  justify-content: space-around;
+  padding: 10px 20px 8px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0px -3px 0px rgba(0, 0, 0, 0.25),
+  inset 0px 2px 4px rgba(255, 255, 255, 0.2);
+}
+
+.navbar-container button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  color: var(--gray-0);
+}
+
+.navbar-container .icon-user {
+  font-size: 30px;
+}
+
+.navbar-container .icon-home {
+  font-size: 28px;
+}
+
+.navbar-container .icon-log {
+  font-size: 27px;
+}
+
+.navbar-container svg {
+  stroke: var(--brown-700);
+  stroke-width: 80px;
+  paint-order: stroke;
+  filter: drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.25));
+}
+
+.navbar-container .icon-active {
+  color: var(--main-500);
+}
+
+.navbar-container .icon-active svg {
+  transform: translateY(2px);
+}
+
+.navbar-container p {
+  font-size: 14px;
+  font-weight: 600;
+}

@@ -6,7 +6,10 @@ import Login from "./components/login/Login";
 import Room from "./components/room/Room";
 import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
-import "./components/css/Popup.css";
+import "./components/css/common/Font.css";
+import "./components/css/common/Navbar.css";
+import "./components/css/common/Popup.css";
+import "./components/css/common/ThemeColor.css";
 
 function App() {
   return (

@@ -8,30 +8,38 @@ import { faHouse, faGear, faFilePen } from "@fortawesome/free-solid-svg-icons";
 const Navbar = ({ currentPage }) => {
   const navigate = useNavigate();
 
-  // テキストとアイコンの色を変更する関数
-  const getColor = (page) => {
-    // 現在のページと一致する場合、"#97D0BE"を採用
-    return currentPage === page ? "#97D0BE" : "#FFFFFF";
+  // 現在のページに基づいてクラス名を決定する関数
+  const getIconClass = (page) => {
+    return currentPage === page && "icon-active";
   };
 
   return (
-    <nav>
+    <nav className="navbar-container">
       {/* ユーザーボタン */}
-      <button onClick={() => navigate("/user")}>
-        <FontAwesomeIcon icon={faGear} color={getColor("user")} />
-        <span style={{ color: getColor("user") }}>せってい</span>
+      <button onClick={() => navigate("/user")} className={getIconClass("user")}>
+        <FontAwesomeIcon
+          icon={faGear}
+          className="icon-user"
+        />
+        <p>せってい</p>
       </button>
 
       {/* ホームボタン */}
-      <button onClick={() => navigate("/")}>
-        <FontAwesomeIcon icon={faHouse} color={getColor("home")} />
-        <span style={{ color: getColor("home") }}>ホーム</span>
+      <button onClick={() => navigate("/")} className={getIconClass("home")}>
+        <FontAwesomeIcon
+          icon={faHouse}
+          className="icon-home"
+        />
+        <p>ホーム</p>
       </button>
 
       {/* ログボタン */}
-      <button onClick={() => navigate("/log")}>
-        <FontAwesomeIcon icon={faFilePen} color={getColor("log")} />
-        <span style={{ color: getColor("log") }}>きろく</span>
+      <button onClick={() => navigate("/log")} className={getIconClass("log")}>
+        <FontAwesomeIcon
+          icon={faFilePen}
+          className="icon-log"
+        />
+        <p>きろく</p>
       </button>
     </nav>
   );
