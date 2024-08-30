@@ -9,10 +9,7 @@ import {
 import React, { useContext, useState } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 import PopupHeader from "../common/PopupHeader";
-import "../css/Popup.css";
-// import "./css/Home.css";
 
 const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
   // グローバル変数を取得

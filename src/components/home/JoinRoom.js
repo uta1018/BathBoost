@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import PopupHeader from "../common/PopupHeader";
-import "../css/Popup.css";
-// import "./css/Home.css";
 
 const JoinRoom = ({
   closeJoinRoom,

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Context } from '../../providers/Provider';
 import CopyButton from '../common/CopyButton';
 import PopupHeader from '../common/PopupHeader';
-import "../css/Popup.css";
 
 const RoomID = ({ removeOverlay }) => {
   const { roomID } = useContext(Context);

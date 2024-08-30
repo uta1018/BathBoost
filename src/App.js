@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home";
 import User from "./components/user/User";
@@ -7,6 +6,7 @@ import Login from "./components/login/Login";
 import Room from "./components/room/Room";
 import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
+import "./components/css/Popup.css";
 
 function App() {
   return (

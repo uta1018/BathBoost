@@ -10,7 +10,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-// import "./css/Room.css";
 import RoomNavbar from "./RoomNavbar";
 import RoomDetail from "../common/RoomDetail";
 import PostItem from "./PostItem";

@@ -6,7 +6,6 @@ import { Context } from "../../providers/Provider";
 import { doc, getDoc } from "firebase/firestore";
 import FirstLogin from "./FirstLogin";
 import Tutorial from "./Tutorial";
-// import "./css/Login.css";
 
 const Login = () => {
   // グローバル変数を取得

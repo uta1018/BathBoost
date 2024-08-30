@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useState } from "react";
-// import { Context } from "../../providers/Provider";
+
 import {
   collection,
   documentId,

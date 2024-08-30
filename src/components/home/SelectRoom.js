@@ -11,7 +11,6 @@ import React, { memo, useContext, useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
 import { useNavigate } from "react-router-dom";
-// import "./css/Home.css";
 
 //アイコンのインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

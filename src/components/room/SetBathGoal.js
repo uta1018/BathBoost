@@ -5,7 +5,6 @@ import { addDoc, collection } from "firebase/firestore";
 import PopupHeader from "../common/PopupHeader";
 import { faBath } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import './css/TimeSelect.css';
 
 const toLocalISOString = (date) => {
   const localDate = new Date(date - date.getTimezoneOffset() * 60000);

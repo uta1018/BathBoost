@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PopupHeader from "../common/PopupHeader";
-import "../css/Popup.css";
 
 const Tutorial = ({ closeHelp, showCloseButton = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);

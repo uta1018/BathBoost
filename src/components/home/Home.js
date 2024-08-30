@@ -10,7 +10,6 @@ import Help from "../common/Help";
 import RoomID from "./RoomID";
 import RoomInfo from "./RoomInfo";
 import Overlay from "../common/Overlay";
-// import "./css/Home.css";
 
 //アイコンのインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

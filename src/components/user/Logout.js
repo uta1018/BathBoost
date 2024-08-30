@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../providers/Provider";
-// import "./css/Home.css";
 
 const Logout = () => {
   // グローバル変数を取得
