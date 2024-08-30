@@ -54,7 +54,6 @@ const Login = () => {
         <div className="logo-box">
           <img src="/logo.png" className="logoImg" width={100}></img>
           <img src="/login/logo_text.png" className="logoImg" width={100}></img>
-          {/* <div className="logo">BATH BOOST</div> */}
         </div>
       </div>
       <div className="content">
@@ -67,8 +66,6 @@ const Login = () => {
             className="login_image"
           />
         </div>
-
-        {/* <div className="title">BATH BOOST</div> */}
         <button onClick={logInWithGoogle} className="login-button">
           Googleアカウントで<br></br>ログイン
         </button>
