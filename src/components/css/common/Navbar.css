@@ -45,6 +45,10 @@
   color: var(--main-500);
 }
 
+.navbar-container .icon-active p {
+  color: var(--main-500);
+}
+
 .navbar-container .icon-active svg {
   transform: translateY(2px);
 }
@@ -52,4 +56,5 @@
 .navbar-container p {
   font-size: 14px;
   font-weight: 600;
+  color: var(--gray-0);
 }

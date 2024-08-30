@@ -90,35 +90,30 @@ const SelectRoom = memo(() => {
 
   return (
     roomList.length > 0 && (
-      <div className="input-field-container">
+      <div className="select-room-container">
         {roomList.map((room) => {
           return (
-            <div key={room.id}>
+            <button
+              onClick={() => handleRoute(room.id)}
+              key={room.id}
+              className="home-button"
+            >
+              <FontAwesomeIcon icon={faPaw} />
               <div>
-                <button
-                  className="room-select-button"
-                  onClick={() => handleRoute(room.id)}
-                >
-                  <FontAwesomeIcon icon={faPaw} />
-                  <div>
-                    {room.roomName}
-                    <div>
-                      メンバー:{" "}
-                      {(() => {
-                        const membersText = room.member
-                          .map((member) => member.userName)
-                          .join("、");
-                        return membersText.length > 13
-                          ? `${membersText.slice(0, 13)}…(${
-                              room.member.length
-                            })`
-                          : `${membersText} (${room.member.length})`;
-                      })()}
-                    </div>
-                  </div>
-                </button>
+                <h3>{room.roomName}</h3>
+                <p>
+                  メンバー:{" "}
+                  {(() => {
+                    const membersText = room.member
+                      .map((member) => member.userName)
+                      .join("、");
+                    return membersText.length > 13
+                      ? `${membersText.slice(0, 13)}…(${room.member.length})`
+                      : `${membersText} (${room.member.length})`;
+                  })()}
+                </p>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>

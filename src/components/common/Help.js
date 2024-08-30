@@ -16,8 +16,8 @@ const Help = () => {
   };
 
   return (
-    <div>
-      <div onClick={openHelp}>
+    <div className="help-container">
+      <div onClick={openHelp} className="icon-wrapper">
         <FontAwesomeIcon icon={faCircleQuestion} />
       </div>
       {showTutorial ? (

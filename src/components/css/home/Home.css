@@ -1,0 +1,27 @@
+.home-container {
+  margin: 68px 32px 72px;
+}
+
+.home-container .flex-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.home-container .text-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.home-container .text-wrapper img {
+  width: 132px;
+}
+
+.home-container .text-wrapper p {
+  font-size: 18px;
+  color: var(--brown-700);
+  font-weight: 700;
+  min-width: 180px;
+}

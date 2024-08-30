@@ -79,29 +79,28 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="header">
-        <PageHeader title={"ホーム"} />
-      </div>
+      <PageHeader title={"ホーム"} />
       <Help />
-      {/* 画像やテキスト */}
-      <img
-        src="/home/frog_front.png"
-        alt="カエルの画像"
-        className="ID-img"
-        width={100}
-      ></img>
-      <div className="content">
-        <p>入室するルームを選んでください</p>
+      <div className="flex-box">
+        <div className="text-wrapper">
+          <img src="/home/frog_front.png" alt="カエルの画像"></img>
+          <p>
+            入室するルームを
+            <br />
+            選んでください
+          </p>
+        </div>
         <button
           onClick={() => {
             openCreateRoom();
             applyOverlay();
           }}
+          className="home-button"
         >
           <FontAwesomeIcon icon={faPlus} />
           <div>
-            <div>ルームを作成する</div>
-            <div>新しいルームを作成する</div>
+            <h3>ルームを作成する</h3>
+            <p>新しいルームを作成する</p>
           </div>
         </button>
         <button
@@ -109,18 +108,17 @@ const Home = () => {
             openJoinRoom();
             applyOverlay();
           }}
+          className="home-button"
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
           <div>
-            <div>IDでルームを探す</div>
-            <div>作成済みのルームをIDで探す</div>
+            <h3>IDでルームを探す</h3>
+            <p>作成済みのルームをIDで探す</p>
           </div>
         </button>
         <SelectRoom />
       </div>
-      <div className="footer">
-        <Navbar currentPage="home" />
-      </div>
+      <Navbar currentPage="home" />
       {showOverlay && <Overlay />}
       {showCreateRoom && (
         <CreateRoom

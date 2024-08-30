@@ -7,10 +7,14 @@ import Room from "./components/room/Room";
 import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
 import "./components/css/common/Font.css";
+import "./components/css/common/Help.css";
+import "./components/css/common/HomeButton.css";
 import "./components/css/common/Navbar.css";
 import "./components/css/common/PageHeader.css";
 import "./components/css/common/Popup.css";
 import "./components/css/common/ThemeColor.css";
+import "./components/css/home/Home.css";
+import "./components/css/home/SelectRoom.css";
 
 function App() {
   return (
