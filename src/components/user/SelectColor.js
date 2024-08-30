@@ -30,18 +30,21 @@ const SelectColor = memo(({ themeColor, themeColorList }) => {
       {themeColorList &&
         themeColorList.map((color, index) => {
           return (
-            <img
-              key={index}
-              src={`/themeColor/${color}.png`}
-              alt="テーマカラー"
-              onClick={() => changeColor(color)}
-              style={{
-                width: "100px",
-                borderRadius: "20%",
-                outlineOffset: "1px",
-                outline: selectedColor === color ? "3px solid #B9B9B9" : "",
-              }}
-            />
+            <>
+              <img
+                key={index}
+                src={`/themeColor/${color}.png`}
+                alt="テーマカラー"
+                onClick={() => changeColor(color)}
+                style={{
+                  width: "100px",
+                  borderRadius: "20%",
+                  outlineOffset: "1px",
+                  outline: selectedColor === color ? "3px solid #B9B9B9" : "",
+                }}
+              />
+              {selectedColor === color && <p>選択中</p>}
+            </>
           );
         })}
     </div>
