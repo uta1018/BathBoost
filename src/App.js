@@ -8,6 +8,7 @@ import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
 import "./components/css/common/Font.css";
 import "./components/css/common/Navbar.css";
+import "./components/css/common/PageHeader.css";
 import "./components/css/common/Popup.css";
 import "./components/css/common/ThemeColor.css";
 

@@ -2,7 +2,9 @@ import React from 'react'
 // ページのタイトルを受け取って表示
 const PageHeader = ({title}) => {
   return (
-    <div>{title}</div>
+    <div className='page_header_container'>
+      <p>{title}</p>
+    </div>
   )
 }
 
