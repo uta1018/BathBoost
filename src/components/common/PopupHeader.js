@@ -5,9 +5,9 @@ import { faPaw } from "@fortawesome/free-solid-svg-icons";
 // ポップアップのタイトルを受け取って表示
 const PopupHeader = ({ title }) => {
   return (
-    <div>
+    <div className="popup-header-container popup-header-main">
       <FontAwesomeIcon icon={faPaw} />
-      {title}
+      <p>{title}</p>
     </div>
   );
 };

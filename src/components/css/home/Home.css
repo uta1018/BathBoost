@@ -1,5 +1,5 @@
 .home-container {
-  margin: 68px 32px 72px;
+  margin: 68px 32px 96px;
 }
 
 .home-container .flex-box {
@@ -21,7 +21,6 @@
 
 .home-container .text-wrapper p {
   font-size: 18px;
-  color: var(--brown-700);
   font-weight: 700;
   min-width: 180px;
 }

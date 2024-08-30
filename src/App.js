@@ -12,6 +12,7 @@ import "./components/css/common/HomeButton.css";
 import "./components/css/common/Navbar.css";
 import "./components/css/common/PageHeader.css";
 import "./components/css/common/Popup.css";
+import "./components/css/common/PopupHeader.css";
 import "./components/css/common/ThemeColor.css";
 import "./components/css/home/Home.css";
 import "./components/css/home/SelectRoom.css";
