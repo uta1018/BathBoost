@@ -81,7 +81,7 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
 
   return (
     <div className="popup-content">
-      <div className="input-field-container">
+      <div>
         <PopupHeader title="ルームを作成" />
         <p>ルームの名前を入力してください</p>
         <input
@@ -92,9 +92,17 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
         />
         <p style={{ color: roomNameError.color }}>{roomNameError.message}</p>
         <p>あとで設定で変更もできます。</p>
-        <button onClick={() => {closeCreateRoom(); removeOverlay();}}>キャンセル</button>
         <button
-          className="post-button"
+          className="button button-w140 cancel-button"
+          onClick={() => {
+            closeCreateRoom();
+            removeOverlay();
+          }}
+        >
+          キャンセル
+        </button>
+        <button
+          className="button button-w140 ok-button-main "
           onClick={createRoom}
           disabled={roomName.length < 1 || 15 < roomName.length}
         >

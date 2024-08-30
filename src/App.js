@@ -6,6 +6,7 @@ import Login from "./components/login/Login";
 import Room from "./components/room/Room";
 import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
+import "./components/css/common/Button.css";
 import "./components/css/common/Font.css";
 import "./components/css/common/Help.css";
 import "./components/css/common/HomeButton.css";

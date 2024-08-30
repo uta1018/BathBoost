@@ -1,0 +1,40 @@
+.button {
+  height: 46px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  position: relative;
+}
+
+.ok-button-main {
+  color: var(--gray-0);
+  background-color: var(--main-500);
+  border: 1px solid var(--main-700);
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2),
+    inset 0px 2px 8px rgba(255, 255, 255, 0.4);
+}
+
+.button:disabled::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+  pointer-events: none;
+}
+
+.button-w140 {
+  width: 140px;
+}
+
+.cancel-button {
+  background-color: var(--gray-0);
+  border: 1px solid var(--gray-500);
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
+}
