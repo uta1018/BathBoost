@@ -24,6 +24,7 @@ import "./components/css/home/CreateRoom.css";
 import "./components/css/home/Home.css";
 import "./components/css/home/JoinRoom.css";
 import "./components/css/home/RoomID.css";
+import "./components/css/home/RoomInfo.css";
 import "./components/css/home/SelectRoom.css";
 
 function App() {

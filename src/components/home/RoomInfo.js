@@ -55,24 +55,29 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
   };
 
   return (
-    <div className="popup-content">
-      <div className="roominfo-container">
-        <div className="content">
-          <PopupHeader title="ルームを探す" />
-          {roomData && <p>このルームに入室しますか？</p>}
-          {roomData && roomData.roomName}
+    <div className="popup-content-h320 room-info-container">
+      <PopupHeader title="ルームを探す" />
+      <div className="flex-box">
+        <h3>{roomData && <p>このルームに入室しますか？</p>}</h3>
+        <div className="room-info-wrapper">
+          <h3>{roomData && roomData.roomName}</h3>
           {roomData && (
-            <div>
-              <p>メンバー:</p>
-              {roomData.member.map((member, index) => (
-                <span key={member.userID}>
-                  {member.userName}
-                  {index < roomData.member.length - 1 && ", "}
-                </span>
-              ))}
-            </div>
+            <p>
+              メンバー:{" "}
+              {(() => {
+                const membersText = roomData.member
+                  .map((member) => member.userName)
+                  .join("、");
+                return membersText.length > 13
+                  ? `${membersText.slice(0, 13)}…(${roomData.member.length})`
+                  : `${membersText} (${roomData.member.length})`;
+              })()}
+            </p>
           )}
+        </div>
+        <div className="button-wrapper">
           <button
+            className="button button-w140 cancel-button"
             onClick={() => {
               closeRoomInfo();
               removeOverlay();
@@ -80,7 +85,10 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
           >
             キャンセル
           </button>
-          <button onClick={roomInfo}>
+          <button
+            onClick={roomInfo}
+            className="button button-w140 ok-button-main"
+          >
             OK
           </button>
         </div>
