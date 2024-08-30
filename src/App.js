@@ -6,15 +6,20 @@ import Login from "./components/login/Login";
 import Room from "./components/room/Room";
 import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
-import "./components/css/common/Button.css";
-import "./components/css/common/Font.css";
+
+import "./components/css/utils/Button.css";
+import "./components/css/utils/Font.css";
+import "./components/css/utils/HomeButton.css";
+import "./components/css/utils/Input.css";
+import "./components/css/utils/Popup.css";
+import "./components/css/utils/ThemeColor.css";
+
 import "./components/css/common/Help.css";
-import "./components/css/common/HomeButton.css";
 import "./components/css/common/Navbar.css";
 import "./components/css/common/PageHeader.css";
-import "./components/css/common/Popup.css";
 import "./components/css/common/PopupHeader.css";
-import "./components/css/common/ThemeColor.css";
+
+import "./components/css/home/CreateRoom.css";
 import "./components/css/home/Home.css";
 import "./components/css/home/SelectRoom.css";
 
