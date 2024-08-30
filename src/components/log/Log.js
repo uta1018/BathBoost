@@ -54,7 +54,7 @@ const Log = () => {
       };
 
       fetchData();
-    }, [userID, navigate]);
+    }, []);
 
     if (!userData) {
       return <div>Loading...</div>;
