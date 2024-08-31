@@ -3,7 +3,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  height: 320px;
+  height: 324px;
   display: flex;
   background-color: var(--main-500);
   border-radius: 10px 10px 0px 0px;
@@ -29,6 +29,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .select-stamp-container > .stamp-wrapper .stamp {

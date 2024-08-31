@@ -1,0 +1,123 @@
+.room-detail-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 366px;
+  height: 600px;
+  background: var(--gray-0);
+  z-index: 2;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-detail-container > .header {
+  width: 320px;
+  border-bottom: 2px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  padding: 36px 0 20px;
+}
+
+.room-detail-container > .header svg {
+  font-size: 20px;
+  color: var(--main-500);
+}
+
+.room-detail-container > .header h3 {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.room-detail-container > .flex-box {
+  width: 336px;
+  height: 416px;
+  overflow: scroll;
+  margin: 0px auto 16px;
+  padding: 16px 0px;
+}
+
+.room-detail-container > .flex-box div {
+  margin: 0 auto;
+}
+
+.room-detail-container > .flex-box .roomid-wrapper {
+  width: 300px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: var(--main-200);
+  margin: 24px auto 12px;
+}
+
+.room-detail-container > .flex-box .roomid-wrapper p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.room-detail-container > .flex-box .text-wrapper {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px auto 24px;
+}
+
+.room-detail-container > .flex-box .text-wrapper p {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.room-detail-container > .flex-box .member-wrapper {
+  margin: 16px 16px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.room-detail-container > .flex-box .member-wrapper .user-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.room-detail-container > .flex-box .member-wrapper .user-wrapper img {
+  width: 36px;
+  border-radius: 100px;
+}
+
+.room-detail-container > .flex-box .member-wrapper .user-wrapper p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.room-detail-container > .flex-box .info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 0;
+}
+
+.room-detail-container > .flex-box .info-wrapper {
+  display: flex;
+  width: 288px;
+  border-bottom: 2px solid var(--gray-200);
+  justify-content: space-between;
+  padding-bottom: 14px;
+}
+
+.room-detail-container > .flex-box .info-wrapper p {
+  font-size: 16px;
+  font-weight: 700;
+}

@@ -172,7 +172,9 @@ const Room = () => {
         {roomName}
         {/* ここにメンバーの数を表示 */}
         {roomData && (
-          <span>({roomData.member.length})</span>
+          <>
+            &nbsp;<span>({roomData.member.length})</span>
+          </>
         )}
       </button>
       <Help />

@@ -2,6 +2,8 @@ import React from "react";
 import CopyButton from "./CopyButton";
 import PopupHeader from "./PopupHeader";
 import Subheading from "./Subheading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
 
 // タイムスタンプを日付に変換する関数
 const formatDate = (timestamp) => {
@@ -22,27 +24,44 @@ const RoomDetail = ({
   date,
 }) => {
   return (
-    <div className="popup-content">
-      <PopupHeader title={`${roomName}(${member.length})`} />
-      <Subheading title="ルームID" />
-      <p>{id}</p>
-      <p>
-        ルームIDを共有しよう！ <CopyButton text={id} />
-      </p>
-      <div>
-        <Subheading title="メンバー" />
-        {member.map((user, index) => (
-          <span key={user.userID}>
-            <img src={user.icon} alt="" width="40px" />
-            {user.userName}
-          </span>
-        ))}
+    <div className="room-detail-container">
+      <div className="header">
+        <FontAwesomeIcon icon={faPaw} />
+        <h3>
+          {roomName} ({member.length})
+        </h3>
       </div>
-      <Subheading title="インフォメーション" />
-      {/* <p>作成日: {date}</p> */}
-      <p>作成日: {formatDate(date)}</p>
-      <p>作成者: {author.userName}</p>
-      <button onClick={closeRoomDetail}>とじる</button>
+      <div className="flex-box">
+        <Subheading title="ルームID" />
+        <div className="roomid-wrapper">
+          <p>{id}</p>
+        </div>
+        <div className="text-wrapper">
+          <p>ルームIDを共有しよう!</p>
+          <CopyButton text={id} />
+        </div>
+        <Subheading title="メンバー" />
+        <div className="member-wrapper">
+          {member.map((user) => (
+            <div className="user-wrapper" key={user.userID}>
+              <img src={user.icon} alt="" width="40px" />
+              <p>{user.userName}</p>
+            </div>
+          ))}
+        </div>
+        <Subheading title="インフォメーション" />
+        <div className="info-container">
+          <div className="info-wrapper">
+            <p>作成日</p>
+            <p>{formatDate(date)}</p>
+          </div>
+          <div className="info-wrapper">
+            <p>作成者</p>
+            <p>{author.userName}</p>
+          </div>
+        </div>
+      </div>
+      <button className="button cancel-button button-w280" onClick={closeRoomDetail}>とじる</button>
     </div>
   );
 };
