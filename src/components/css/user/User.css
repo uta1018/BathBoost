@@ -16,7 +16,7 @@
   bottom: 14px;
 }
 
-@media (max-width: 399px) {
+@media (max-width: 389px) {
   /* 400px未満で適用するスタイル */
   .user-container > .flex-box .for-position-wrapper > img {
     display: none;
