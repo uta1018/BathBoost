@@ -104,16 +104,23 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
   }, [rooms, changeRoom]);
 
   return (
-    <div>
+    <div className="setting-room-container">
       {roomList.map((room) => {
         return (
-          <div key={room.id}>
-            <FontAwesomeIcon icon={faPaw} />
-            <div onClick={() => openRoomDetail(room)}>{room.roomName}</div>
-            <div onClick={() => openChangeRoomName(room)}>
-              <FontAwesomeIcon icon={faPen} />
+          <div key={room.id} className="flex-box">
+            <div className="room-info-wrapper">
+              <FontAwesomeIcon icon={faPaw} />
+              <h3 onClick={() => openRoomDetail(room)}>{room.roomName}</h3>
+              <div
+                className="edit-pen"
+                onClick={() => openChangeRoomName(room)}
+              >
+                <FontAwesomeIcon icon={faPen} />
+              </div>
             </div>
-            <button onClick={() => openExitRoom(room)}>退出</button>
+            <button className="exit-button" onClick={() => openExitRoom(room)}>
+              退出
+            </button>
             {/* {room.author.userID === userID ? (
               <button onClick={() => openDeleteRoom(room)}>削除</button>
             ) : (

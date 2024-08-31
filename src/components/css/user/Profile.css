@@ -1,0 +1,79 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.profile-container > .icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-container > .icon-wrapper img {
+  width: 84px;
+  height: 84px;
+  border-radius: 100px;
+  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.profile-container > .icon-wrapper button {
+  height: 28px;
+  width: 92px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  background-color: var(--gray-0);
+  border: 1px solid var(--gray-500);
+  box-shadow: 0px 2px 0px rgba(0,0,0,0.2);
+  font-size: 10px;
+}
+
+.profile-container > .user-info-wrapper {
+  width: 210px;
+}
+
+.profile-container > .user-info-wrapper p {
+  font-size: 12px;
+  color: var(--brown-300);
+  font-weight: 600;
+}
+
+.profile-container > .user-info-wrapper .user-name-wrapper {
+  width: 100%;
+  padding: 8px 0 14px;
+  border-bottom: 1px solid var(--gray-300);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.profile-container > .user-info-wrapper .user-name-wrapper h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile-container > .user-info-wrapper .user-name-wrapper svg {
+  font-size: 16px;
+  color: var(--brown-300);
+}
+
+.profile-container > .user-info-wrapper h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.profile-container > .user-info-wrapper h4 span {
+  font-size: 20px;
+}
+
+.profile-container > .user-info-wrapper .level-text {
+  font-size: 14px;
+  color: var(--main-500);
+  margin-left: 12px;
+}

@@ -18,6 +18,7 @@ import "./components/css/common/CopyButton.css";
 import "./components/css/common/Help.css";
 import "./components/css/common/Navbar.css";
 import "./components/css/common/PageHeader.css";
+import "./components/css/common/PageSubheading.css";
 import "./components/css/common/PopupHeader.css";
 import "./components/css/common/RoomDetail.css";
 import "./components/css/common/Subheading.css";
@@ -42,6 +43,10 @@ import "./components/css/room/SelectStamp.css";
 import "./components/css/room/SetBathGoal.css";
 
 import "./components/css/user/Logout.css";
+import "./components/css/user/Profile.css";
+import "./components/css/user/SelectColor.css";
+import "./components/css/user/SettingRoom.css";
+import "./components/css/user/User.css";
 
 function App() {
   return (

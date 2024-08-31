@@ -11,7 +11,7 @@ const ChangeRoomName = ({
   const [inputRoomName, setInputRoomName] = useState("");
   // バリデーションのメッセージを管理する変数
   const [roomNameError, setRoomNameError] = useState({
-    message: "※15文字まで入力することができます",
+    message: "※10文字まで入力することができます",
     color: "black",
   });
 
@@ -19,11 +19,11 @@ const ChangeRoomName = ({
   const validateRoomName = (name) => {
     if (name.length < 1) {
       return { message: "ルームの名前を入力してください", color: "red" };
-    } else if (1 <= name.length && name.length <= 15) {
-      return { message: "※15文字まで入力することができます", color: "black" };
-    } else if (15 < name.length) {
+    } else if (1 <= name.length && name.length <= 10) {
+      return { message: "※10文字まで入力することができます", color: "black" };
+    } else if (10 < name.length) {
       return {
-        message: "ルームの名前は15文字以内で入力してください",
+        message: "ルームの名前は10文字以内で入力してください",
         color: "red",
       };
     }
@@ -64,7 +64,7 @@ const ChangeRoomName = ({
       <button onClick={closeChangeRoomName}>キャンセル</button>
       <button
         onClick={changeRoomName}
-        disabled={inputRoomName.length < 1 || 15 < inputRoomName.length}
+        disabled={inputRoomName.length < 1 || 10 < inputRoomName.length}
       >
         決定
       </button>

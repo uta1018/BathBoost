@@ -1,0 +1,64 @@
+.setting-room-container {
+  padding: 20px 6px 28px;
+  width: 366px;
+}
+
+.setting-room-container > .flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-300);
+  margin-bottom: 6px;
+}
+
+.setting-room-container > .flex-box .room-info-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.setting-room-container > .flex-box .room-info-wrapper svg {
+  font-size: 28px;
+  color: var(--brown-700);
+  padding-left: 4px;
+}
+
+.setting-room-container > .flex-box .room-info-wrapper h3 {
+  font-size: 16px;
+  font-weight: 700;
+  padding: 17px 14px 17px 16px;
+}
+
+.setting-room-container > .flex-box .room-info-wrapper .edit-pen {
+  color: var(-brown-300);
+  align-self: start;
+  border-radius: 100px;
+  border: 1px dashed  var(--brown-300);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.setting-room-container > .flex-box .room-info-wrapper .edit-pen svg {
+  font-size: 10px;
+  padding: 0;
+  color: var(--brown-300);
+}
+
+.setting-room-container > .flex-box .exit-button {
+  height: 36px;
+  width: 80px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  position: relative;
+  background-color: var(--gray-0);
+  border: 1px solid var(--gray-500);
+  box-shadow: 0px 2px 0px rgba(0,0,0,0.2);
+  font-size: 14px;
+  margin-bottom: 4px;
+}

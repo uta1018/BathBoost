@@ -1,0 +1,17 @@
+.user-container > .flex-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 76px 0px 96px;
+}
+
+.user-container > .flex-box .for-position-wrapper {
+  position: relative;
+}
+
+.user-container > .flex-box .for-position-wrapper > img {
+  width: 108px;
+  position: absolute;
+  right: -16px;
+  bottom: 14px;
+}

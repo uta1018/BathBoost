@@ -1,0 +1,58 @@
+.select-color-container {
+  margin: 32px auto 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 400px;
+}
+
+.select-color-container .color {
+  display: block;
+  width: 102px;
+  height: 82px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.select-color-container .selected-color {
+  border: 3px solid var(--gray-0);
+  outline: 3px solid var(--sub-500);
+}
+
+.select-color-container .selected-color-wrapper {
+  position: relative;
+}
+
+.select-color-container .selected-text {
+  width: 80px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--gray-0);
+  border-radius: 100px;
+  position: absolute;
+  left: 50%;
+  bottom: -23px;
+  transform: translateX(-50%);
+  background-color: var(--sub-500);
+}
+
+.select-color-container .selected-text p {
+  color: var(--gray-0);
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+}
+
+.select-color-container .locked-color {
+  background-color: var(--sub-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-color-container .locked-color svg {
+  color: var(--gray-0);
+  font-size: 20px;
+}

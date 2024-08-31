@@ -3,8 +3,10 @@ import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { themeContext } from "../../providers/Theme";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
-const SelectColor = memo(({ themeColor, themeColorList }) => {
+const SelectColor = memo(({ themeColor, themeColorList = [] }) => {
   const { userID } = useContext(Context);
   const setThemeColor = useContext(themeContext);
   // 選択されたアイコンを保存する変数
@@ -29,29 +31,41 @@ const SelectColor = memo(({ themeColor, themeColorList }) => {
     });
   };
 
+  // ロックされたテーマカラーの数を計算
+  const lockedColorCount = 3 - themeColorList.length;
+
   return (
-    <div>
-      <p style={{ color: "var(--main-300)" }}>てすと</p>
+    <div className="select-color-container">
       {themeColorList &&
         themeColorList.map((color, index) => {
           return (
-            <>
+            <div
+              className={`${
+                selectedColor === color ? "selected-color-wrapper" : ""
+              }`}
+            >
               <img
                 key={index}
                 src={`/themeColor/${color}.png`}
                 alt="テーマカラー"
                 onClick={() => changeColor(color)}
-                style={{
-                  width: "100px",
-                  borderRadius: "20%",
-                  outlineOffset: "1px",
-                  outline: selectedColor === color ? "3px solid #B9B9B9" : "",
-                }}
+                className={`color ${
+                  selectedColor === color ? "selected-color" : ""
+                }`}
               />
-              {selectedColor === color && <p>選択中</p>}
-            </>
+              {selectedColor === color && (
+                <div className="selected-text">
+                  <p>選択中</p>
+                </div>
+              )}
+            </div>
           );
         })}
+      {Array.from({ length: lockedColorCount }, (_, i) => (
+        <div key={`locked-${i}`} className="color locked-color">
+          <FontAwesomeIcon icon={faLock} />
+        </div>
+      ))}
     </div>
   );
 });

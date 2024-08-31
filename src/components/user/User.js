@@ -55,8 +55,10 @@ const User = () => {
       <Help />
       <div className="flex-box">
         <Profile changeLevelToggle={changeLevelToggle} {...userData} />
-        <img src="/user/cat_front.png" alt="猫のイラスト" width="100px" />
-        <PageSubheading title="テーマカラー" />
+        <div className="for-position-wrapper">
+          <img src="/user/cat_front.png" alt="猫のイラスト" />
+          <PageSubheading title="テーマカラー" />
+        </div>
         <SelectColor {...userData} />
         <PageSubheading title="ルーム" />
         <SettingRoom changeLevelToggle={changeLevelToggle} {...userData} />

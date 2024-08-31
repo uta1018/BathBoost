@@ -25,7 +25,7 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
 
   // バリデーションのメッセージを管理する変数
   const [roomNameError, setRoomNameError] = useState({
-    message: "※15文字まで入力することができます",
+    message: "※10文字まで入力することができます",
     className: ""
   });
 
@@ -36,11 +36,11 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
         message: "ルームの名前を入力してください",
         className: "error-mesesage",
       };
-    } else if (1 <= name.length && name.length <= 15) {
-      return { message: "※15文字まで入力することができます", className: "" };
-    } else if (15 < name.length) {
+    } else if (1 <= name.length && name.length <= 10) {
+      return { message: "※10文字まで入力することができます", className: "" };
+    } else if (10 < name.length) {
       return {
-        message: "ルームの名前は15文字以内で入力してください",
+        message: "ルームの名前は10文字以内で入力してください",
         className: "error-mesesage",
       };
     }
@@ -117,7 +117,7 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
           <button
             className="button button-w140 ok-button-main"
             onClick={createRoom}
-            disabled={roomName.length < 1 || 15 < roomName.length}
+            disabled={roomName.length < 1 || 10 < roomName.length}
           >
             決定
           </button>

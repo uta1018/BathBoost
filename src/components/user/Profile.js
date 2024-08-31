@@ -12,7 +12,7 @@ const Profile = ({
   level,
   point,
   iconList,
-  rooms
+  rooms,
 }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [showChangeUserName, setShowChangeUserName] = useState(false);
@@ -43,20 +43,20 @@ const Profile = ({
   const nextPoint = 3 * (level + 1) - point;
 
   return (
-    <div>
-      <div onClick={openSelectIcon}>
-        <img src={icon} alt="アイコン" width="80px" />
+    <div className="profile-container">
+      <div className="icon-wrapper" onClick={openSelectIcon}>
+        <img src={icon} alt="アイコン" />
         <button>アイコン変更</button>
       </div>
-      <div onClick={openChangeUserName}>
+      <div className="user-info-wrapper" onClick={openChangeUserName}>
         <p>ユーザーネーム変更</p>
-        <h3>
-          {userName}
+        <div className="user-name-wrapper">
+          <h3>{userName}</h3>
           <FontAwesomeIcon icon={faPen} />
-        </h3>
+        </div>
+        <h4>おふろレベル<span className="level-text">Lv.</span><span>{level}</span></h4>
+        <p>つぎのレベルまで{nextPoint}pt</p>
       </div>
-      <p>おふろレベル Lv.{level}</p>
-      <p>つぎのレベルまで{nextPoint}pt</p>
       {showOverlay && <Overlay />}
       {showSelectIcon && (
         <SelectIcon

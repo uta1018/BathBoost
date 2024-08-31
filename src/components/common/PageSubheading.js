@@ -2,7 +2,7 @@ import React from 'react'
 
 const PageSubheading = ({title}) => {
   return (
-    <div>{title}</div>
+    <div className='page-subheading-container'>{title}</div>
   )
 }
 
