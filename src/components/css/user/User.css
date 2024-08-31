@@ -15,3 +15,11 @@
   right: -28px;
   bottom: 14px;
 }
+
+@media (max-width: 399px) {
+  /* 400px未満で適用するスタイル */
+  .user-container > .flex-box .for-position-wrapper > img {
+    display: none;
+  }
+}
+

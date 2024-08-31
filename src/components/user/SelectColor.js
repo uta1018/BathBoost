@@ -36,36 +36,38 @@ const SelectColor = memo(({ themeColor, themeColorList = [] }) => {
 
   return (
     <div className="select-color-container">
-      {themeColorList &&
-        themeColorList.map((color, index) => {
-          return (
-            <div
-              className={`${
-                selectedColor === color ? "selected-color-wrapper" : ""
-              }`}
-            >
-              <img
-                key={index}
-                src={`/themeColor/${color}.png`}
-                alt="テーマカラー"
-                onClick={() => changeColor(color)}
-                className={`color ${
-                  selectedColor === color ? "selected-color" : ""
+      <div className="scroll-box">
+        {themeColorList &&
+          themeColorList.map((color, index) => {
+            return (
+              <div
+                className={`${
+                  selectedColor === color ? "selected-color-wrapper" : ""
                 }`}
-              />
-              {selectedColor === color && (
-                <div className="selected-text">
-                  <p>選択中</p>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      {Array.from({ length: lockedColorCount }, (_, i) => (
-        <div key={`locked-${i}`} className="color locked-color">
-          <FontAwesomeIcon icon={faLock} />
-        </div>
-      ))}
+              >
+                <img
+                  key={index}
+                  src={`/themeColor/${color}.png`}
+                  alt="テーマカラー"
+                  onClick={() => changeColor(color)}
+                  className={`color ${
+                    selectedColor === color ? "selected-color" : ""
+                  }`}
+                />
+                {selectedColor === color && (
+                  <div className="selected-text">
+                    <p>選択中</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        {Array.from({ length: lockedColorCount }, (_, i) => (
+          <div key={`locked-${i}`} className="color locked-color">
+            <FontAwesomeIcon icon={faLock} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 });

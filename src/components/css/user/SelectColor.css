@@ -1,25 +1,22 @@
 .select-color-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
   max-width: calc(100vw - 64px);
-  margin: 32px auto 40px;
+  overflow-x: scroll;
+  margin: 20px 0px;
+}
+
+.select-color-container > .scroll-box {
+  display: flex;
+  gap: 12px;
+  padding: 8px 16px 28px;
 }
 
 .select-color-container .color {
   display: block;
-  width: 94px;
-  height: calc(94px * 82 / 102);
+  width: 102px;
+  height: 82px;
   border-radius: 10px;
   object-fit: cover;
-}
-
-/* 画面幅が400px以上の場合のスタイル */
-@media (min-width: 400px) {
-  .select-color-container .color {
-    width: 102px;
-    height: 82px;
-  }
 }
 
 .select-color-container .selected-color {
