@@ -1,5 +1,6 @@
 .page-subheading-container {
-  width: 366px;
+  max-width: 366px;
+  width: calc(100vw - 64px);
   height: 32px;
   background-color: var(--main-500);
   border: 1px solid var(--main-700);

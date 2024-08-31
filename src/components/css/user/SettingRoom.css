@@ -1,6 +1,7 @@
 .setting-room-container {
   padding: 20px 6px 28px;
-  width: 366px;
+  max-width: 366px;
+  width: calc(100vw - 64px);
 }
 
 .setting-room-container > .flex-box {
