@@ -227,32 +227,32 @@ const SelectStamp = memo(
     const lockedStampsCount = 6 - stampList.length;
 
     return (
-      <div>
-        <button onClick={closeSelectStamp}>とじる</button>
-        <button onClick={handleSubmit}>決定</button>
+      <div className="select-stamp-container">
+        <div className="button-wrapper">
+          <button className="button back-button" onClick={closeSelectStamp}>
+            とじる
+          </button>
+          <button className="room-button room-button-ok" onClick={handleSubmit}>
+            決定
+          </button>
+        </div>
         {/* スタンプリストのスタンプを表示 */}
-        <div>
+        <div className="stamp-wrapper">
           {stampList.map((s) => {
             return (
               <img
                 src={s}
                 alt="スタンプ"
                 onClick={() => setStamp(s)}
-                style={{
-                  width: "100px",
-                  height: "100%",
-                  borderRadius: "20%",
-                  outlineOffset: "3px",
-                  outline: stamp === s ? "3px solid #B9B9B9" : "",
-                }}
+                className={`stamp ${
+                  stamp === s ? "stamp-selected" : ""
+                }`}
               />
             );
           })}
           {/* ロックされたスタンプを追加 */}
           {Array.from({ length: lockedStampsCount }, (_, i) => (
-            <div
-              key={`locked-${i}`}
-            >
+            <div key={`locked-${i}`} className="stamp locked-stamp">
               <FontAwesomeIcon icon={faLock} />
             </div>
           ))}

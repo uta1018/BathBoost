@@ -32,6 +32,7 @@ import "./components/css/login/FirstLogin.css";
 import "./components/css/login/Login.css";
 
 import "./components/css/room/RoomNavbar.css";
+import "./components/css/room/SelectStamp.css";
 
 function App() {
   return (

@@ -51,3 +51,16 @@
   box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.2);
   font-size: 14px;
 }
+
+.room-button {
+  height: 40px;
+  background-color: var(--gray-0);
+  box-shadow: 0px, 3px, 0px, rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.2);
+}

@@ -90,55 +90,66 @@ const RoomNavbar = memo(({ lastPostType, changeLevelToggle }) => {
 
   return (
     <div className="room-navbar-container">
-      <button className="button back-button" onClick={() => navigate("/")}>
-        もどる
-      </button>
-      {/* 最後のポストの種類によって表示するボタンを変える */}
-      <div className="room-button-wrapper">
-        {lastPostType === "setBathGoal" && (
-          <>
-            <button className="room-button room-button-start-bath" onClick={openSelectStamp}>
-              <FontAwesomeIcon icon={faBath} />
-              おふろ
-            </button>
-            <button
-              className="room-button room-button-cancel"
-              onClick={() => {
-                openCancelDialog();
-                applyOverlay();
-              }}
-            >
-              やめる
-            </button>
-          </>
-        )}
-        {lastPostType === "startBath" && (
-          <>
-            <button className="room-button room-button-end-bath" onClick={openSelectStamp}>
-              <FontAwesomeIcon icon={faFaceSmile} />
-              せいこう
-            </button>
-            <button
-              className="room-button room-button-cancel"
-              onClick={() => {
-                openCancelDialog();
-                applyOverlay();
-              }}
-            >
-              やめる
-            </button>
-          </>
-        )}
-        {(!lastPostType ||
-          lastPostType === "endBath" ||
-          lastPostType === "cancelBath") && (
-          <>
-            <button className="room-button room-button-set-bath-goal" onClick={openSelectStamp}>
-              <FontAwesomeIcon icon={faBullhorn} />
-              せんげん
-            </button>
-          </>
-        )}
+      <div className="flex-box">
+        <button className="button back-button" onClick={() => navigate("/")}>
+          もどる
+        </button>
+        {/* 最後のポストの種類によって表示するボタンを変える */}
+        <div className="room-button-wrapper">
+          {lastPostType === "setBathGoal" && (
+            <>
+              <button
+                className="room-button room-button-start-bath"
+                onClick={openSelectStamp}
+              >
+                <FontAwesomeIcon icon={faBath} />
+                おふろ
+              </button>
+              <button
+                className="room-button room-button-cancel"
+                onClick={() => {
+                  openCancelDialog();
+                  applyOverlay();
+                }}
+              >
+                やめる
+              </button>
+            </>
+          )}
+          {lastPostType === "startBath" && (
+            <>
+              <button
+                className="room-button room-button-end-bath"
+                onClick={openSelectStamp}
+              >
+                <FontAwesomeIcon icon={faFaceSmile} />
+                せいこう
+              </button>
+              <button
+                className="room-button room-button-cancel"
+                onClick={() => {
+                  openCancelDialog();
+                  applyOverlay();
+                }}
+              >
+                やめる
+              </button>
+            </>
+          )}
+          {(!lastPostType ||
+            lastPostType === "endBath" ||
+            lastPostType === "cancelBath") && (
+            <>
+              <button
+                className="room-button room-button-set-bath-goal"
+                onClick={openSelectStamp}
+              >
+                <FontAwesomeIcon icon={faBullhorn} />
+                せんげん
+              </button>
+            </>
+          )}
+        </div>
       </div>
       {showOverlay && <Overlay />}
       {showCancelDialog && (

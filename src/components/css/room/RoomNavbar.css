@@ -1,4 +1,4 @@
-.room-navbar-container {
+.room-navbar-container > .flex-box {
   position: fixed;
   bottom: 0;
   right: 0;
@@ -13,44 +13,33 @@
   justify-content: space-between;
 }
 
-.room-navbar-container .room-button-wrapper {
+.room-navbar-container > .flex-box .room-button-wrapper {
   display: flex;
   gap: 12px;
 }
 
-.room-navbar-container .room-button {
-  height: 40px;
-  background-color: var(--gray-0);
-  box-shadow: 0px, 3px, 0px, rgba(0, 0, 0, 0.2);
-  border-radius: 100px;
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 140px;
-}
-
-.room-navbar-container .room-button svg {
+.room-navbar-container > .flex-box .room-button svg {
   font-size: 20px;
   color: var(--sub-700);
 }
 
-.room-navbar-container .room-button-set-bath-goal {
+.room-navbar-container > .flex-box .room-button-set-bath-goal {
   width: 180px;
   padding: 0px 52px 0px 20px;
 }
 
-.room-navbar-container .room-button-cancel {
+.room-navbar-container > .flex-box .room-button-cancel {
   width: 100px;
   padding: 0;
   justify-content: center;
 }
 
-.room-navbar-container .room-button-start-bath {
+.room-navbar-container > .flex-box .room-button-start-bath {
+  width: 140px;
   padding: 0px 44px 0px 16px;
 }
 
-.room-navbar-container .room-button-end-bath {
+.room-navbar-container > .flex-box .room-button-end-bath {
+  width: 140px;
   padding: 0px 36px 0px 20px;
 }
