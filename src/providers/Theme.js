@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 // setThemeColorの定義
 const useTheme = () => {
-  const [theme, setTheme] = useState("theme1");
+  const [theme, setTheme] = useState(localStorage.getItem('themeColor'));
 
   useEffect(() => {
     switch (theme) {
@@ -20,7 +20,16 @@ const useTheme = () => {
         break;
       }
       case "theme2": {
-        document.documentElement.style.setProperty("--main-200", "#d1bada");
+        document.documentElement.style.setProperty("--main-200", "#FCF4FF");
+        document.documentElement.style.setProperty("--main-400", "#F3DFFB");
+        document.documentElement.style.setProperty("--main-500", "#D8B1E4");
+        document.documentElement.style.setProperty("--main-700", "#A782DE");
+        document.documentElement.style.setProperty("--sub-100", "#FFFAE4");
+        document.documentElement.style.setProperty("--sub-200", "#FEF6D4");
+        document.documentElement.style.setProperty("--sub-300", "#FFEDA3");
+        document.documentElement.style.setProperty("--sub-500", "#F6DE7A");
+        document.documentElement.style.setProperty("--sub-700", "#ECCC49");
+        document.documentElement.style.setProperty("--sub-800", "#E5B905");
         break;
       }
     }

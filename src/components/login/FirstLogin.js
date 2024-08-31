@@ -74,6 +74,7 @@ const FirstLogin = () => {
 
     // ローカルストレージに保存する
     localStorage.setItem("userID", userID);
+    localStorage.setItem("themeColor", "theme1");
     navigate("/");
   };
 

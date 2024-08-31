@@ -20,6 +20,7 @@ const SelectColor = memo(({ themeColor, themeColorList }) => {
   const changeColor = async (color) => {
     setSelectedColor(color);
     setThemeColor(color);
+    localStorage.setItem("themeColor", color);
 
     // userドキュメントを更新
     const userDocRef = doc(db, "user", userID);

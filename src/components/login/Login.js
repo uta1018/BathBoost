@@ -6,10 +6,12 @@ import { Context } from "../../providers/Provider";
 import { doc, getDoc } from "firebase/firestore";
 import FirstLogin from "./FirstLogin";
 import Tutorial from "./Tutorial";
+import { themeContext } from "../../providers/Theme";
 
 const Login = () => {
   // グローバル変数を取得
   const { userID, setUserID } = useContext(Context);
+  const setThemeColor = useContext(themeContext);
   // ポップアップの表示を管理する変数
   const [showFirstLogin, setShowFirstLogin] = useState(false);
 
@@ -21,6 +23,7 @@ const Login = () => {
     if (userID) {
       navigate("/");
     }
+    setThemeColor("theme1");
   }, []);
 
   // ログインボタンを押したときの関数
@@ -39,10 +42,13 @@ const Login = () => {
     // ユーザードキュメントが存在しなかったらポップアップを表示するように変数切り替え
     if (!docSnap.exists()) {
       setShowFirstLogin(true);
+      setThemeColor("theme1");
     } else {
       // ホーム画面にリダイレクト
       // ローカルストレージに保存する
+      setThemeColor(docSnap.data().themeColor);
       localStorage.setItem("userID", user.uid);
+      localStorage.setItem("themeColor", docSnap.data().theme);
       navigate("/");
     }
   };
