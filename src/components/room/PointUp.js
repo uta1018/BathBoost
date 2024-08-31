@@ -7,36 +7,39 @@ const PointUp = ({ nextPoint, point, closePointUp, removeOverlay }) => {
   console.log("ポイントUPポップアップ");
 
   return (
-    <div className="popup-content">
-      <PopupHeader title="おふろポイント" />
-      {point > 0 ? (
-        <div>
-          <p>おふろポイントUP!</p>
-          <p>
-            <FontAwesomeIcon icon={faPlus} />
-            {point}pt
-          </p>
-          <img src="/pointUp/cat_nice.png" alt="すごい!!" width="100px" />
-        </div>
-      ) : (
-        <div>
-          <p>おふろポイントDOWN</p>
-          <p>
-            <FontAwesomeIcon icon={faMinus} />
-            1pt
-          </p>
-          <img src="/pointUp/frog_sad.png" alt="残念…" width="100px" />
-        </div>
-      )}
-      <p>つぎのレベルまであと{nextPoint}pt</p>
-      <button
-        onClick={() => {
-          closePointUp();
-          removeOverlay();
-        }}
-      >
-        OK
-      </button>
+    <div className="point-up-container">
+      <PopupHeader title="おふろポイント" color="sub" />
+      <div className="flex-box">
+        {point > 0 ? (
+          <>
+            <h4>おふろポイントUP!</h4>
+            <div className="point-wrapper">
+              <FontAwesomeIcon icon={faPlus} />
+              <h3>{point}pt</h3>
+            </div>
+            <img src="/pointUp/cat_nice.png" alt="すごい!!" />
+          </>
+        ) : (
+          <>
+            <h4>おふろポイントDOWN…</h4>
+            <div className="point-wrapper">
+              <FontAwesomeIcon icon={faMinus} />
+              <h3>1pt</h3>
+            </div>
+            <img src="/pointUp/frog_sad.png" alt="残念…" />
+          </>
+        )}
+        <p>つぎのレベルまであと{nextPoint}pt</p>
+        <button
+          className="button ok-button-sub button-w280"
+          onClick={() => {
+            closePointUp();
+            removeOverlay();
+          }}
+        >
+          OK
+        </button>
+      </div>
     </div>
   );
 };

@@ -37,6 +37,15 @@
     inset 0px 2px 8px rgba(255, 255, 255, 0.4);
 }
 
+.ok-button-sub {
+  color: var(--gray-0);
+  background-color: var(--sub-500);
+  border: 1px solid var(--sub-700);
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2),
+    inset 0px 2px 8px rgba(255, 255, 255, 0.4);
+}
+
 .cancel-button {
   background-color: var(--gray-0);
   border: 1px solid var(--gray-500);
