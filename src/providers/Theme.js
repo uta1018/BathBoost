@@ -32,6 +32,19 @@ const useTheme = () => {
         document.documentElement.style.setProperty("--sub-800", "#E5B905");
         break;
       }
+      case "theme3": {
+        document.documentElement.style.setProperty("--main-200", "#FFF5E8");
+        document.documentElement.style.setProperty("--main-400", "#FFDDB0");
+        document.documentElement.style.setProperty("--main-500", "#F5BC71");
+        document.documentElement.style.setProperty("--main-700", "#F39417");
+        document.documentElement.style.setProperty("--sub-100", "#F0F8FF");
+        document.documentElement.style.setProperty("--sub-200", "#DAEFFF");
+        document.documentElement.style.setProperty("--sub-300", "#BFE3FF");
+        document.documentElement.style.setProperty("--sub-500", "#A6D7FF");
+        document.documentElement.style.setProperty("--sub-700", "#82BDEC");
+        document.documentElement.style.setProperty("--sub-800", "#1597FF");
+        break;
+      }
     }
   }, [theme]);
 
