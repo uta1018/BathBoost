@@ -41,6 +41,8 @@ const Login = () => {
       setShowFirstLogin(true);
     } else {
       // ホーム画面にリダイレクト
+      // ローカルストレージに保存する
+      localStorage.setItem("userID", user.uid);
       navigate("/");
     }
   };
