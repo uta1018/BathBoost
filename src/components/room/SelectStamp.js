@@ -244,9 +244,7 @@ const SelectStamp = memo(
                 src={s}
                 alt="スタンプ"
                 onClick={() => setStamp(s)}
-                className={`stamp ${
-                  stamp === s ? "stamp-selected" : ""
-                }`}
+                className={`stamp ${stamp === s && "stamp-selected"}`}
               />
             );
           })}

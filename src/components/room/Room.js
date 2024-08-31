@@ -167,16 +167,16 @@ const Room = () => {
   const roomName = roomData ? roomData.roomName : "";
 
   return (
-    <div className="roomContainer">
-      <button onClick={openRoomDetail}>
+    <div className="room-container">
+      <button onClick={openRoomDetail} className="room-detail-button">
         {roomName}
         {/* ここにメンバーの数を表示 */}
         {roomData && (
-          <span className="memberCount">({roomData.member.length})</span>
+          <span>({roomData.member.length})</span>
         )}
       </button>
       <Help />
-      <div className="postContainer">
+      <div className="flex-box">
         {/* ポストリストの各ポストごとに描画 */}
         {postList.map((post, index) => {
           const authorUser = userList.find((user) => user.id === post.author);

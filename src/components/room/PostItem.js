@@ -39,53 +39,41 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
 
   const authorName = authorUser && authorUser.userName;
   const authorIcon = authorUser && authorUser.icon;
-  const authorLevel = authorUser && "Level " + authorUser.level;
+  const authorLevel = authorUser && authorUser.level;
   const goalTime = post.goalTime
     ? `${formatHHMMforTimeStamp(post.goalTime)}`
     : "";
 
   return (
-    <>
+    <div className="post-item-container">
       {/* 日付表示 */}
       {shouldShowDate && <div className="date">{formatDate(post.date)}</div>}
 
       {/* ポストの投稿者が自分かそれ以外かでクラスを変える */}
-      <div className={`post_${userID === post.author ? "r" : "l"}`}>
-        <div className="post">
-          <div className="user">
-            <div className="userIcon">
-              <img src={authorIcon} alt="アイコン" width="40px" />
-              <p>{authorName}</p>
-            </div>
-            <p className="userLevel">{authorLevel}</p>
-          </div>
-          <div className="stamp">
-            {post.type === "setBathGoal" && (
-              <div>
-                <h3 className="goalTime">{goalTime}</h3>
-                <img
-                  src={post.stamp}
-                  alt="スタンプ"
-                  width="200px"
-                  height="100%"
-                />
-              </div>
-            )}
-            {post.type !== "setBathGoal" && (
-              <div>
-                <img
-                  src={post.stamp}
-                  alt="スタンプ"
-                  width="200px"
-                  height="100%"
-                />
-              </div>
-            )}
-            <p className="timeStamp">{formatHHMM(post.date)}</p>
-          </div>
+      <div
+        className={`post-wrapper post-${userID === post.author ? "r" : "l"}`}
+      >
+        <div className="icon">
+          <img src={authorIcon} alt="アイコン" />
+          <p><span>Lv. </span>{authorLevel}</p>
         </div>
+        <div className="stamp-wrapper">
+          <p>{authorName}</p>
+          {post.type === "setBathGoal" && (
+            <div className="stamp-set-bath-goal">
+              <h3 className="goalTime">{goalTime}</h3>
+              <img src={post.stamp} alt="スタンプ" />
+            </div>
+          )}
+          {post.type !== "setBathGoal" && (
+            <div className="stamp">
+              <img src={post.stamp} />
+            </div>
+          )}
+        </div>
+        <p className="time-stamp">{formatHHMM(post.date)}</p>
       </div>
-    </>
+    </div>
   );
 });
 
