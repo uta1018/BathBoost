@@ -11,19 +11,19 @@ const ChangeRoomName = ({
   const [inputRoomName, setInputRoomName] = useState("");
   // バリデーションのメッセージを管理する変数
   const [roomNameError, setRoomNameError] = useState({
-    message: "※15文字まで入力することができます。",
+    message: "※15文字まで入力することができます",
     color: "black",
   });
 
   // roonname のバリデーション関数
   const validateRoomName = (name) => {
     if (name.length < 1) {
-      return { message: "ルームの名前を入力してください。", color: "red" };
+      return { message: "ルームの名前を入力してください", color: "red" };
     } else if (1 <= name.length && name.length <= 15) {
-      return { message: "※15文字まで入力することができます。", color: "black" };
+      return { message: "※15文字まで入力することができます", color: "black" };
     } else if (15 < name.length) {
       return {
-        message: "ルームの名前は15文字以内で入力してください。",
+        message: "ルームの名前は15文字以内で入力してください",
         color: "red",
       };
     }

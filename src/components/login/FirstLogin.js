@@ -15,7 +15,7 @@ const FirstLogin = () => {
   const [icon, setIcon] = useState("/icon/paw1.png");
   // バリデーションのメッセージを管理する変数
   const [usernameError, setUsernameError] = useState({
-    message: "※8文字まで入力することができます。",
+    message: "※8文字まで入力することができます",
     className: "",
   });
   const inputRef = useRef(null);
@@ -30,14 +30,14 @@ const FirstLogin = () => {
   const validateUsername = (name) => {
     if (name.length < 1) {
       return {
-        message: "名前を入力してください。",
+        message: "名前を入力してください",
         className: "error-mesesage",
       };
     } else if (1 <= name.length && name.length <= 8) {
-      return { message: "※8文字まで入力することができます。", className: "" };
+      return { message: "※8文字まで入力することができます", className: "" };
     } else if (8 < name.length) {
       return {
-        message: "名前は8文字以内で入力してください。",
+        message: "名前は8文字以内で入力してください",
         className: "error-mesesage",
       };
     }

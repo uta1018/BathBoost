@@ -36,6 +36,7 @@ import "./components/css/room/PostItem.css";
 import "./components/css/room/Room.css";
 import "./components/css/room/RoomNavbar.css";
 import "./components/css/room/SelectStamp.css";
+import "./components/css/room/SetBathGoal.css";
 
 function App() {
   return (

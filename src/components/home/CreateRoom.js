@@ -25,22 +25,22 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
 
   // バリデーションのメッセージを管理する変数
   const [roomNameError, setRoomNameError] = useState({
-    message: "※15文字まで入力することができます。",
-    color: "black",
+    message: "※15文字まで入力することができます",
+    className: ""
   });
 
   // usename のバリデーション関数
   const validateRoomName = (name) => {
     if (name.length < 1) {
       return {
-        message: "ルームの名前を入力してください。",
+        message: "ルームの名前を入力してください",
         className: "error-mesesage",
       };
     } else if (1 <= name.length && name.length <= 15) {
-      return { message: "※15文字まで入力することができます。", className: "" };
+      return { message: "※15文字まで入力することができます", className: "" };
     } else if (15 < name.length) {
       return {
-        message: "ルームの名前は15文字以内で入力してください。",
+        message: "ルームの名前は15文字以内で入力してください",
         className: "error-mesesage",
       };
     }
@@ -102,7 +102,7 @@ const CreateRoom = ({ closeCreateRoom, openRoomID, removeOverlay }) => {
         />
         <dev className="text-wrapper">
           <p className={roomNameError.className}>{roomNameError.message}</p>
-          <p>あとで設定で変更もできます。</p>
+          <p>あとで設定で変更もできます</p>
         </dev>
         <div className="button-wrapper">
           <button

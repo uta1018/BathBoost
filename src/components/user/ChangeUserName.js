@@ -15,18 +15,18 @@ const ChangeUserName = ({
   const [inputUserName, setInputUserName] = useState("");
   // バリデーションのメッセージを管理する変数
   const [usernameError, setUsernameError] = useState({
-    message: "※8文字まで入力することができます。",
+    message: "※8文字まで入力することができます",
     color: "black",
   });
 
   // usename のバリデーション関数
   const validateUsername = (name) => {
     if (name.length < 1) {
-      return { message: "名前を入力してください。", color: "red" };
+      return { message: "名前を入力してください", color: "red" };
     } else if (1 <= name.length && name.length <= 8) {
-      return { message: "※8文字まで入力することができます。", color: "black" };
+      return { message: "※8文字まで入力することができます", color: "black" };
     } else if (8 < name.length) {
-      return { message: "名前は8文字以内で入力してください。", color: "red" };
+      return { message: "名前は8文字以内で入力してください", color: "red" };
     }
   };
 

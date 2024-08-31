@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
 import { addDoc, collection } from "firebase/firestore";
@@ -23,12 +23,49 @@ const SetBathGoal = ({
   const { userID, roomID } = useContext(Context);
   // 目標時間を現在の時間に初期化
   const [goalTime, setGoalTime] = useState(toLocalISOString(new Date()));
+  const inputRef = useRef(null);
 
   console.log("時間選択画面");
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  // バリデーションのメッセージを管理する変数
+  const [timeError, setTimeError] = useState({
+    message: "※後から変更できません",
+  });
+
+  // バリデーション関数
+  const validate = (value) => {
+    const now = new Date();
+    const inputDate = new Date(value);
+    if (!value) {
+      return {
+        message: "時間を選択してください",
+      };
+    } else if (inputDate < now) {
+      return { message: "今より未来の時間を選択してください" };
+    } else {
+      return { message: "※後から変更できません" };
+    }
+  };
+
+  // 入力時にバリデーション実行
+  const handleTimeChange = (e) => {
+    const time = e.target.value;
+    setGoalTime(time);
+    const error = validate(time);
+    setTimeError(error);
+  };
 
   // 決定ボタンを押したときに実行する関数
   const postData = async () => {
     if (!roomID || !userID) return;
+
+    if (!validate(goalTime)) {
+      return;
+    }
 
     // ルーム画面へ
     closeSelectStamp();
@@ -47,22 +84,25 @@ const SetBathGoal = ({
   };
 
   return (
-    <div className="popup-content">
+    <div className="popup-content-h320 set-bath-goal-container">
       <PopupHeader title="おふろ宣言をする" />
-      <div className="timeSelect">
-        <h3>
+      <div className="flex-box">
+        <div className="text-wrapper">
           <FontAwesomeIcon icon={faBath} />
-          おふろの日時
-        </h3>
+          <h3>おふろの日時</h3>
+        </div>
         <input
+          ref={inputRef}
+          className="input"
           type="datetime-local"
           value={goalTime}
-          onChange={(e) => setGoalTime(e.target.value)}
+          onChange={handleTimeChange}
         />
         <p>お風呂に入る目標時間を選択してください</p>
-        <p>※後から変更できません</p>
-        <div className="button-container">
+        <p className="error-message">{timeError && timeError.message}</p>
+        <div className="button-wrapper">
           <button
+            className="button button-w140 cancel-button"
             onClick={() => {
               closeSetBathGoal();
               removeOverlay();
@@ -70,7 +110,13 @@ const SetBathGoal = ({
           >
             キャンセル
           </button>
-          <button onClick={postData}>決定</button>
+          <button
+            className="button button-w140 ok-button-main"
+            onClick={postData}
+            disabled={!!timeError}
+          >
+            決定
+          </button>
         </div>
       </div>
     </div>
