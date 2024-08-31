@@ -3,10 +3,12 @@ import PopupHeader from "../common/PopupHeader";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const SelectIcon = ({
   closeSelectIcon,
-  iconList,
+  iconList = [],
   icon,
   changeLevelToggle,
   rooms,
@@ -48,31 +50,51 @@ const SelectIcon = ({
     changeLevelToggle();
   };
 
-  return (
-    <div className="popup-content">
-      <PopupHeader title="アイコンの変更" />
-      <p>アイコンを選択してください</p>
-      <div>
-        {iconList.map((i, index) => {
-          return (
-            <img
-              key={index}
-              src={i}
-              alt="アイコン"
-              onClick={() => setSelectedIcon(i)}
-              style={{
-                width: "40px",
-                borderRadius: "100%",
-                outlineOffset: "3px",
-                outline: selectedIcon === i ? "3px solid #B9B9B9" : "",
-              }}
-            />
-          );
-        })}
-      </div>
+  // ロックされたアイコンの数を計算
+  const lockedIconCount = 9 - iconList.length;
 
-      <button onClick={closeSelectIcon}>キャンセル</button>
-      <button onClick={changeIcon}>変更</button>
+  return (
+    <div className="popup-content-h320 select-icon-container">
+      <PopupHeader title="アイコンの変更" />
+      <div className="flex-box">
+        <h3>アイコンを選択してください</h3>
+        <div className="scroll-box">
+          <div className="icon-wrapper">
+            {iconList.map((i, index) => {
+              return (
+                <img
+                  className={`icon ${
+                    selectedIcon === i ? "selected-icon" : ""
+                  }`}
+                  key={index}
+                  src={i}
+                  alt="アイコン"
+                  onClick={() => setSelectedIcon(i)}
+                />
+              );
+            })}
+            {Array.from({ length: lockedIconCount }, (_, i) => (
+              <div key={`locked-${i}`} className="icon locked-icon">
+                <FontAwesomeIcon icon={faLock} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="button-wrapper">
+          <button
+            className="button button-w140 cancel-button"
+            onClick={closeSelectIcon}
+          >
+            キャンセル
+          </button>
+          <button
+            className="button button-w140 ok-button-main"
+            onClick={changeIcon}
+          >
+            変更
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

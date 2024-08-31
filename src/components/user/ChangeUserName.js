@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PopupHeader from "../common/PopupHeader";
 import { Context } from "../../providers/Provider";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -16,17 +16,28 @@ const ChangeUserName = ({
   // バリデーションのメッセージを管理する変数
   const [usernameError, setUsernameError] = useState({
     message: "※8文字まで入力することができます",
-    color: "black",
+    className: "",
   });
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   // usename のバリデーション関数
   const validateUsername = (name) => {
     if (name.length < 1) {
-      return { message: "名前を入力してください", color: "red" };
+      return {
+        message: "名前を入力してください",
+        className: "error-mesesage",
+      };
     } else if (1 <= name.length && name.length <= 8) {
-      return { message: "※8文字まで入力することができます", color: "black" };
+      return { message: "※8文字まで入力することができます", className: "" };
     } else if (8 < name.length) {
-      return { message: "名前は8文字以内で入力してください", color: "red" };
+      return {
+        message: "名前は8文字以内で入力してください",
+        className: "error-mesesage",
+      };
     }
   };
 
@@ -78,23 +89,35 @@ const ChangeUserName = ({
   };
 
   return (
-    <div className="popup-content">
+    <div className="popup-content-h320 change-room-name-container">
       <PopupHeader title="ユーザーネームの変更" />
-      <p>新しい名前を入力してください</p>
-      <input
-        type="text"
-        placeholder={userName}
-        value={inputUserName}
-        onChange={handleUsernameChange}
-      />
-      <p style={{ color: usernameError.color }}>{usernameError.message}</p>
-      <button onClick={closeChangeUserName}>キャンセル</button>
-      <button
-        onClick={changeUserName}
-        disabled={inputUserName.length < 1 || 8 < inputUserName.length}
-      >
-        変更
-      </button>
+      <div className="flex-box">
+        <h3>新しい名前を入力してください</h3>
+        <input
+          ref={inputRef}
+          className="input"
+          type="text"
+          placeholder={userName}
+          value={inputUserName}
+          onChange={handleUsernameChange}
+        />
+        <p className={usernameError.className}>{usernameError.message}</p>
+        <div className="button-wrapper">
+          <button
+            className="button button-w140 cancel-button"
+            onClick={closeChangeUserName}
+          >
+            キャンセル
+          </button>
+          <button
+            className="button button-w140 ok-button-main"
+            onClick={changeUserName}
+            disabled={inputUserName.length < 1 || 8 < inputUserName.length}
+          >
+            変更
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

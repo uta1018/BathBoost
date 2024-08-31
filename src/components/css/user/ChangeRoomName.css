@@ -1,0 +1,31 @@
+.change-room-name-container > .flex-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0px 32px;
+}
+
+.change-room-name-container > .flex-box h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 29px;
+}
+
+.change-room-name-container > .flex-box input {
+  margin-bottom: 20px;
+}
+
+.change-room-name-container > .flex-box p {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.change-room-name-container > .flex-box .error-mesesage {
+  color: var(--red);
+}
+
+.change-room-name-container > .flex-box .button-wrapper {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+}

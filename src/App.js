@@ -42,9 +42,11 @@ import "./components/css/room/RoomNavbar.css";
 import "./components/css/room/SelectStamp.css";
 import "./components/css/room/SetBathGoal.css";
 
+import "./components/css/user/ChangeRoomName.css";
 import "./components/css/user/Logout.css";
 import "./components/css/user/Profile.css";
 import "./components/css/user/SelectColor.css";
+import "./components/css/user/SelectIcon.css";
 import "./components/css/user/SettingRoom.css";
 import "./components/css/user/User.css";
 

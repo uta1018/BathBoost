@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PopupHeader from "../common/PopupHeader";
 import { db } from "../../firebase";
 import { doc, updateDoc } from "firebase/firestore";
@@ -9,22 +9,31 @@ const ChangeRoomName = ({
   changeRoomToggle,
 }) => {
   const [inputRoomName, setInputRoomName] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   // バリデーションのメッセージを管理する変数
   const [roomNameError, setRoomNameError] = useState({
     message: "※10文字まで入力することができます",
-    color: "black",
+    className: "",
   });
 
   // roonname のバリデーション関数
   const validateRoomName = (name) => {
     if (name.length < 1) {
-      return { message: "ルームの名前を入力してください", color: "red" };
+      return {
+        message: "ルームの名前を入力してください",
+        className: "error-mesesage",
+      };
     } else if (1 <= name.length && name.length <= 10) {
-      return { message: "※10文字まで入力することができます", color: "black" };
+      return { message: "※10文字まで入力することができます", className: "" };
     } else if (10 < name.length) {
       return {
         message: "ルームの名前は10文字以内で入力してください",
-        color: "red",
+        className: "error-mesesage",
       };
     }
   };
@@ -51,23 +60,35 @@ const ChangeRoomName = ({
   };
 
   return (
-    <div className="popup-content">
+    <div className="popup-content-h320 change-room-name-container">
       <PopupHeader title="ルームネームの変更" />
-      <p>新しい名前を入力してください</p>
-      <input
-        type="text"
-        placeholder={roomData.roomName}
-        value={inputRoomName}
-        onChange={handleRoomNameChange}
-      />
-      <p style={{ color: roomNameError.color }}>{roomNameError.message}</p>
-      <button onClick={closeChangeRoomName}>キャンセル</button>
-      <button
-        onClick={changeRoomName}
-        disabled={inputRoomName.length < 1 || 10 < inputRoomName.length}
-      >
-        決定
-      </button>
+      <div className="flex-box">
+        <h3>新しい名前を入力してください</h3>
+        <input
+          ref={inputRef}
+          className="input"
+          type="text"
+          placeholder={roomData.roomName}
+          value={inputRoomName}
+          onChange={handleRoomNameChange}
+        />
+        <p className={roomNameError.className}>{roomNameError.message}</p>
+        <div className="button-wrapper">
+          <button
+            className="button button-w140 cancel-button"
+            onClick={closeChangeRoomName}
+          >
+            キャンセル
+          </button>
+          <button
+            className="button button-w140 ok-button-main"
+            onClick={changeRoomName}
+            disabled={inputRoomName.length < 1 || 10 < inputRoomName.length}
+          >
+            決定
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

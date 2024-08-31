@@ -55,25 +55,39 @@ const ExitRoom = ({ closeExitRoom, roomData, changeLevelToggle }) => {
   };
 
   return (
-    <div className="popup-content">
+    <div className="popup-content-h320 room-info-container">
       <PopupHeader title="ルーム退出の確認" />
-      <h3>このルームから退出しますか？</h3>
-      <div>
-        {roomData.roomName}
-        <div>
-          メンバー:{" "}
-          {(() => {
-            const membersText = roomData.member
-              .map((member) => member.userName)
-              .join("、");
-            return membersText.length > 13
-              ? `${membersText.slice(0, 13)}…(${roomData.member.length})`
-              : `${membersText} (${roomData.member.length})`;
-          })()}
+      <div className="flex-box">
+        <h3>このルームから退出しますか？</h3>
+        <div className="room-info-wrapper">
+          <h3>{roomData.roomName}</h3>
+          <p>
+            メンバー:{" "}
+            {(() => {
+              const membersText = roomData.member
+                .map((member) => member.userName)
+                .join("、");
+              return membersText.length > 13
+                ? `${membersText.slice(0, 13)}…(${roomData.member.length})`
+                : `${membersText} (${roomData.member.length})`;
+            })()}
+          </p>
+        </div>
+        <div className="button-wrapper">
+          <button
+            className="button button-w140 cancel-button"
+            onClick={closeExitRoom}
+          >
+            いいえ
+          </button>
+          <button
+            className="button button-w140 ok-button-main"
+            onClick={handleExit}
+          >
+            はい
+          </button>
         </div>
       </div>
-      <button onClick={closeExitRoom}>いいえ</button>
-      <button onClick={handleExit}>はい</button>
     </div>
   );
 };
