@@ -10,80 +10,126 @@ import Help from "../common/Help";
 
 // アイコンのインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilePen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBath,
+  faCalendar,
+  faCalendarPlus,
+  faClock,
+  faPaw,
+  faShower,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Log = () => {
+  const { userID } = useContext(Context);
+  const [userData, setUserData] = useState(null);
 
-    const { userID } = useContext(Context);
-    const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  useEffect(() => {
+    console.log("ユーザーデータを取得");
+    const fetchData = async () => {
+      // ログインしていなかったらログイン画面へ
+      if (!userID) {
+        navigate("/login");
+        return;
+      }
 
-    useEffect(() => {
-      console.log("ユーザーデータを取得");
-      const fetchData = async () => {
-        // ログインしていなかったらログイン画面へ
-        if (!userID) {
-          navigate("/login");
-          return;
-        }
+      // ユーザーデータを取得
+      const userDocRef = doc(db, "user", userID);
+      const userDocSnap = await getDoc(userDocRef);
 
-        // ユーザーデータを取得
-        const userDocRef = doc(db, "user", userID);
-        const userDocSnap = await getDoc(userDocRef);
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        // 現在の日付を取得
+        const currentDate = new Date();
+        // 登録日をUnix timeから日付に変換
+        const registrationDate = new Date(userData.date);
+        registrationDate.setHours(0, 0, 0, 0);
+        // 登録日からの経過日数を計算
+        const daysSinceRegistration = Math.floor(
+          (currentDate - registrationDate) / (1000 * 60 * 60 * 24)
+        );
+        setUserData({
+          id: userDocSnap.id,
+          ...userData,
+          daysSinceRegistration,
+        });
+      } else {
+        console.log("ユーザーデータが見つかりません");
+      }
+    };
 
-        if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            // 現在の日付を取得
-            const currentDate = new Date();
-            // 登録日をUnix timeから日付に変換
-            const registrationDate = new Date(userData.date);
-            registrationDate.setHours(0, 0, 0, 0);
-            // 登録日からの経過日数を計算
-            const daysSinceRegistration = Math.floor(
-              (currentDate - registrationDate) / (1000 * 60 * 60 * 24)
-            );
-          setUserData({
-            id: userDocSnap.id,
-            ...userData,
-            daysSinceRegistration,
-          });
-        } else {
-          console.log("ユーザーデータが見つかりません");
-        }
-      };
+    fetchData();
+  }, []);
 
-      fetchData();
-    }, []);
-
-    if (!userData) {
-      return <div>Loading...</div>;
-    }
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div>
+    <div className="log-container">
       <PageHeader title="きろく" />
       <Help />
-      <div>
-        <FontAwesomeIcon icon={faFilePen} />
-        おふろレベル Lv.{userData.level}
-      </div>
-      <div>
-        <FontAwesomeIcon icon={faFilePen} />
-        おふろポイント {userData.point}pt
-      </div>
-      <div>
-        <FontAwesomeIcon icon={faFilePen} />
-        おふろ回数 {userData.bathCount}回
-      </div>
-      <div>
-        <FontAwesomeIcon icon={faFilePen} />
-        登録から {userData.daysSinceRegistration}日
+      <img src="/LevelUp.png" alt="" />
+      <div className="user-info-wrapper">
+        <div>
+          <div className="head">
+            <FontAwesomeIcon icon={faPaw} />
+            <p className="head-text">おふろレベル</p>
+          </div>
+          <p>
+            Lv.<span>{userData.level}</span>
+          </p>
+        </div>
+        <div>
+          <div className="head">
+            <FontAwesomeIcon icon={faShower} />
+            <p>おふろポイント</p>
+          </div>
+          <p>
+            <span>{userData.point}</span>pt
+          </p>
+        </div>
+        <div>
+          <div className="head">
+            <FontAwesomeIcon icon={faBath} />
+            <p>おふろ回数</p>
+          </div>
+          <p>
+            <span>{userData.bathCount}</span>回
+          </p>
+        </div>
+        <div>
+          <div className="head">
+            <FontAwesomeIcon icon={faClock} />
+            <p>登録から</p>
+          </div>
+          <p>
+            <span>{userData.daysSinceRegistration}</span>日
+          </p>
+        </div>
       </div>
       <PageSubheading title="れんぞくおふろきろく" />
-      <div>現在　最長</div>
-      <div>
-        {userData.goalStreakCount}回　{userData.longestGoalStreakCount}回
+      <h4>連続でおふろ宣言を達成した回数は…</h4>
+      <div className="user-info-wrapper">
+        <div>
+          <div className="head">
+            <FontAwesomeIcon icon={faCalendar} />
+            <p>現在の回数</p>
+          </div>
+          <p>
+            <span>{userData.goalStreakCount}</span>回
+          </p>
+        </div>
+        <div>
+          <div className="head">
+            <FontAwesomeIcon icon={faCalendarPlus} />
+            <p>最長の回数</p>
+          </div>
+          <p>
+            <span>{userData.longestGoalStreakCount}</span>回
+          </p>
+        </div>
       </div>
       <Navbar currentPage="log" />
     </div>

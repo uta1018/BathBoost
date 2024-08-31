@@ -50,6 +50,8 @@ import "./components/css/user/SelectIcon.css";
 import "./components/css/user/SettingRoom.css";
 import "./components/css/user/User.css";
 
+import "./components/css/log/Log.css";
+
 function App() {
   return (
     <ThemeProvider>

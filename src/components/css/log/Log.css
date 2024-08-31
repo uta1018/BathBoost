@@ -1,0 +1,54 @@
+.log-container {
+  padding: 64px 32px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.log-container > img {
+  width: 140px;
+}
+
+.log-container > .user-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0px 18px;
+  margin-bottom: 32px;
+  gap: 16px;
+}
+
+.log-container > .user-info-wrapper > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-300);
+  padding-bottom: 8px;
+}
+
+.log-container > .user-info-wrapper > div .head {
+  display: flex;
+  align-items: center;
+}
+
+.log-container > .user-info-wrapper > div svg {
+  font-size: 26px;
+  color: var(--sub-500);
+  margin: 0px 12px 0px 8px;
+}
+
+.log-container > .user-info-wrapper > div p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.log-container > .user-info-wrapper > div p span {
+  font-size: 18px;
+}
+
+.log-container > h4 {
+  margin: 24px 0px 28px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--brown-300);
+}
