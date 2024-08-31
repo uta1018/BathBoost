@@ -67,19 +67,29 @@ const CancelDialog = ({
   };
 
   return (
-    <div className="popup-content">
+    <div className="cancel-dialog-container">
       <PopupHeader title="おふろ報告の確認" />
-      <p>本当にやめますか？</p>
-      <p>※おふろポイントが1ポイント減ります</p>
-      <button
-        onClick={() => {
-          closeCancelDialog();
-          removeOverlay();
-        }}
-      >
-        いいえ
-      </button>
-      <button onClick={postData}>はい</button>
+      <div className="flex-box">
+        <h3>本当にやめますか？</h3>
+        <p>※おふろポイントが1ポイント減ります</p>
+        <div className="button-wrapper">
+          <button
+            className="button button-w140 cancel-button"
+            onClick={() => {
+              closeCancelDialog();
+              removeOverlay();
+            }}
+          >
+            いいえ
+          </button>
+          <button
+            className="button button-w140 ok-button-main"
+            onClick={postData}
+          >
+            はい
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
