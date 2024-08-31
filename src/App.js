@@ -31,6 +31,8 @@ import "./components/css/home/SelectRoom.css";
 import "./components/css/login/FirstLogin.css";
 import "./components/css/login/Login.css";
 
+import "./components/css/room/RoomNavbar.css";
+
 function App() {
   return (
     <ThemeProvider>
