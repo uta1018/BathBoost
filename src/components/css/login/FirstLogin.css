@@ -14,7 +14,7 @@
 }
 
 .first-login-container > .flex-box {
-  width: 366px;
+  width: 352px;
   height: 600px;
   background-color: var(--gray-0);
   border-radius: 20px;
@@ -80,7 +80,7 @@
 
 .first-login-container > .flex-box .icon-wrapper {
   display: flex;
-  gap: 40px;
+  gap: 36px;
   margin-bottom: 36px;
 }
 
