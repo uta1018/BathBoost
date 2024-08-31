@@ -29,8 +29,6 @@ const Login = () => {
     await signInWithPopup(auth, provider);
     const user = auth.currentUser;
 
-    // ローカルストレージに保存する
-    localStorage.setItem("userID", user.uid);
     // グローバル変数を変更
     setUserID(user.uid);
 

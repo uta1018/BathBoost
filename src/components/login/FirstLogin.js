@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Subheading from "../common/Subheading";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const FirstLogin = () => {
   const { userID } = useContext(Context);
@@ -14,19 +16,30 @@ const FirstLogin = () => {
   // バリデーションのメッセージを管理する変数
   const [usernameError, setUsernameError] = useState({
     message: "※8文字まで入力することができます。",
-    color: "black",
+    className: "",
   });
+  const inputRef = useRef(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   // usename のバリデーション関数
   const validateUsername = (name) => {
     if (name.length < 1) {
-      return { message: "名前を入力してください。", color: "red" };
+      return {
+        message: "名前を入力してください。",
+        className: "error-mesesage",
+      };
     } else if (1 <= name.length && name.length <= 8) {
-      return { message: "※8文字まで入力することができます。", color: "black" };
+      return { message: "※8文字まで入力することができます。", className: "" };
     } else if (8 < name.length) {
-      return { message: "名前は8文字以内で入力してください。", color: "red" };
+      return {
+        message: "名前は8文字以内で入力してください。",
+        className: "error-mesesage",
+      };
     }
   };
 
@@ -58,77 +71,68 @@ const FirstLogin = () => {
       iconList: ["/icon/paw1.png", "/icon/paw2.png", "/icon/paw3.png"],
       themeColorList: ["theme1"],
     });
+
+    // ローカルストレージに保存する
+    localStorage.setItem("userID", userID);
     navigate("/");
   };
 
   return (
-    <div className="levelup-content">
-      {/* タイトル */}
-      <div>プロフィール設定</div>
-      <div>※後で設定で変更できます</div>
-
-      {/* ユーザーネーム入力エリア */}
-      <Subheading title="ユーザーネーム" />
-      <input
-        type="text"
-        placeholder="名前を入力してください"
-        value={userName}
-        onChange={handleUsernameChange}
-      />
-      <p style={{ color: usernameError.color }}>{usernameError.message}</p>
-
-      {/* アイコン選択エリア */}
-      <Subheading title="アイコン" />
-      <div>
-        <p>アイコンを選択してください</p>
-        <img
-          src="/icon/paw1.png"
-          alt="アイコン1"
-          onClick={() => setIcon("/icon/paw1.png")}
-          style={{
-            width: "60px",
-            height: "60px",
-            borderRadius: "50%",
-            outlineOffset: "3px",
-            outline: icon === "/icon/paw1.png" ? "3px solid #B9B9B9" : "",
-            cursor: "pointer",
-          }}
+    <div className="first-login-container">
+      <div className="flex-box">
+        <div className="header">
+          <div className="title">
+            <FontAwesomeIcon icon={faPaw} />
+            <h3>プロフィール設定</h3>
+          </div>
+          <p>※後で設定で変更できます</p>
+        </div>
+        <Subheading title="ユーザーネーム" />
+        <input
+          ref={inputRef}
+          className="input"
+          type="text"
+          placeholder="名前を入力してください"
+          value={userName}
+          onChange={handleUsernameChange}
         />
-        <img
-          src="/icon/paw2.png"
-          alt="アイコン2"
-          onClick={() => setIcon("/icon/paw2.png")}
-          style={{
-            width: "60px",
-            height: "60px",
-            borderRadius: "50%",
-            outlineOffset: "3px",
-            outline: icon === "/icon/paw2.png" ? "3px solid #B9B9B9" : "",
-            cursor: "pointer",
-          }}
-        />
-        <img
-          src="/icon/paw3.png"
-          alt="アイコン3"
-          onClick={() => setIcon("/icon/paw3.png")}
-          style={{
-            width: "60px",
-            height: "60px",
-            borderRadius: "50%",
-            outlineOffset: "3px",
-            outline: icon === "/icon/paw3.png" ? "3px solid #B9B9B9" : "",
-            cursor: "pointer",
-          }}
-        />
+        <p className={usernameError.className}>{usernameError.message}</p>
+        <Subheading title="アイコン" />
+        <h4>アイコンを選択してください</h4>
+        <div className="icon-wrapper">
+          <img
+            src="/icon/paw1.png"
+            alt="アイコン1"
+            onClick={() => setIcon("/icon/paw1.png")}
+            className={`icon ${
+              icon === "/icon/paw1.png" ? "icon-selected" : ""
+            }`}
+          />
+          <img
+            src="/icon/paw2.png"
+            alt="アイコン2"
+            onClick={() => setIcon("/icon/paw2.png")}
+            className={`icon ${
+              icon === "/icon/paw2.png" ? "icon-selected" : ""
+            }`}
+          />
+          <img
+            src="/icon/paw3.png"
+            alt="アイコン3"
+            onClick={() => setIcon("/icon/paw3.png")}
+            className={`icon ${
+              icon === "/icon/paw3.png" ? "icon-selected" : ""
+            }`}
+          />
+        </div>
+        <button
+          className="button button-w280 ok-button-main"
+          onClick={handleFirstLogin}
+          disabled={userName.length < 1 || 8 < userName.length}
+        >
+          決定
+        </button>
       </div>
-
-      {/* 決定ボタン */}
-      <button
-        onClick={handleFirstLogin}
-        disabled={userName.length < 1 || 8 < userName.length}
-      >
-        決定
-      </button>
     </div>
   );
 };

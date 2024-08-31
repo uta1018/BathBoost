@@ -19,6 +19,7 @@ import "./components/css/common/Help.css";
 import "./components/css/common/Navbar.css";
 import "./components/css/common/PageHeader.css";
 import "./components/css/common/PopupHeader.css";
+import "./components/css/common/Subheading.css";
 
 import "./components/css/home/CreateRoom.css";
 import "./components/css/home/Home.css";
