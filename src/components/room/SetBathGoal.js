@@ -33,6 +33,7 @@ const SetBathGoal = ({
 
   // バリデーションのメッセージを管理する変数
   const [timeError, setTimeError] = useState({
+    active: true,
     message: "※後から変更できません",
   });
 
@@ -42,12 +43,13 @@ const SetBathGoal = ({
     const inputDate = new Date(value);
     if (!value) {
       return {
+        active: false,
         message: "時間を選択してください",
       };
     } else if (inputDate < now) {
-      return { message: "今より未来の時間を選択してください" };
+      return { active: false, message: "今より未来の時間を選択してください" };
     } else {
-      return { message: "※後から変更できません" };
+      return { active: true, message: "※後から変更できません" };
     }
   };
 
@@ -113,7 +115,7 @@ const SetBathGoal = ({
           <button
             className="button button-w140 ok-button-main"
             onClick={postData}
-            disabled={!!timeError}
+            disabled={!timeError.active}
           >
             決定
           </button>
