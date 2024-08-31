@@ -50,16 +50,18 @@ const User = () => {
   }, [changeData]);
 
   return (
-    <div>
+    <div className="user-container">
       <PageHeader title="せってい" />
       <Help />
-      <Profile changeLevelToggle={changeLevelToggle} {...userData} />
-      <img src="/user/cat_front.png" alt="猫のイラスト" width="100px" />
-      <PageSubheading title="テーマカラー" />
-      <SelectColor {...userData} />
-      <PageSubheading title="ルーム" />
-      <SettingRoom changeLevelToggle={changeLevelToggle} {...userData} />
-      <Logout />
+      <div className="flex-box">
+        <Profile changeLevelToggle={changeLevelToggle} {...userData} />
+        <img src="/user/cat_front.png" alt="猫のイラスト" width="100px" />
+        <PageSubheading title="テーマカラー" />
+        <SelectColor {...userData} />
+        <PageSubheading title="ルーム" />
+        <SettingRoom changeLevelToggle={changeLevelToggle} {...userData} />
+        <Logout />
+      </div>
       <Navbar currentPage="user" />
     </div>
   );

@@ -41,6 +41,8 @@ import "./components/css/room/RoomNavbar.css";
 import "./components/css/room/SelectStamp.css";
 import "./components/css/room/SetBathGoal.css";
 
+import "./components/css/user/Logout.css";
+
 function App() {
   return (
     <ThemeProvider>
