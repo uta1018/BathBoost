@@ -48,7 +48,7 @@ const Login = () => {
       // ローカルストレージに保存する
       setThemeColor(docSnap.data().themeColor);
       localStorage.setItem("userID", user.uid);
-      localStorage.setItem("themeColor", docSnap.data().theme);
+      localStorage.setItem("themeColor", docSnap.data().themeColor);
       navigate("/");
     }
   };
