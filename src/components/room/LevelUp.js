@@ -75,7 +75,17 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
                 src={rewardData.path}
                 alt="ほうしゅう"
               />
-              <p>報酬をかくとくしました</p>
+              <p>
+                {rewardData.type === "stamp" && "スタンプをかくとくしました"}
+                {rewardData.type === "themeColor" &&
+                  "テーマカラーをかくとくしました"}
+                {rewardData.type === "icon" && "アイコンをかくとくしました"}
+              </p>
+              <p>
+                {(rewardData.type === "themeColor" ||
+                  rewardData.type === "icon") &&
+                  "せっていから変更できます"}
+              </p>
             </div>
           ) : (
             <div className="point-wrapper">
