@@ -99,7 +99,7 @@ const SetBathGoal = ({
       <div className="flex-box">
         <div className="text-wrapper">
           <FontAwesomeIcon icon={faBath} />
-          <h3>おふろの日時</h3>
+          <h3>おふろの時間</h3>
         </div>
         <input
           ref={inputRef}
