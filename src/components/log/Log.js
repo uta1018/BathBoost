@@ -70,7 +70,7 @@ const Log = () => {
     <div className="log-container">
       <PageHeader title="きろく" />
       <Help />
-      <img src="/LevelUp.png" alt="" />
+      <img src="/log/cat_book.png" alt="本を読む猫" />
       <div className="user-info-wrapper">
         <div>
           <div className="head">

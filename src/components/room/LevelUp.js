@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
   const { userID } = useContext(Context);
@@ -59,36 +57,83 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
   return (
     <div className="level-up-container">
       {point > 0 ? (
-        <div>
-          <p>おふろレベルUP!</p>
+        <div className="level-up flex-box">
+          <img className="cat" src="levelUp/cat_level_change.png" alt="猫" />
+          <img
+            className="frog"
+            src="levelUp/frog_level_up.png"
+            alt="おふろレベルUP!"
+          />
+          <h3>
+            <span>Lv.</span>
+            {userData && userData.level}
+          </h3>
+          {rewardData ? (
+            <div className="reward-wrapper">
+              <img
+                className={rewardData.type}
+                src={rewardData.path}
+                alt="ほうしゅう"
+              />
+              <p>報酬をかくとくしました</p>
+            </div>
+          ) : (
+            <div className="point-wrapper">
+              <div>
+                <p>時間までにお風呂に入る</p>
+                <p>+3pt</p>
+              </div>
+              <div>
+                <p>遅れてお風呂に入る</p>
+                <p>+1pt</p>
+              </div>
+              <div>
+                <p>お風呂キャンセル</p>
+                <p>-1pt</p>
+              </div>
+            </div>
+          )}
+          <button
+            className="button button-w280 ok-button-sub"
+            onClick={closeLevelUp}
+          >
+            OK
+          </button>
         </div>
       ) : (
-        <div>
-          <p>おふろレベルDOWN…</p>
-        </div>
-      )}
-      <FontAwesomeIcon icon={faStar} />
-      <p>Lv.{userData && userData.level}</p>
-      {rewardData && (
-        <div>
-          <p>かくとく</p>
-          <img src={rewardData.path} alt="" width="200px" height="100%" />
-        </div>
-      )}
-      {point < 0 && (
-        <div>
+        <div className="level-down flex-box">
           <img
-            src="/levelUp/cat_sad.png"
-            alt="ねこが悲しむイラスト"
-            width="200px"
+            className="frog"
+            src="levelUp/frog_level_down.png"
+            alt="おふろレベルDOWN…"
           />
-          <p>時間までにお風呂に入る +3pt</p>
-          <p>遅れてお風呂に入る +1pt</p>
-          <p>お風呂キャンセル -1pt</p>
+          <img className="cat" src="levelUp/cat_level_change.png" alt="猫" />
+          <h3>
+            <span>Lv.</span>
+            {userData && userData.level}
+          </h3>
+          <div className="point-wrapper">
+            <div>
+              <p>時間までにお風呂に入る</p>
+              <p>+3pt</p>
+            </div>
+            <div>
+              <p>遅れてお風呂に入る</p>
+              <p>+1pt</p>
+            </div>
+            <div>
+              <p>お風呂キャンセル</p>
+              <p>-1pt</p>
+            </div>
+          </div>
+          <button
+            className="button button-w280 ok-button-main"
+            onClick={closeLevelUp}
+          >
+            OK
+          </button>
         </div>
       )}
-      <p>つぎのレベルまであと{nextPoint}pt</p>
-      <button onClick={closeLevelUp}>OK</button>
     </div>
   );
 };

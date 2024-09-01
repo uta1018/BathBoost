@@ -1,11 +1,111 @@
-.level-up-container {
+.level-up-container > .flex-box {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.level-up-container > .level-up {
+  background-color: var(--sub-100);
+}
+
+.level-up-container > .level-down {
+  background-color: var(--main-200);
+}
+
+.level-up-container > .level-up .frog {
+  width: 500px;
+  position: fixed;
+  top: -170px;
+  left: 58%;
+  transform: translate(-50%, 0%);
+}
+
+.level-up-container > .level-down .frog {
+  width: 400px;
+  position: fixed;
+  top: -150px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.level-up-container > .flex-box h3 {
+  font-size: 32px;
+  font-weight: 600;
+  text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+  margin-top: 210px;
+  margin-bottom: 40px;
+}
+
+.level-up-container .point-wrapper {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100%;
-  z-index: 2;
+  max-width: 300px;
+  gap: 20px;
   background-color: var(--gray-0);
+  border-radius: 12px;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.level-up-container .point-wrapper div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.level-up-container .point-wrapper p {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.level-up-container > .level-up h3 span {
+  color: var(--sub-500);
+}
+
+.level-up-container > .level-down h3 span {
+  color: var(--main-500);
+}
+
+.level-up-container > .level-up .reward-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.level-up-container > .level-up .reward-wrapper img {
+  width: 120px;
+  height: auto;
+  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+}
+
+.level-up-container > .level-up .reward-wrapper .stamp,
+.level-up-container > .level-up .reward-wrapper .themeColor {
+  border-radius: 20px;
+}
+
+.level-up-container > .level-up .reward-wrapper .icon {
+  width: 100px;
+  border-radius: 100px;
+}
+
+.level-up-container > .level-up .reward-wrapper p {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+.level-up-container > .flex-box .cat {
+  position: fixed;
+  bottom: -120px;
+  width: 380px;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
