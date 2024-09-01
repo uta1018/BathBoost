@@ -84,7 +84,7 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
               <p>
                 {(rewardData.type === "themeColor" ||
                   rewardData.type === "icon") &&
-                  "せっていから変更できます"}
+                  "※せっていから変更できます"}
               </p>
             </div>
           ) : (
