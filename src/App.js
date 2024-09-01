@@ -32,6 +32,7 @@ import "./components/css/home/SelectRoom.css";
 
 import "./components/css/login/FirstLogin.css";
 import "./components/css/login/Login.css";
+import "./components/css/login/Tutorial.css";
 
 import "./components/css/room/CancelDialog.css";
 import "./components/css/room/LevelUp.css";

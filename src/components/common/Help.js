@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import Tutorial from "../login/Tutorial";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import Overlay from "./Overlay";
 
 const Help = ({ currentPage }) => {
   // チュートリアルポップアップの表示を管理する変数
   const [showTutorial, setShowTutorial] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const openHelp = () => {
     setShowTutorial(true);
+    setShowOverlay(true);
   };
 
   const closeHelp = () => {
     setShowTutorial(false);
+    setShowOverlay(false);
   };
 
   return (
@@ -29,6 +33,7 @@ const Help = ({ currentPage }) => {
       ) : (
         <></>
       )}
+      {showOverlay && <Overlay />}
     </div>
   );
 };
