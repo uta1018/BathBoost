@@ -43,3 +43,28 @@
   width: 140px;
   padding: 0px 36px 0px 20px;
 }
+
+@media (max-width: 399px) {
+  /* 400px未満で適用するスタイル */
+  .room-navbar-container > .flex-box .room-button-wrapper {
+    display: flex;
+    gap: 8px;
+  }
+
+  .room-navbar-container > .flex-box .room-button-cancel {
+    width: 92px;
+    padding: 0;
+    justify-content: center;
+  }
+  
+  .room-navbar-container > .flex-box .room-button-start-bath {
+    width: 110px;
+    padding: 0px 24px 0px 12px;
+  }
+  
+  .room-navbar-container > .flex-box .room-button-end-bath {
+    width: 110px;
+    padding: 0px 20px 0px 8px;
+  }
+  
+}
