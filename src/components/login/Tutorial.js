@@ -166,6 +166,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false, currentPage }) => {
           <br />
           ユーザーネームやルームネームが変更できるよ
         </p>
+        <img src="/tutorial/user/1.png" alt="" />
         <p>えんぴつマークを押して、変更してみよう!</p>
       </div>,
       <div className="content">
@@ -174,6 +175,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false, currentPage }) => {
           <br />
           せってい画面で変更できるよ
         </p>
+        <img src="/tutorial/user/2.png" alt="" />
         <p>自分の好みにカスタマイズしよう!</p>
       </div>,
     ],
@@ -255,7 +257,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false, currentPage }) => {
         </div>
       ) : (
         <p>
-          ページ ({currentIndex + 1}/{pages[currentTab].length})
+          ({currentIndex + 1}/{pages[currentTab].length})
         </p>
       )}
       <button onClick={handlePrev} className="angle angle-left">
