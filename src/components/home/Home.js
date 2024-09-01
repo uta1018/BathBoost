@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
 import SelectRoom from "./SelectRoom";
 import Navbar from "../common/Navbar";
-import { Context } from "../../providers/Provider";
 import PageHeader from "../common/PageHeader";
 import Help from "../common/Help";
 import RoomID from "./RoomID";
@@ -17,7 +16,6 @@ import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   // グローバル変数を取得
-  const { userID } = useContext(Context);
   const [showOverlay, setShowOverlay] = useState(false);
   const [showCreateRoom, setShowCreateRoom] = useState(false);
   const [showJoinRoom, setShowJoinRoom] = useState(false);
@@ -32,7 +30,7 @@ const Home = () => {
   // 読み込み時に実行
   useEffect(() => {
     // ログインしていなかったら、ログイン画面へリダイレクト
-    if (!userID) {
+    if (!localStorage.getItem('userID')) {
       navigate("/login");
     }
   }, []);

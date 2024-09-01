@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Subheading from "../common/Subheading";
 import { doc, setDoc } from "firebase/firestore";
@@ -23,6 +23,10 @@ const FirstLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if(localStorage.getItem('userID') || !userID) {
+      navigate("/");
+    }
+    localStorage.setItem("themeColor", "theme1");
     inputRef.current.focus();
   }, []);
 
@@ -74,7 +78,6 @@ const FirstLogin = () => {
 
     // ローカルストレージに保存する
     localStorage.setItem("userID", userID);
-    localStorage.setItem("themeColor", "theme1");
     navigate("/");
   };
 

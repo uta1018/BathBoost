@@ -67,8 +67,9 @@ const Room = () => {
     // ルーム情報とユーザー情報をセットする関数
     const fetchData = async () => {
       // ログインしていなかったらログイン画面へ
-      if (!userID) {
+      if (!localStorage.getItem('userID')) {
         navigate("/login");
+        console.log("a");
         return;
       } else if (!roomID) {
         navigate("/");

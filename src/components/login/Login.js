@@ -1,26 +1,23 @@
 import { signInWithPopup } from "firebase/auth";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { auth, db, provider } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../providers/Provider";
 import { doc, getDoc } from "firebase/firestore";
-import FirstLogin from "./FirstLogin";
 import Tutorial from "./Tutorial";
 import { themeContext } from "../../providers/Theme";
 
 const Login = () => {
   // グローバル変数を取得
-  const { userID, setUserID } = useContext(Context);
+  const { setUserID } = useContext(Context);
   const setThemeColor = useContext(themeContext);
-  // ポップアップの表示を管理する変数
-  const [showFirstLogin, setShowFirstLogin] = useState(false);
 
   const navigate = useNavigate();
   console.log("ログイン画面");
 
   // ログイン済のときホーム画面へ
   useEffect(() => {
-    if (userID) {
+    if (localStorage.getItem("userID")) {
       navigate("/");
     }
     setThemeColor("theme1");
@@ -41,8 +38,8 @@ const Login = () => {
 
     // ユーザードキュメントが存在しなかったらポップアップを表示するように変数切り替え
     if (!docSnap.exists()) {
-      setShowFirstLogin(true);
       setThemeColor("theme1");
+      navigate("/first-login");
     } else {
       // ホーム画面にリダイレクト
       // ローカルストレージに保存する
@@ -76,8 +73,6 @@ const Login = () => {
       <footer>
         <p>@ライラック</p>
       </footer>
-      {/* ポップアップ */}
-      {showFirstLogin ? <FirstLogin /> : <></>}
     </div>
   );
 };

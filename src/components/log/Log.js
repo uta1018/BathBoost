@@ -29,7 +29,7 @@ const Log = () => {
     console.log("ユーザーデータを取得");
     const fetchData = async () => {
       // ログインしていなかったらログイン画面へ
-      if (!userID) {
+      if (!localStorage.getItem("userID")) {
         navigate("/login");
         return;
       }

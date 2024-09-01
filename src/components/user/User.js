@@ -30,7 +30,7 @@ const User = () => {
   useEffect(() => {
     console.log("fetchData");
     // ログインしていなかったらログイン画面へ
-    if (!userID) {
+    if (!localStorage.getItem('userID')) {
       navigate("/login");
       return;
     }

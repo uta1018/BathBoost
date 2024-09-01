@@ -51,6 +51,7 @@ import "./components/css/user/SettingRoom.css";
 import "./components/css/user/User.css";
 
 import "./components/css/log/Log.css";
+import FirstLogin from "./components/login/FirstLogin";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
             <Route path="/user" element={<User />}></Route>
             <Route path="/log" element={<Log />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/first-login" element={<FirstLogin />}></Route>
             <Route path="/room" element={<Room />}></Route>
           </Routes>
         </Router>
