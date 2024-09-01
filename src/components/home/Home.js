@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
 import SelectRoom from "./SelectRoom";
@@ -13,6 +13,7 @@ import Overlay from "../common/Overlay";
 //アイコンのインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
+import Tutorial from "../login/Tutorial";
 
 const Home = () => {
   // グローバル変数を取得
@@ -21,19 +22,30 @@ const Home = () => {
   const [showJoinRoom, setShowJoinRoom] = useState(false);
   const [showRoomID, setShowRoomID] = useState(false);
   const [showRoomInfo, setShowRoomInfo] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
   // ルーム検索で見つかったルームのIDをJoinRoomからRoomIDにわたす
   const [joinRoomID, setJoinRoomID] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
   console.log("ホーム画面");
 
   // 読み込み時に実行
   useEffect(() => {
     // ログインしていなかったら、ログイン画面へリダイレクト
-    if (!localStorage.getItem('userID')) {
+    if (!localStorage.getItem("userID")) {
       navigate("/login");
     }
+    if (location.state?.tutorial) {
+      setShowTutorial(true);
+      setShowOverlay(true);
+    }
   }, []);
+
+  const closeTutorial = () => {
+    setShowTutorial(false);
+    setShowOverlay(false);
+  };
 
   const applyOverlay = () => {
     setShowOverlay(true);
@@ -78,7 +90,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <PageHeader title={"ホーム"} />
-      <Help currentPage="home"/>
+      <Help currentPage="home" />
       <div className="flex-box">
         <div className="text-wrapper">
           <img src="/home/frog_front.png" alt="カエルの画像"></img>
@@ -140,6 +152,9 @@ const Home = () => {
           closeRoomInfo={closeRoomInfo}
           removeOverlay={removeOverlay}
         />
+      )}
+      {showTutorial && (
+        <Tutorial closeHelp={closeTutorial} showCloseButton={true} />
       )}
     </div>
   );

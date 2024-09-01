@@ -78,7 +78,7 @@ const FirstLogin = () => {
 
     // ローカルストレージに保存する
     localStorage.setItem("userID", userID);
-    navigate("/");
+    navigate("/", { state: { tutorial: true } });
   };
 
   return (
