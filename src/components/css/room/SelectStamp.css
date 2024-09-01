@@ -8,14 +8,34 @@
   border-radius: 10px 10px 0px 0px;
   box-shadow: 0px -3px 0px rgba(0, 0, 0, 0.25),
     inset 0px 2px 4px rgba(255, 255, 255, 0.2);
-  padding: 24px 20px 0px;
+  padding-top: 24px;
   flex-direction: column;
+  height: 280px;
+}
+
+.select-stamp-container > .show-selected-stamp {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 100%;
+  right: 0;
+  left: 0;
+  bottom: 283px;
+  padding: 24px 0px;
+}
+
+.select-stamp-container > .show-selected-stamp .stamp {
+  width: 220px;
+  height: auto;
+  border-radius: 24px;
 }
 
 .select-stamp-container > .button-wrapper {
   display: flex;
-  margin-bottom: 28px;
+  margin-bottom: 12px;
   justify-content: space-between;
+  padding: 0px 20px;
 }
 
 .select-stamp-container > .button-wrapper .room-button-ok {
@@ -30,7 +50,8 @@
   gap: 12px;
   margin: 0 auto;
   width: 100%;
-  margin-bottom: calc((100vw - 24px - 40px) * 86.67 / 1500);
+  overflow: scroll;
+  padding: 20px;
 }
 
 .select-stamp-container > .stamp-wrapper .stamp {

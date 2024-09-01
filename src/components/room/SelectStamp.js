@@ -228,6 +228,14 @@ const SelectStamp = memo(
 
     return (
       <div className="select-stamp-container">
+        <div className="show-selected-stamp">
+          {/* ここに選択中のスタンプ表示 */}
+          <img
+            src={stamp}
+            alt="選択中のスタンプ"
+            className="stamp stamp-selected"
+          />
+        </div>
         <div className="button-wrapper">
           <button className="button back-button" onClick={closeSelectStamp}>
             とじる
