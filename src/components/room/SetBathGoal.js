@@ -6,11 +6,13 @@ import PopupHeader from "../common/PopupHeader";
 import { faBath } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const toLocalISOString = (date) => {
-  const localDate = new Date(date - date.getTimezoneOffset() * 60000);
-  localDate.setSeconds(0);
-  localDate.setMilliseconds(0);
-  return localDate.toISOString().slice(0, 16);
+// 現在の時刻から10分後の時刻を "HH:MM" 形式で取得する関数
+const getCurrentTimePlus10Minutes = () => {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 10); // 10分を追加
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  return `${hours}:${minutes}`;
 };
 
 const SetBathGoal = ({
@@ -22,7 +24,7 @@ const SetBathGoal = ({
   // グローバル変数を取得
   const { userID, roomID } = useContext(Context);
   // 目標時間を現在の時間に初期化
-  const [goalTime, setGoalTime] = useState(toLocalISOString(new Date()));
+  const [goalTime, setGoalTime] = useState(getCurrentTimePlus10Minutes);
   const inputRef = useRef(null);
 
   console.log("時間選択画面");
@@ -39,18 +41,14 @@ const SetBathGoal = ({
 
   // バリデーション関数
   const validate = (value) => {
-    const now = new Date();
-    const inputDate = new Date(value);
     if (!value) {
       return {
         active: false,
         message: "時間を選択してください",
       };
-    } else if (inputDate < now) {
-      return { active: false, message: "今より未来の時間を選択してください" };
-    } else {
-      return { active: true, message: "※後から変更できません" };
     }
+
+    return { active: true, message: "※後から変更できません" };
   };
 
   // 入力時にバリデーション実行
@@ -69,6 +67,16 @@ const SetBathGoal = ({
       return;
     }
 
+    const [hours, minutes] = goalTime.split(":").map(Number);
+    const now = new Date();
+    const goalDateTime = new Date();
+    goalDateTime.setHours(hours, minutes, 0, 0);
+
+    // 現在時刻より過去の時間を選択した場合、次の日に設定する
+    if (goalDateTime < now) {
+      goalDateTime.setDate(now.getDate() + 1);
+    }
+
     // ルーム画面へ
     closeSelectStamp();
     closeSetBathGoal();
@@ -81,7 +89,7 @@ const SetBathGoal = ({
       type: "setBathGoal",
       date: new Date().getTime(),
       stamp: stamp,
-      goalTime: new Date(goalTime),
+      goalTime: goalDateTime,
     });
   };
 
@@ -96,7 +104,7 @@ const SetBathGoal = ({
         <input
           ref={inputRef}
           className="input"
-          type="datetime-local"
+          type="time"
           value={goalTime}
           onChange={handleTimeChange}
         />
