@@ -10,10 +10,10 @@
 }
 
 .user-container > .flex-box .for-position-wrapper > img {
-  width: 108px;
+  width: 104px;
   position: absolute;
-  right: -28px;
-  bottom: 14px;
+  right: -32px;
+  bottom: 16px;
 }
 
 @media (max-width: 389px) {
