@@ -11,6 +11,18 @@
   padding: 24px 20px 0px;
   flex-direction: column;
 }
+.select-stamp-container > .show-selected-stamp {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.select-stamp-container > .show-selected-stamp .stamp {
+  width: 120px;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
 
 .select-stamp-container > .button-wrapper {
   display: flex;
