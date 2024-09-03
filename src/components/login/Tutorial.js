@@ -5,20 +5,26 @@ const Tutorial = ({ closeHelp, showCloseButton = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTab, setCurrentTab] = useState(0);
 
-  // チュートリアルページを要素として定義
+  // チュートリアルページ
   const pages = [
+    // ホーム
     [
       <div>
-        <div>1ページ目 - グループ1</div>
+        <div>ホームのルーム作成ボタンを押すと新しいルームを作れるよ</div>
+        <div>ルームを作って、ルームIDを友達にシェアしよう</div>
       </div>,
       <div>
-        <div>2ページ目 - グループ1</div>
+        <div>ルームIDを伝えれば、友達もあなたが作ったルームに入れるよ</div>
+        <div>
+          ホームのルーム検索ボタンに、シェアしたルームIDを入れてもらおう
+        </div>
       </div>,
       <div>
-        <div>3ページ目 - グループ1</div>
+        <div>一度入室したルームは、ホームに表示されるようになるよ</div>
+        <div>ルームボタンをタップして入室しよう</div>
       </div>,
     ],
-    // グループ2
+    // ルーム
     [
       <div>
         <div>4ページ目 - グループ2</div>
@@ -30,7 +36,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false }) => {
         <div>6ページ目 - グループ2</div>
       </div>,
     ],
-    // グループ3
+    // おふろポイント
     [
       <div>
         <div>7ページ目 - グループ3</div>
@@ -42,7 +48,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false }) => {
         <div>9ページ目 - グループ3</div>
       </div>,
     ],
-    // グループ4
+    // せってい
     [
       <div>
         <div>10ページ目 - グループ4</div>
@@ -84,9 +90,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false }) => {
 
   return (
     <div className={tutorialContent}>
-      <PopupHeader
-        title={`使い方 (${currentIndex + 1}/${pages[currentTab].length})`}
-      />
+      <PopupHeader title={`使い方`}/>
       {/* タブの切り替え */}
       <div className="tab-buttons">
         <button onClick={() => handleTabClick(0)}>ホーム</button>
