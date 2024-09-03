@@ -180,7 +180,7 @@ const Room = () => {
           </>
         )}
       </button>
-      <Help />
+      <Help currentPage="room"/>
       <div className="flex-box">
         {/* ポストリストの各ポストごとに描画 */}
         {postList.map((post, index) => {
