@@ -81,7 +81,7 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
                   "テーマカラーをかくとくしました"}
                 {rewardData.type === "icon" && "アイコンをかくとくしました"}
               </p>
-              <p className="description-wrapper">
+              <p>
                 {(rewardData.type === "themeColor" ||
                   rewardData.type === "icon") &&
                   "せっていから変更できます"}
