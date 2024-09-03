@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import PopupHeader from "../common/PopupHeader";
 
-const Tutorial = ({ closeHelp, showCloseButton = false }) => {
+const Tutorial = ({ closeHelp, showCloseButton = false, currentPage }) => {
+  const initialTab =
+    {
+      home: 0,
+      room: 1,
+      setting: 3,
+    }[currentPage] || 0;
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(initialTab);
 
   // チュートリアルページ
   const pages = [
@@ -117,7 +124,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false }) => {
 
   return (
     <div className={tutorialContent}>
-      <PopupHeader title={`使い方`}/>
+      <PopupHeader title={`使い方`} />
       {/* タブの切り替え */}
       <div className="tab-buttons">
         <button onClick={() => handleTabClick(0)}>ホーム</button>

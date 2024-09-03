@@ -3,7 +3,7 @@ import Tutorial from "../login/Tutorial";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 
-const Help = () => {
+const Help = ({ currentPage }) => {
   // チュートリアルポップアップの表示を管理する変数
   const [showTutorial, setShowTutorial] = useState(false);
 
@@ -21,7 +21,11 @@ const Help = () => {
         <FontAwesomeIcon icon={faCircleQuestion} />
       </div>
       {showTutorial ? (
-        <Tutorial closeHelp={closeHelp} showCloseButton={true} />
+        <Tutorial
+          closeHelp={closeHelp}
+          showCloseButton={true}
+          currentPage={currentPage}
+        />
       ) : (
         <></>
       )}

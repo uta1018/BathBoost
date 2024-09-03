@@ -78,7 +78,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <PageHeader title={"ホーム"} />
-      <Help />
+      <Help currentPage="home"/>
       <div className="flex-box">
         <div className="text-wrapper">
           <img src="/home/frog_front.png" alt="カエルの画像"></img>

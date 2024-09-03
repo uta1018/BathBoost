@@ -52,7 +52,7 @@ const User = () => {
   return (
     <div className="user-container">
       <PageHeader title="せってい" />
-      <Help />
+      <Help currentPage="setting"/>
       <div className="flex-box">
         <Profile changeLevelToggle={changeLevelToggle} {...userData} />
         <div className="for-position-wrapper">
