@@ -14,7 +14,6 @@
 .tutorial-not-popup {
   width: 100%;
   position: relative;
-  height: 780px;
   display: flex;
   flex-direction: column;
   align-items: center;

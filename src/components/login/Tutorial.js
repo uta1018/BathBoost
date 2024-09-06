@@ -225,7 +225,7 @@ const Tutorial = ({ closeHelp, showCloseButton = false, currentPage }) => {
   return (
     <div className={tutorialContent}>
       {!showCloseButton && (
-        <div className='page-subheading-container'>使い方</div>
+        <div className="page-subheading-container">使い方</div>
       )}
       {/* タブの切り替え */}
       <div className="tub-wrapper">
@@ -242,30 +242,30 @@ const Tutorial = ({ closeHelp, showCloseButton = false, currentPage }) => {
           せってい
         </button>
       </div>
-      {/* 現在のページを表示 */}
-      {pages[currentTab][currentIndex]}
 
       {showCloseButton ? (
-        <div className="indicator-wrapper">
-          {pages[currentTab].map((_, index) => (
-            <span
-              key={index}
-              className={getIndicatorClass(index)}
-              onClick={() => handleIndicatorClick(index)}
-            ></span>
-          ))}
-        </div>
+        <>
+          {/* 現在のページを表示 */}
+          {pages[currentTab][currentIndex]}
+          <div className="indicator-wrapper">
+            {pages[currentTab].map((_, index) => (
+              <span
+                key={index}
+                className={getIndicatorClass(index)}
+                onClick={() => handleIndicatorClick(index)}
+              ></span>
+            ))}
+          </div>
+          <button onClick={handlePrev} className="angle angle-left">
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </button>
+          <button onClick={handleNext} className="angle angle-right">
+            <FontAwesomeIcon icon={faAngleRight} />
+          </button>
+        </>
       ) : (
-        <p>
-          ({currentIndex + 1}/{pages[currentTab].length})
-        </p>
+        <>{pages[currentTab]}</>
       )}
-      <button onClick={handlePrev} className="angle angle-left">
-        <FontAwesomeIcon icon={faAngleLeft} />
-      </button>
-      <button onClick={handleNext} className="angle angle-right">
-        <FontAwesomeIcon icon={faAngleRight} />
-      </button>
       {/* ボタンを押したときチュートリアルを閉じる */}
       {showCloseButton && (
         <button className="close-button" onClick={closeHelp}>
