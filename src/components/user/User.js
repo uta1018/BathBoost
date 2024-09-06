@@ -11,6 +11,7 @@ import { Context } from "../../providers/Provider";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import Loading from "../common/Loading";
 
 const User = () => {
   const { userID } = useContext(Context);
@@ -48,6 +49,10 @@ const User = () => {
 
     fetchData();
   }, [changeData]);
+
+  if (!userData) {
+    return <Loading />;
+  }
 
   return (
     <div className="user-container">

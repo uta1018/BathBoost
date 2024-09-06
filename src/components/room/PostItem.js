@@ -55,7 +55,10 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
       >
         <div className="icon">
           <img src={authorIcon} alt="アイコン" />
-          <p><span>Lv. </span>{authorLevel}</p>
+          <p>
+            <span>Lv. </span>
+            {authorLevel}
+          </p>
         </div>
         <div className="stamp-wrapper">
           <p>{authorName}</p>

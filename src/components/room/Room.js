@@ -15,6 +15,7 @@ import RoomDetail from "../common/RoomDetail";
 import PostItem from "./PostItem";
 import Overlay from "../common/Overlay";
 import Help from "../common/Help";
+import Loading from "../common/Loading";
 
 const Room = () => {
   const { roomID, userID } = useContext(Context);
@@ -168,7 +169,12 @@ const Room = () => {
   }, [postList]);
 
   const roomName = roomData ? roomData.roomName : "";
-  const activeMemberCount = roomData && roomData.member.filter((user) => !user.exit).length;
+  const activeMemberCount =
+    roomData && roomData.member.filter((user) => !user.exit).length;
+
+  if (!userList) {
+    return <Loading />;
+  }
 
   return (
     <div className="room-container">
@@ -192,6 +198,7 @@ const Room = () => {
               : null;
           return (
             <PostItem
+              key={post.id}
               post={post}
               authorUser={authorUser}
               previousPostDate={previousPostDate}

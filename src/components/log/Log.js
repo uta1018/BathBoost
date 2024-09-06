@@ -18,6 +18,7 @@ import {
   faPaw,
   faShower,
 } from "@fortawesome/free-solid-svg-icons";
+import Loading from "../common/Loading";
 
 const Log = () => {
   const { userID } = useContext(Context);
@@ -63,7 +64,7 @@ const Log = () => {
   }, []);
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

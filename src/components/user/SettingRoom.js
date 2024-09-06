@@ -15,6 +15,7 @@ import ExitRoom from "./ExitRoom";
 import Overlay from "../common/Overlay";
 import ChangeRoomName from "./ChangeRoomName";
 import RoomDetail from "../common/RoomDetail";
+import Loading from "../common/Loading";
 
 const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
   // const { userID } = useContext(Context);
@@ -102,6 +103,10 @@ const SettingRoom = memo(({ rooms, changeLevelToggle }) => {
 
     fetchData();
   }, [rooms, changeRoom]);
+
+  if (!roomList) {
+    return <Loading />;
+  }
 
   return (
     <div className="setting-room-container">

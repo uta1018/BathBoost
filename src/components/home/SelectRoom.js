@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 //アイコンのインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import Loading from "../common/Loading";
 
 const SelectRoom = memo(() => {
   // グローバル変数を取得
@@ -86,7 +87,7 @@ const SelectRoom = memo(() => {
     navigate("/room");
   };
 
-  if (isLoading) return <div>ロード中</div>;
+  if (isLoading) return <Loading />;
 
   return (
     roomList.length > 0 && (
