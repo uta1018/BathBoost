@@ -92,6 +92,9 @@ const SelectRoom = memo(() => {
     roomList.length > 0 && (
       <div className="select-room-container">
         {roomList.map((room) => {
+          const activeMemberCount = room.member.filter(
+            (user) => !user.exit
+          ).length;
           return (
             <button
               onClick={() => handleRoute(room.id)}
@@ -105,11 +108,12 @@ const SelectRoom = memo(() => {
                   メンバー:{" "}
                   {(() => {
                     const membersText = room.member
+                      .filter((user) => !user.exit)
                       .map((member) => member.userName)
                       .join("、");
                     return membersText.length > 13
-                      ? `${membersText.slice(0, 13)}…(${room.member.length})`
-                      : `${membersText} (${room.member.length})`;
+                      ? `${membersText.slice(0, 13)}…(${activeMemberCount})`
+                      : `${membersText} (${activeMemberCount})`;
                   })()}
                 </p>
               </div>

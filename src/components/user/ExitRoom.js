@@ -5,11 +5,13 @@ import { db } from "../../firebase";
 import { Context } from "../../providers/Provider";
 
 const ExitRoom = ({ closeExitRoom, roomData, changeLevelToggle }) => {
-  const { userID } = useContext(Context);
+  const { userID, setRoomID } = useContext(Context);
   console.log("退出ポップアップ");
 
   const handleExit = async () => {
     closeExitRoom();
+    localStorage.removeItem("roomID");
+    setRoomID(null);
     const roomID = roomData.id;
 
     // Firebaseのバッチ処理を開始
@@ -28,9 +30,15 @@ const ExitRoom = ({ closeExitRoom, roomData, changeLevelToggle }) => {
     const roomDocSnap = await getDoc(roomRef);
     if (roomDocSnap.exists()) {
       const roomData = roomDocSnap.data();
-      const updatedMembers = roomData.member.filter(
-        (member) => member.userID !== userID
-      );
+      const updatedMembers = roomData.member.map((member) => {
+        if (member.userID === userID) {
+          return {
+            ...member, // 元のメンバー情報を保持
+            exit: true, // exitプロパティをtrueに設定
+          };
+        }
+        return member; // それ以外のメンバーはそのまま
+      });
 
       // // メンバーが空の場合はルーム自体を削除
       // if (updatedMembers.length === 0) {
@@ -64,12 +72,16 @@ const ExitRoom = ({ closeExitRoom, roomData, changeLevelToggle }) => {
           <p>
             メンバー:{" "}
             {(() => {
+              const activeMemberCount = roomData.member.filter(
+                (user) => !user.exit
+              ).length;
               const membersText = roomData.member
+                .filter((user) => !user.exit)
                 .map((member) => member.userName)
                 .join("、");
               return membersText.length > 13
-                ? `${membersText.slice(0, 13)}…(${roomData.member.length})`
-                : `${membersText} (${roomData.member.length})`;
+                ? `${membersText.slice(0, 13)}…(${activeMemberCount})`
+                : `${membersText} (${activeMemberCount})`;
             })()}
           </p>
         </div>

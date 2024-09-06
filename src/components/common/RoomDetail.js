@@ -23,12 +23,14 @@ const RoomDetail = ({
   author,
   date,
 }) => {
+  const activeMemberCount = member.filter((user) => !user.exit).length;
+
   return (
     <div className="room-detail-container">
       <div className="header">
         <FontAwesomeIcon icon={faPaw} />
         <h3>
-          {roomName} ({member.length})
+          {roomName} ({activeMemberCount})
         </h3>
       </div>
       <div className="flex-box">
@@ -42,12 +44,14 @@ const RoomDetail = ({
         </div>
         <Subheading title="メンバー" />
         <div className="member-wrapper">
-          {member.map((user) => (
-            <div className="user-wrapper" key={user.userID}>
-              <img src={user.icon} alt="" width="40px" />
-              <p>{user.userName}</p>
-            </div>
-          ))}
+          {member
+            .filter((user) => !user.exit)
+            .map((user) => (
+              <div className="user-wrapper" key={user.userID}>
+                <img src={user.icon} alt="" width="40px" />
+                <p>{user.userName}</p>
+              </div>
+            ))}
         </div>
         <Subheading title="インフォメーション" />
         <div className="info-container">
@@ -61,7 +65,12 @@ const RoomDetail = ({
           </div>
         </div>
       </div>
-      <button className="button cancel-button button-w280" onClick={closeRoomDetail}>とじる</button>
+      <button
+        className="button cancel-button button-w280"
+        onClick={closeRoomDetail}
+      >
+        とじる
+      </button>
     </div>
   );
 };

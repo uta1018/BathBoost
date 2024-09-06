@@ -65,12 +65,16 @@ const RoomInfo = ({ joinRoomID, closeRoomInfo, removeOverlay }) => {
             <p>
               メンバー:{" "}
               {(() => {
+                const activeMemberCount = roomData.member.filter(
+                  (user) => !user.exit
+                ).length;
                 const membersText = roomData.member
+                  .filter((user) => !user.exit)
                   .map((member) => member.userName)
                   .join("、");
                 return membersText.length > 13
-                  ? `${membersText.slice(0, 13)}…(${roomData.member.length})`
-                  : `${membersText} (${roomData.member.length})`;
+                  ? `${membersText.slice(0, 13)}…(${activeMemberCount})`
+                  : `${membersText} (${activeMemberCount})`;
               })()}
             </p>
           )}

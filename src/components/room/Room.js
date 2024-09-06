@@ -168,6 +168,7 @@ const Room = () => {
   }, [postList]);
 
   const roomName = roomData ? roomData.roomName : "";
+  const activeMemberCount = roomData && roomData.member.filter((user) => !user.exit).length;
 
   return (
     <div className="room-container">
@@ -176,11 +177,11 @@ const Room = () => {
         {/* ここにメンバーの数を表示 */}
         {roomData && (
           <>
-            &nbsp;<span>({roomData.member.length})</span>
+            &nbsp;<span>({activeMemberCount})</span>
           </>
         )}
       </button>
-      <Help currentPage="room"/>
+      <Help currentPage="room" />
       <div className="flex-box">
         {/* ポストリストの各ポストごとに描画 */}
         {postList.map((post, index) => {
