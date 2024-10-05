@@ -1,5 +1,10 @@
 {
   "projects": {
-    "default": "bath-boost"
-  }
+    "default": "bath-boost",
+    "prod": "bath-boost",
+    "dev": "bath-boost-dev"    
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
