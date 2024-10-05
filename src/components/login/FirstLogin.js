@@ -74,6 +74,7 @@ const FirstLogin = () => {
       endBathStamp: ["/endBathStamp/1.png"],
       iconList: ["/icon/paw1.png", "/icon/paw2.png", "/icon/paw3.png"],
       themeColorList: ["theme1"],
+      bathDayList: [],
     });
 
     // ローカルストレージに保存する
