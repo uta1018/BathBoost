@@ -1,5 +1,6 @@
 import {
   addDoc,
+  arrayUnion,
   collection,
   doc,
   getDoc,
@@ -158,6 +159,7 @@ const SelectStamp = memo(
                 bathCount: increment(1),
                 goalStreakCount: increment(1),
                 longestGoalStreakCount: increment(1),
+                bathDayList: arrayUnion(new Date()),
               });
               // ポイントの増減を更新
               settingPoint(+3);
@@ -167,6 +169,7 @@ const SelectStamp = memo(
                 point: increment(3),
                 bathCount: increment(1),
                 goalStreakCount: increment(1),
+                bathDayList: arrayUnion(new Date()),
               });
               // ポイントの増減を更新
               settingPoint(+3);
@@ -176,6 +179,7 @@ const SelectStamp = memo(
                 point: increment(1),
                 bathCount: increment(1),
                 goalStreakCount: 0,
+                bathDayList: arrayUnion(new Date()),
               });
               // ポイントの増減を更新
               settingPoint(+1);
