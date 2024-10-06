@@ -7,6 +7,7 @@ import Navbar from "../common/Navbar";
 import PageHeader from "../common/PageHeader";
 import PageSubheading from "../common/PageSubheading";
 import Help from "../common/Help";
+import BathCalendar from "./BathCalendar";
 
 // アイコンのインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -55,6 +56,8 @@ const Log = () => {
           ...userData,
           daysSinceRegistration,
         });
+        console.log(userData.bathDayList);
+
       } else {
         console.log("ユーザーデータが見つかりません");
       }
@@ -132,6 +135,7 @@ const Log = () => {
           </p>
         </div>
       </div>
+      <BathCalendar bathDayList={userData.bathDayList} />
       <Navbar currentPage="log" />
     </div>
   );
