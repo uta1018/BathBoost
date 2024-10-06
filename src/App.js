@@ -54,6 +54,7 @@ import "./components/css/user/User.css";
 
 import "./components/css/log/Log.css";
 import FirstLogin from "./components/login/FirstLogin";
+import Notification from "./components/common/Notification";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
             <Route path="/room" element={<Room />}></Route>
           </Routes>
         </Router>
+        <Notification />
       </Provider>
     </ThemeProvider>
   );
