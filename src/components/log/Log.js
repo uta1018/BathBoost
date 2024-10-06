@@ -56,8 +56,6 @@ const Log = () => {
           ...userData,
           daysSinceRegistration,
         });
-        console.log(userData.bathDayList);
-
       } else {
         console.log("ユーザーデータが見つかりません");
       }
