@@ -68,8 +68,9 @@ const User = () => {
         <SelectColor {...userData} />
         <PageSubheading title="ルーム" />
         <SettingRoom changeLevelToggle={changeLevelToggle} {...userData} />
-        <Logout />
+        <PageSubheading title="通知" />
         <NotificationButton />
+        <Logout />
       </div>
       <Navbar currentPage="user" />
     </div>

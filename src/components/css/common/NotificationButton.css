@@ -1,0 +1,62 @@
+.notification-button-container {
+  display: flex;
+  align-items: center;
+  padding: 20px 12px 28px;
+  max-width: 366px;
+  width: calc(100vw - 64px);
+  justify-content: space-between;
+}
+
+.notification-button-container > p {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.notification-button-container > .toggle-button {
+  display: flex;
+  align-items: center;
+  padding: 0px 12px;
+  position: relative;
+  width: 68px;
+  height: 30px;
+  border-radius: 50px;
+  background-color: var(--gray-200);
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.notification-button-container > .toggle-button p {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-0);
+  padding-left: 20px;
+}
+
+.notification-button-container > .toggle-button:has(:checked) {
+  background-color: var(--main-500);
+}
+
+.notification-button-container > .toggle-button:has(:checked) p {
+  padding-left: 0px;
+}
+
+.notification-button-container > .toggle-button::after {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  background-color: var(--gray-0);
+  content: "";
+  transition: left 0.4s;
+}
+
+.notification-button-container > .toggle-button:has(:checked)::after {
+  left: 41px;
+}
+
+.notification-button-container > .toggle-button input {
+  display: none;
+}

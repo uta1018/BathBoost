@@ -1,25 +1,71 @@
-// NotificationButton.js
-import React, { useState } from "react";
-import { requestNotificationPermission } from "../../firebase";
+import React, { useContext, useEffect, useState } from "react";
+import { db, requestNotificationPermission } from "../../firebase";
+import { Context } from "../../providers/Provider";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const NotificationButton = () => {
+  const { userID } = useContext(Context);
   const [token, setToken] = useState(null);
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleClick = async () => {
-    const token = await requestNotificationPermission();
-    if (token) {
-      setToken(token);
+  // コンポーネントがマウントされたときにトークンを取得
+  useEffect(() => {
+    const fetchToken = async () => {
+      const userDocRef = doc(db, "user", userID);
+      const userDoc = await getDoc(userDocRef);
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        setToken(data.token || null); // トークンを状態にセット
+        setIsSubscribed(!!data.token);
+      } else {
+        console.log("ユーザードキュメントが見つかりません");
+      }
+    };
+
+    fetchToken();
+  }, [userID]);
+
+  const handleSubscribe = async () => {
+    const newToken = await requestNotificationPermission();
+    if (newToken) {
+      const userDocRef = doc(db, "user", userID);
+      await updateDoc(userDocRef, {
+        token: newToken,
+      });
+      setToken(newToken);
+      setIsSubscribed(true);
+    }
+  };
+
+  const handleUnsubscribe = async () => {
+    const userDocRef = doc(db, "user", userID);
+    await updateDoc(userDocRef, {
+      token: null, // トークンを削除
+    });
+    setToken(null); // トークンをクリア
+    setIsSubscribed(false); // サブスクリプションをオフに
+  };
+
+  const handleToggleChange = () => {
+    if (isSubscribed) {
+      handleUnsubscribe();
     } else {
-      console.log("Permission denied or no token available");
+      handleSubscribe();
     }
   };
 
   return (
-    <div>
-      <button onClick={handleClick}>
-        通知を許可
-      </button>
-      {token && <p>あなたのトークンは: {token}</p>}
+    <div className="notification-button-container">
+      <p>通知</p>
+      <label className="toggle-button">
+        <input
+          type="checkbox"
+          checked={isSubscribed}
+          onChange={handleToggleChange}
+        />
+        <p>{isSubscribed ? "ON" : "OFF"}</p>
+        <span className="slider"></span>
+      </label>
     </div>
   );
 };

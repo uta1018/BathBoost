@@ -18,6 +18,7 @@ import "./components/css/common/CopyButton.css";
 import "./components/css/common/Help.css";
 import "./components/css/common/Loading.css";
 import "./components/css/common/Navbar.css";
+import "./components/css/common/NotificationButton.css";
 import "./components/css/common/PageHeader.css";
 import "./components/css/common/PageSubheading.css";
 import "./components/css/common/PopupHeader.css";
