@@ -64,6 +64,10 @@ const CancelDialog = ({
       date: new Date().getTime(),
       stamp: "/cancelBathStamp/1.png",
     });
+
+    await updateDoc(doc(db, "user", userID), {
+      goalTime: null,
+    });
   };
 
   return (

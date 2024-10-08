@@ -1,8 +1,8 @@
 {
   "projects": {
-    "default": "bath-boost",
+    "default": "bath-boost-dev",
     "prod": "bath-boost",
-    "dev": "bath-boost-dev"    
+    "dev": "bath-boost-dev"
   },
   "targets": {},
   "etags": {},

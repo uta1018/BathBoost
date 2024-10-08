@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import PopupHeader from "../common/PopupHeader";
 import { faBath } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -89,6 +89,10 @@ const SetBathGoal = ({
       type: "setBathGoal",
       date: new Date().getTime(),
       stamp: stamp,
+      goalTime: goalDateTime,
+    });
+
+    await updateDoc(doc(db, "user", userID), {
       goalTime: goalDateTime,
     });
   };

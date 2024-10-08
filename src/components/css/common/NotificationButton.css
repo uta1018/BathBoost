@@ -1,18 +1,22 @@
 .notification-button-container {
-  display: flex;
-  align-items: center;
   padding: 20px 12px 28px;
   max-width: 366px;
   width: calc(100vw - 64px);
-  justify-content: space-between;
 }
 
-.notification-button-container > p {
+.notification-button-container > .flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.notification-button-container > .flex-box p {
   font-size: 16px;
   font-weight: 700;
 }
 
-.notification-button-container > .toggle-button {
+.notification-button-container > .flex-box .toggle-button {
   display: flex;
   align-items: center;
   padding: 0px 12px;
@@ -25,22 +29,22 @@
   transition: background-color 0.4s;
 }
 
-.notification-button-container > .toggle-button p {
+.notification-button-container > .flex-box .toggle-button p {
   font-size: 12px;
   font-weight: 600;
   color: var(--gray-0);
   padding-left: 20px;
 }
 
-.notification-button-container > .toggle-button:has(:checked) {
+.notification-button-container > .flex-box .toggle-button:has(:checked) {
   background-color: var(--main-500);
 }
 
-.notification-button-container > .toggle-button:has(:checked) p {
+.notification-button-container > .flex-box .toggle-button:has(:checked) p {
   padding-left: 0px;
 }
 
-.notification-button-container > .toggle-button::after {
+.notification-button-container > .flex-box .toggle-button::after {
   position: absolute;
   top: 3px;
   left: 3px;
@@ -53,10 +57,15 @@
   transition: left 0.4s;
 }
 
-.notification-button-container > .toggle-button:has(:checked)::after {
+.notification-button-container > .flex-box .toggle-button:has(:checked)::after {
   left: 41px;
 }
 
-.notification-button-container > .toggle-button input {
+.notification-button-container > .flex-box .toggle-button input {
   display: none;
+}
+
+.notification-button-container > p {
+  font-size: 12px;
+  font-weight: 500;
 }

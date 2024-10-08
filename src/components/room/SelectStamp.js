@@ -160,6 +160,7 @@ const SelectStamp = memo(
                 goalStreakCount: increment(1),
                 longestGoalStreakCount: increment(1),
                 bathDayList: arrayUnion(new Date()),
+                goalTime: null,
               });
               // ポイントの増減を更新
               settingPoint(+3);
@@ -170,6 +171,7 @@ const SelectStamp = memo(
                 bathCount: increment(1),
                 goalStreakCount: increment(1),
                 bathDayList: arrayUnion(new Date()),
+                goalTime: null,
               });
               // ポイントの増減を更新
               settingPoint(+3);
@@ -180,6 +182,7 @@ const SelectStamp = memo(
                 bathCount: increment(1),
                 goalStreakCount: 0,
                 bathDayList: arrayUnion(new Date()),
+                goalTime: null,
               });
               // ポイントの増減を更新
               settingPoint(+1);
