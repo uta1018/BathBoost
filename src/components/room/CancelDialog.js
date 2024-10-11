@@ -4,6 +4,7 @@ import { db } from "../../firebase";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   increment,
@@ -65,9 +66,7 @@ const CancelDialog = ({
       stamp: "/cancelBathStamp/1.png",
     });
 
-    await updateDoc(doc(db, "user", userID), {
-      goalTime: null,
-    });
+    await deleteDoc(doc(db, "notifications", userID));
   };
 
   return (

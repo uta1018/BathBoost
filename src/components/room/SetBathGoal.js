@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import PopupHeader from "../common/PopupHeader";
 import { faBath } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -77,6 +77,9 @@ const SetBathGoal = ({
       goalDateTime.setDate(now.getDate() + 1);
     }
 
+    const notificationTime = new Date(goalDateTime);
+    notificationTime.setMinutes(notificationTime.getMinutes() - 5);
+
     // ルーム画面へ
     closeSelectStamp();
     closeSetBathGoal();
@@ -92,8 +95,8 @@ const SetBathGoal = ({
       goalTime: goalDateTime,
     });
 
-    await updateDoc(doc(db, "user", userID), {
-      goalTime: goalDateTime,
+    await setDoc(doc(db, "notifications", userID), {
+      time: notificationTime,
     });
   };
 
