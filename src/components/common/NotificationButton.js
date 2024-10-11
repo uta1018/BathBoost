@@ -90,8 +90,10 @@ const NotificationButton = () => {
           <span className="slider"></span>
         </label>
       </div>
-      {deniedMessage && (
+      {deniedMessage ? (
         <p>※通知が拒否されています。端末の設定で通知を許可してください。</p>
+      ) : (
+        <p>※通知機能をONにする場合は、ホーム画面に追加してください。</p>
       )}
     </div>
   );
