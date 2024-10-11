@@ -2,6 +2,7 @@ import {
   addDoc,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -123,6 +124,8 @@ const SelectStamp = memo(
             stamp: stamp,
             isGoalAchieved,
           });
+
+          await deleteDoc(doc(db, "notifications", userID));
         };
 
         closeSelectStamp();

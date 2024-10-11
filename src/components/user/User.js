@@ -12,6 +12,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import Loading from "../common/Loading";
+import NotificationButton from "../common/NotificationButton";
 
 const User = () => {
   const { userID } = useContext(Context);
@@ -67,6 +68,8 @@ const User = () => {
         <SelectColor {...userData} />
         <PageSubheading title="ルーム" />
         <SettingRoom changeLevelToggle={changeLevelToggle} {...userData} />
+        <PageSubheading title="通知" />
+        <NotificationButton />
         <Logout />
       </div>
       <Navbar currentPage="user" />

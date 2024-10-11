@@ -1,8 +1,14 @@
 # Bath Boost
-#### 技育CAMPハッカソン2024 vol.11最優秀賞受賞
+##### 技育CAMPハッカソン2024 vol.11最優秀賞受賞 / 技育博2024 vol.4 ゆめみ賞・DeNA賞受賞
 友達と互いにお風呂報告をすることで、お風呂に入るモチベーションを高めるWebアプリケーションです。
 チャットルームで、かわいいスタンプを使って目標宣言、お風呂報告ができます。
 お風呂報告をするとお風呂ポイントが貯まり、お風呂レベルが上がります。
+
+![Bath_Boost_2](https://github.com/user-attachments/assets/4e2d9590-2217-423d-afa1-e0f5226037d7)
+
+https://github.com/user-attachments/assets/6dce235b-2009-444d-8ece-4b279c9ae1b3
+
+##### 技育CAMP時のスライド
 ![1](https://github.com/user-attachments/assets/3bc62dc9-3894-4304-b55d-277954e8ba36)
 ![2](https://github.com/user-attachments/assets/ac07e84d-a901-4ef0-a2b0-94f705e12377)
 ![3](https://github.com/user-attachments/assets/45d764ce-28e4-4d55-b524-8c71c421e037)
