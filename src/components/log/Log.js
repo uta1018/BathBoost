@@ -111,6 +111,8 @@ const Log = () => {
           </p>
         </div>
       </div>
+      <PageSubheading title="おふろカレンダー" />
+      <BathCalendar bathDayList={userData.bathDayList} />
       <PageSubheading title="れんぞくおふろきろく" />
       <h4>連続でおふろ宣言を達成した回数は…</h4>
       <div className="user-info-wrapper">
@@ -133,7 +135,6 @@ const Log = () => {
           </p>
         </div>
       </div>
-      <BathCalendar bathDayList={userData.bathDayList} />
       <Navbar currentPage="log" />
     </div>
   );

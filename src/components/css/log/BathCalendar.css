@@ -1,10 +1,13 @@
 /* カレンダー全体 */
 .react-calendar {
-  width: 100% !important;
-  margin: auto;
-  border: 5px solid var(--brown-700);
+  width: 100%;
+  margin: 20px auto 32px;
   border-radius: 20px;
+  padding: 8px 4px;
   overflow: hidden;
+  /* border: 1px solid var(--brown-700); */
+  border: 1px solid var(--gray-500);
+  box-shadow: 0px 4px 0px rgba(0,0,0,0.2);
 }
 
 /* ナビバー(ヘッダー) */
@@ -13,45 +16,39 @@
   width: auto;
   height: 3rem;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
   button {
     border: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    background-color: var(--brown-700) !important;
-    color: var(--gray-0);
+    font-size: 1em;
   }
 
   .react-calendar__navigation__label {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .react-calendar__navigation__arrow {
     font-weight: bold;
-    flex-grow: 0.333;
-
-    &:hover {
-      background-color: var(--brown-300) !important;
-    }
+    width: 60px;
   }
 }
 
 /* 曜日見出し */
 .react-calendar__month-view__weekdays {
   text-align: center;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: calc(100vw / 7 * 0.1);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: calc(100vw / 7 * 0.2);
+  color: var(--brown-700);
 }
 
 /* 曜日見出しの色を変更 */
 .react-calendar__month-view__weekdays__weekday--weekend {
   &:nth-child(7) {
-    color: #00f;
+    color: var(--main-500);
   }
   &:nth-child(1) {
-    color: #f00;
+    color: var(--sub-800);
   }
 }
 
@@ -63,57 +60,44 @@
 /* カレンダーのタイル */
 .react-calendar__tile {
   position: relative;
-  font-size: calc(100vw / 7 * 0.15);
-  padding-top: 2px;
+  font-size: calc(100vw / 7 * 0.24);
+  padding-top: 6px;
   width: auto;
-  height: calc(100vw / 7 * 0.8);
-  border: 1px solid var(--brown-700) !important;
+  height: calc(100vw / 7);
+  border-radius: 8px;
+  background-color: var(--gray-0);
+  color: var(--brown-700);
+  font-weight: 600;
 
   display: flex;
   justify-content: center;
 
   &.today {
-    background: var(--sub-500) !important;
-    color: var(--brown-700) !important;
-
-    &:hover {
-      background-color: var(--sub-500) !important;
-    }
-  }
-
-  &:hover {
-    background: var(--gray-0) !important;
+    background: var(--sub-200);
   }
 }
 
-/* アクティブなカレンダータイル */
-.react-calendar__tile--active {
-  background-color: var(--gray-0) !important;
-  color: var(--brown-700) !important;
+/* 日曜日の日付の色を変える */
+.react-calendar__month-view__days__day--weekend:nth-child(1n) {
+  color: var(--sub-800);
 }
 
-/* 土曜日の日付を青色にする */
+/* 土曜日の日付の色を変える */
 .react-calendar__month-view__days__day--weekend:nth-child(7n) {
-  color: #00f;
+  color: var(--main-500);
 }
 
-/* 隣接した月の日付をグレーアウト */
+/* 隣接した月を非表示*/
 .react-calendar__month-view__days__day--neighboringMonth {
-  /* visibility: hidden; */
-  background-color: var(--gray-200);
-  color: var(--gray-500) !important;
-
-  &:hover {
-    background-color: var(--gray-200) !important;
-  }
+  visibility: hidden;
 }
 
 /* スタンプ */
 .stamp-image {
-  width: calc(100vw / 7 * 0.5);
+  width: calc(100vw / 7 * 0.28);
   height: auto;
   position: absolute;
-  top: 60%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--brown-700);

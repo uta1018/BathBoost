@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import { isSameDay } from "date-fns";
-// import "react-calendar/dist/Calendar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw } from "@fortawesome/free-solid-svg-icons";
 import "../css/log/BathCalendar.css";
 
 const BathCalendar = ({ bathDayList }) => {
   const [date, setDate] = useState(new Date());
+  const [activeStartDate, setActiveStartDate] = useState(new Date());
 
   const achievementStamps = ({ date, view }) => {
     if (view === "month") {
@@ -21,8 +21,20 @@ const BathCalendar = ({ bathDayList }) => {
     return null;
   };
 
+  const handleActiveStartDateChange = ({ activeStartDate }) => {
+    setActiveStartDate(activeStartDate);
+  };
+
+  const isNextMonthDisabled = () => {
+    const today = new Date();
+    return (
+      activeStartDate.getFullYear() === today.getFullYear() &&
+      activeStartDate.getMonth() === today.getMonth()
+    );
+  };
+
   return (
-    <div>
+    <>
       <Calendar
         onChange={setDate}
         value={date}
@@ -31,14 +43,17 @@ const BathCalendar = ({ bathDayList }) => {
         tileClassName={({ date, view }) =>
           view === "month" && isSameDay(date, new Date()) ? "today" : null
         }
+        formatDay={(locale, date) => date.getDate()}
         calendarType="gregory"
         minDetail="month"
+        maxDate={new Date()} 
         next2Label={null}
         prev2Label={null}
-        nextLabel="＞"
+        nextLabel={isNextMonthDisabled() ? "" : "＞"}
         prevLabel="＜"
+        onActiveStartDateChange={handleActiveStartDateChange}
       />
-    </div>
+    </>
   );
 };
 
