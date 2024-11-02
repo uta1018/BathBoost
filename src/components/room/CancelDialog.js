@@ -34,6 +34,7 @@ const CancelDialog = ({
     await updateDoc(userDocRef, {
       point: increment(-1),
       goalStreakCount: 0,
+      lastReminderDate: Date.now(),
     });
     const userDocSnap = await getDoc(userDocRef);
     const currentLevel = userDocSnap.data().level;

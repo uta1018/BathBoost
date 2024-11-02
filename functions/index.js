@@ -2,6 +2,7 @@ const functions = require("firebase-functions/v1");
 const admin = require("firebase-admin");
 admin.initializeApp();
 
+// 毎分実行
 exports.sendReminder = functions
   .region("asia-northeast1")
   .runWith({ memory: "512MB" })
@@ -23,7 +24,6 @@ exports.sendReminder = functions
         .collection("notifications")
         .where("time", "==", now)
         .get();
-      
 
       // 取得したドキュメントごとに処理
       await Promise.all(
@@ -34,50 +34,110 @@ exports.sendReminder = functions
           console.log(userId);
           console.log(goalBathTime);
 
+          // お風呂宣言のリマインダー通知
           if (userId && goalBathTime) {
             await sendNotification(userId, goalBathTime);
           }
         })
       );
+
+      // usersからユーザーデータを取得
+      const usersSnapshot = await admin.firestore().collection("user").get();
+
+      // 取得したドキュメントごとに処理
+      await Promise.all(
+        usersSnapshot.docs.map(async (doc) => {
+          const userId = doc.id;
+          console.log(userId);
+
+          // 最後の通知or投稿日時を取得（存在しない場合、nullに設定）
+          const lastReminderDate = doc.data()?.lastReminderDate || null;
+          console.log(lastReminderDate);
+
+          // 24時間をミリ秒に変換（24 * 60 * 60 * 1000 = 86400000 ms）
+          const oneDayInMillis = 24 * 60 * 60 * 1000;
+          const currentTime = Date.now();
+          console.log(currentTime);
+          console.log(currentTime - lastReminderDate >= oneDayInMillis);
+
+          // 24時間以上ポストがないか、前回のリマインダー送信から24時間以上経過しているかを確認
+          if (userId && lastReminderDate && currentTime - lastReminderDate >= oneDayInMillis) {
+            console.log("通知送信");
+            await sendReminderNotification(userId);
+
+            const userRef = admin.firestore().collection('user').doc(userId);
+            
+            // 通知送信後に、lastReminderDate を現在時刻で更新
+            await userRef.update({
+              lastReminderDate: currentTime,
+            });
+          }
+        })
+      );
+
       console.log("全ての通知を処理しました。");
     } catch (error) {
       console.error("通知処理中にエラーが発生しました:", error);
     }
   });
 
-// exports.sendGoalBathNotification = functions.firestore
-//   .document("user/{userId}")
-//   .onUpdate((change, context) => {
-//     const beforeData = change.before.data();
-//     const afterData = change.after.data();
-//     const userId = context.params.userId;
+// ポストが追加されたときに実行
+exports.sendStartBathNotification = functions.firestore
+  .document("posts/{postId}")
+  .onCreate(async (snap, context) => {
+    const postData = snap.data();
+    const postType = postData.type;
 
-//     console.log("動いてるよ");
-//     // goalTime が変更されたかどうかを確認し、null でないかを確認
-//     const previousGoalBath = beforeData.goalTime;
-//     const currentGoalBath = afterData.goalTime;
+    // ポストが入浴スタンプのとき
+    if (postType == "startBath") {
+      const roomId = postData.roomid;
+      const authorId = postData.author;
 
-//     if (previousGoalBath !== currentGoalBath && currentGoalBath !== null) {
-//       console.log("発動条件みたした");
-//       // goalBath が設定されている場合、7分前に通知を送る
-//       const goalBathTime = currentGoalBath.toDate();
-//       const notificationTime = goalBathTime.getTime() - 7 * 60 * 1000;
+      try {
+        // users コレクションからポスト投稿者の名前を取得
+        const userSnapshot = await admin
+          .firestore()
+          .collection("user")
+          .doc(authorId)
+          .get();
 
-//       // 現在の時刻と比較し、通知時間が未来であることを確認
-//       const currentTime = Date.now();
-//       if (notificationTime > currentTime) {
-//         console.log("通知送るよ～");
-//         const delay = notificationTime - currentTime; // 通知までの遅延時間
+        if (!userSnapshot.exists) {
+          console.error("ユーザーが見つかりません:", authorId);
+          return;
+        }
+        const userName = userSnapshot.data().userName;
 
-//         // 5分前に通知を送信するために setTimeout を使用
-//         setTimeout(() => {
-//           sendNotification(userId, currentGoalBath);
-//         }, delay);
-//       }
-//     }
+        // rooms コレクションからメンバーのuserIDを取得
+        const remindersSnapshot = await admin
+          .firestore()
+          .collection("rooms")
+          .doc(roomId)
+          .get();
 
-//     return null; // Firestore トリガーのために null を返す
-//   });
+        if (!remindersSnapshot.exists) {
+          console.error("ルームが見つかりません:", roomId);
+          return;
+        }
+
+        const memberList = remindersSnapshot.data().member || [];
+
+        // 取得したuserIDごとに処理
+        await Promise.all(
+          memberList.map(async (member) => {
+            const userId = member.userID;
+            console.log(userId);
+
+            if (userId && userId !== authorId) {
+              await sendStartBathNotification(userId, userName);
+            }
+          })
+        );
+        console.log("全ての通知を処理しました。");
+      } catch (error) {
+        console.error("通知処理中にエラーが発生しました:", error);
+      }
+    }
+  });
 
 const formatHHMMforTimeStamp = (timestamp) => {
   const date = new Date(timestamp.seconds * 1000);
@@ -87,7 +147,109 @@ const formatHHMMforTimeStamp = (timestamp) => {
   return `${hours}:${minutes.toString().padStart(2, "0")}`;
 };
 
-// 通知を送信する関数
+// 24時間ごとにリマインダーを送信する関数
+const sendReminderNotification = async (userId) => {
+  const tokensRef = admin.firestore().collection("user").doc(userId);
+  const tokensSnapshot = await tokensRef.get();
+  console.log("通知関数");
+  if (!tokensSnapshot.empty) {
+    const tokens = tokensSnapshot.data().devices; // トークンを配列として取得
+
+    if (tokens && tokens.length > 0) {
+      const message = {
+        notification: {
+          title: "おふろ報告をしませんか？",
+          body: `ねことかえるが悲しんでいるようです`,
+        },
+        tokens: tokens,
+      };
+
+      console.log("通知送った！");
+      console.log(tokens);
+      admin
+        .messaging()
+        .sendEachForMulticast(message)
+        .then((response) => {
+          console.log(
+            "成功:",
+            response.successCount,
+            "件のメッセージが送信されました"
+          );
+          console.log(
+            "失敗:",
+            response.failureCount,
+            "件のメッセージが失敗しました"
+          );
+          if (response.failureCount > 0) {
+            response.responses.forEach((resp, idx) => {
+              if (!resp.success) {
+                console.error("失敗したトークン:", tokens[idx], resp.error);
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("通知送信中にエラーが発生しました:", error);
+        });
+      console.log("成功");
+    }
+  } else {
+    console.log("通知トークンがありません");
+  }
+};
+
+// フレンドのお風呂通知を送信する関数
+const sendStartBathNotification = async (userId, userName) => {
+  const tokensRef = admin.firestore().collection("user").doc(userId);
+  const tokensSnapshot = await tokensRef.get();
+  console.log("通知関数");
+  if (!tokensSnapshot.empty) {
+    const tokens = tokensSnapshot.data().devices; // トークンを配列として取得
+
+    if (tokens && tokens.length > 0) {
+      const message = {
+        notification: {
+          title: "おふろ通知",
+          body: `${userName}さんがお風呂に入りました！`,
+        },
+        tokens: tokens,
+      };
+
+      console.log("通知送った！");
+      console.log(tokens);
+      admin
+        .messaging()
+        .sendEachForMulticast(message)
+        .then((response) => {
+          console.log(
+            "成功:",
+            response.successCount,
+            "件のメッセージが送信されました"
+          );
+          console.log(
+            "失敗:",
+            response.failureCount,
+            "件のメッセージが失敗しました"
+          );
+          if (response.failureCount > 0) {
+            response.responses.forEach((resp, idx) => {
+              if (!resp.success) {
+                console.error("失敗したトークン:", tokens[idx], resp.error);
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("通知送信中にエラーが発生しました:", error);
+        });
+      console.log("成功");
+    }
+  } else {
+    console.log("通知トークンがありません");
+  }
+};
+
+// お風呂宣言のリマインダー通知を送信する関数
 const sendNotification = async (userId, goalBath) => {
   const tokensRef = admin.firestore().collection("user").doc(userId);
   const tokensSnapshot = await tokensRef.get();
@@ -99,7 +261,7 @@ const sendNotification = async (userId, goalBath) => {
     goalBathDate.setMinutes(goalBathDate.getMinutes() + 5); // 5分追加
 
     const formattedGoalBath = formatHHMMforTimeStamp({
-      seconds: Math.floor(goalBathDate.getTime() / 1000)
+      seconds: Math.floor(goalBathDate.getTime() / 1000),
     });
 
     if (tokens && tokens.length > 0) {

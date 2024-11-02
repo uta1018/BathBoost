@@ -85,6 +85,11 @@ const SetBathGoal = ({
     closeSetBathGoal();
     removeOverlay();
 
+    const userDocRef = doc(db, "user", userID);
+    await updateDoc(userDocRef, {
+      lastReminderDate: Date.now(),
+    });
+
     // ポストを保存
     await addDoc(collection(db, "posts"), {
       roomid: roomID,

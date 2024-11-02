@@ -86,7 +86,7 @@ const SelectStamp = memo(
       }
     }, [stampList]);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
       if (lastPostType === "setBathGoal") {
         // 入浴をポスト
         const postData = async () => {
@@ -228,6 +228,11 @@ const SelectStamp = memo(
         // 時間選択ポップアップを表示
         openSetBathGoal();
       }
+
+      const userDocRef = doc(db, "user", userID);
+      await updateDoc(userDocRef, {
+        lastReminderDate: Date.now(),
+      });
     };
 
     // ロックされたスタンプの数を計算
