@@ -24,21 +24,16 @@ const Navbar = ({ currentPage }) => {
         />
         <p>ホーム</p>
       </button>
-      
-      {/* ユーザーボタン */}
-      <button onClick={() => navigate("/user")} className={getIconClass("user")}>
-        <FontAwesomeIcon
-          icon={faGear}
-          className="icon-user fontawesome-icon"
-        />
-        <p>せってい</p>
-      </button>
 
       {/* うらないボタン */}
-      <button onClick={() => navigate("/fortune")} className={getIconClass("fortune")}>
-        <TbCrystalBall 
-          className="icon-fortune react-icon"
-        />
+      <button
+        onClick={() => navigate("/fortune")}
+        className={getIconClass("fortune")}
+      >
+        <div className="icon-fortune-container">
+          <TbCrystalBall className="icon-fortune fill-icon" />
+          <TbCrystalBall className="icon-fortune react-icon" />
+        </div>
         <p>うらない</p>
       </button>
 
@@ -49,6 +44,15 @@ const Navbar = ({ currentPage }) => {
           className="icon-log fontawesome-icon"
         />
         <p>きろく</p>
+      </button>
+
+      {/* ユーザーボタン */}
+      <button
+        onClick={() => navigate("/user")}
+        className={getIconClass("user")}
+      >
+        <FontAwesomeIcon icon={faGear} className="icon-user fontawesome-icon" />
+        <p>せってい</p>
       </button>
     </nav>
   );
