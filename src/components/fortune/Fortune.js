@@ -15,7 +15,7 @@ const Fortune = () => {
   const handleRandomNavigate = () => {
     // 0 から 4 までのランダムな整数
     const randomId = Math.floor(Math.random() * fortuneResultCount);
-    navigate(`/fortune/${randomId}`);
+    navigate(`/fortune/${randomId}`, { state: { isAuthorized: true } });
   };
 
   return (
