@@ -212,6 +212,7 @@ const SelectStamp = memo(
               type: "endBath",
               date: new Date().getTime(),
               stamp: stamp,
+              favoriteUser: [],
             });
           }
         };

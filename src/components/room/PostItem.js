@@ -1,5 +1,6 @@
 import React, { memo, useContext } from "react";
 import { Context } from "../../providers/Provider";
+import FavoriteEndBath from "./FavoriteEndBath";
 
 // 時間表示を○○：○○にする関数
 const formatHHMM = (time) => {
@@ -62,19 +63,33 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
         </div>
         <div className="stamp-wrapper">
           <p>{authorName}</p>
-          {post.type === "setBathGoal" && (
+          {post.type === "setBathGoal" ? (
             <div className="stamp-set-bath-goal">
               <h3 className="goalTime">{goalTime}</h3>
               <img src={post.stamp} alt="スタンプ" />
             </div>
-          )}
-          {post.type !== "setBathGoal" && (
+          ) : post.type === "endBath" ? (
+            <div className="stamp-end-bath">
+              <img src={post.stamp} />
+              {/* いいね表示 */}
+
+              <FavoriteEndBath userID={userID} post={post} />
+            </div>
+          ) : (
             <div className="stamp">
               <img src={post.stamp} />
             </div>
           )}
         </div>
-        <p className="time-stamp">{formatHHMM(post.date)}</p>
+        <p
+          className={
+            post.type === "endBath"
+              ? "time-stamp time-stamp-end-bath"
+              : "time-stamp"
+          }
+        >
+          {formatHHMM(post.date)}
+        </p>
       </div>
     </div>
   );

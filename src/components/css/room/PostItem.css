@@ -62,10 +62,20 @@
   text-align: center;
 }
 
+.post-item-container > .post-r .stamp-end-bath {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .post-item-container > .post-wrapper .time-stamp {
   font-size: 12px;
   color: var(--brown-300);
   align-self: flex-end;
+}
+
+.post-item-container > .post-wrapper .time-stamp-end-bath {
+  margin-bottom: 20px;
 }
 
 .post-item-container > .post-r {

@@ -40,6 +40,7 @@ import "./components/css/room/CancelDialog.css";
 import "./components/css/room/LevelUp.css";
 import "./components/css/room/PointUp.css";
 import "./components/css/room/PostItem.css";
+import "./components/css/room/FavoriteEndBath.css";
 import "./components/css/room/Room.css";
 import "./components/css/room/RoomNavbar.css";
 import "./components/css/room/SelectStamp.css";
