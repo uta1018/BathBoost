@@ -5,6 +5,7 @@ import Log from "./components/log/Log";
 import Login from "./components/login/Login";
 import Room from "./components/room/Room";
 import Fortune from "./components/fortune/Fortune";
+import FortuneResult from "./components/fortune/FortuneResult";
 import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
 
@@ -72,6 +73,7 @@ function App() {
             <Route path="/first-login" element={<FirstLogin />}></Route>
             <Route path="/room" element={<Room />}></Route>
             <Route path="/fortune" element={<Fortune />}></Route>
+            <Route path="/fortune/:id" element={<FortuneResult />}></Route>
           </Routes>
         </Router>
         <Notification />
