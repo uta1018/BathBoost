@@ -1,4 +1,24 @@
 .favorite-container {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.favorite-container > .favorite-icon {
+  font-size: 20px;
+  color: var(--gray-300);
+}
+
+.favorite-container > .active-icon{
+  color: var(--sub-800);
+}
+
+.favorite-container > span {
+  width: 14px;
+  margin: 0px 4px;
+  text-align: end;
+  color: var(--brown-700);
+  font-weight: 600;
 }
 
 .favorite-users-container {
@@ -7,13 +27,15 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 352px;
-  height: 600px;
   background: var(--gray-0);
   z-index: 2;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 32px;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 .favorite-users-container > .header {
@@ -26,52 +48,37 @@
   justify-content: center;
   gap: 10px;
   align-items: center;
-  padding: 36px 0 20px;
+  padding: 30px 0 16px;
 }
-
-/* .favorite-container > .header svg {
-  font-size: 20px;
-  color: var(--main-500);
-} */
 
 .favorite-users-container > .header h3 {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  padding-right: 12px;
 }
 
-.favorite-users-container > .flex-box {
-  width: 336px;
-  height: 416px;
-  overflow: scroll;
-  margin: 0px auto 16px;
-  padding: 16px 0px;
-}
-
-.favorite-users-container > .flex-box div {
-  margin: 0 auto;
-}
-
-.favorite-users-container > .flex-box .member-wrapper {
-  margin: 16px 16px 28px;
+.favorite-users-container .member-wrapper {
+  padding: 16px 16px 32px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+  align-items: center;
 }
 
-.favorite-users-container > .flex-box .member-wrapper .user-wrapper {
+.favorite-users-container .member-wrapper .user-wrapper {
   display: flex;
   gap: 12px;
   align-items: center;
-  width: 100%;
+  width: 300px;
 }
 
-.favorite-users-container > .flex-box .member-wrapper .user-wrapper img {
-  width: 36px;
+.favorite-users-container .member-wrapper .user-wrapper img {
+  width: 40px;
   border-radius: 100px;
+  box-shadow: none;
 }
 
-.favorite-users-container > .flex-box .member-wrapper .user-wrapper p {
-  font-size: 16px;
+.favorite-users-container .member-wrapper .user-wrapper p {
+  font-size: 18px;
   font-weight: 700;
 }

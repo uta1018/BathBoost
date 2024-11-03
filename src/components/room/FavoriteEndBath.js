@@ -4,6 +4,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartsolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import Overlay from "../common/Overlay";
 
 const FavoriteEndBath = ({ post, userID }) => {
   // いいね表示する関数
@@ -53,12 +54,12 @@ const FavoriteEndBath = ({ post, userID }) => {
   };
 
   return (
-    <div>
+    <>
       <div className="favorite-container">
         <FontAwesomeIcon
           onClick={onClickFavorite}
           icon={isFavorite ? faHeartsolid : faHeartRegular}
-          color={isFavorite ? "var(--red)" : "var(--gray-300)"}
+          className={isFavorite ? "active-icon favorite-icon" : "favorite-icon"}
           style={{ cursor: "pointer" }}
         />
         {favoriteUser.length > 0 && (
@@ -67,22 +68,30 @@ const FavoriteEndBath = ({ post, userID }) => {
       </div>
       {/* ポップアップでユーザーリストを表示 */}
       {showFavoriteUsers && (
-        <div className="favorite-users-container">
-          <div className="header">
-            <h3>いいねしたユーザー</h3>
+        <>
+          <Overlay />
+          <div className="favorite-users-container">
+            <div className="header">
+              <h3>いいねしたユーザー</h3>
+            </div>
+            <div className="member-wrapper">
+              {favoriteUserDetails.map((user) => (
+                <div className="user-wrapper" key={user.userID}>
+                  <img src={user.icon} alt="" width="40px" />
+                  <p>{user.userName}</p>
+                </div>
+              ))}
+            </div>
+            <button
+              className="button cancel-button button-w280"
+              onClick={() => setShowFavoriteUsers(false)}
+            >
+              とじる
+            </button>
           </div>
-          <div className="member-wrapper">
-            {favoriteUserDetails.map((user) => (
-              <div className="user-wrapper" key={user.userID}>
-                <img src={user.icon} alt="" width="40px" />
-                <p>{user.userName}</p>
-              </div>
-            ))}
-          </div>
-          <button className="button cancel-button button-w280" onClick={() => setShowFavoriteUsers(false)}>とじる</button>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

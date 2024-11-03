@@ -69,9 +69,10 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
               <img src={post.stamp} alt="スタンプ" />
             </div>
           ) : post.type === "endBath" ? (
-            <div className="stamp">
+            <div className="stamp-end-bath">
               <img src={post.stamp} />
               {/* いいね表示 */}
+
               <FavoriteEndBath
                 userID={userID}
                 post={post}
@@ -83,7 +84,7 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
             </div>
           )}
         </div>
-        <p className="time-stamp">{formatHHMM(post.date)}</p>
+        <p className={post.type === "endBath" ? "time-stamp time-stamp-end-bath" : "time-stamp"}>{formatHHMM(post.date)}</p>
       </div>
     </div>
   );
