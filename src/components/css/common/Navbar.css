@@ -35,7 +35,9 @@
 }
 
 .navbar-container .icon-fortune {
-  font-size: 32px;
+  position: relative;
+  top: -2px;
+  font-size: 34px;
 }
 
 .navbar-container .fontawesome-icon {
