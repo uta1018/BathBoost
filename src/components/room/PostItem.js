@@ -1,8 +1,6 @@
 import React, { memo, useContext, useState } from "react";
 import { Context } from "../../providers/Provider";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as faHeartsolid } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import FavoriteEndBath from "./FavoriteEndBath";
 
 // 時間表示を○○：○○にする関数
 const formatHHMM = (time) => {
@@ -28,54 +26,6 @@ const formatHHMMforTimeStamp = (timestamp) => {
   const minutes = date.getMinutes();
 
   return `${hours}:${minutes.toString().padStart(2, "0")}`;
-};
-
-// いいね表示する関数
-const FavoriteEndBath = ({ userID, post, initialFavorites }) => {
-  const [favorites, setFavorites] = useState(initialFavorites);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [showFavoriteUsers, setShowFavoriteUsers] = useState(false);
-  const [favoriteUser, setFavoriteUser] = useState(post.favoriteUser);
-  
-  const onClickFavorite = () => {
-    // if (userID === post.author) return;
-    if (isFavorite) {
-      setFavorites(favorites - 1);
-    } else {
-      setFavorites(favorites + 1);
-    }
-    setIsFavorite(!isFavorite);
-    setFavoriteUser(...favoriteUser, userID);
-  };
-
-  const onClickNumber = () => {
-    // いいねしたユーザーをポップアップ表示
-    setShowFavoriteUsers(!showFavoriteUsers);
-  };
-
-  return (
-    <div className="favorite-container" onClick={onClickFavorite}>
-      <FontAwesomeIcon
-        icon={isFavorite ? faHeartsolid : faHeartRegular}
-        color={isFavorite ? "var(--red)" : "var(--gray-300)"}
-        style={{ cursor: "pointer" }}
-      />
-      {favorites > 0 && <span onClick={onClickNumber}>{favorites}</span>}{" "}
-      {/* いいねの数が1以上のとき表示 */}
-      {/* ポップアップでユーザーリストを表示 */}
-      {showFavoriteUsers && (
-        <div className="favorite-users-popup">
-          {post.favoriteUser.map((user) => (
-            <div key={user.userID}>
-              <img src={user.icon} alt="" width="40px" />
-              <p>{user.userName}</p>
-            </div>
-          ))}
-          <button onClick={() => setShowFavoriteUsers(false)}>閉じる</button>
-        </div>
-      )}
-    </div>
-  );
 };
 
 const PostItem = memo(({ post, authorUser, previousPostDate }) => {
@@ -125,7 +75,6 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
               <FavoriteEndBath
                 userID={userID}
                 post={post}
-                initialFavorites={0} //post.favoriteにしたい
               />
             </div>
           ) : (
