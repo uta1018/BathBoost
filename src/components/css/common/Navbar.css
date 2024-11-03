@@ -34,10 +34,18 @@
   font-size: 27px;
 }
 
-.navbar-container svg {
+.navbar-container .icon-fortune {
+  font-size: 32px;
+}
+
+.navbar-container .fontawesome-icon {
   stroke: var(--brown-700);
   stroke-width: 80px;
   paint-order: stroke;
+  filter: drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.25));
+}
+
+.navbar-container .react-icon {
   filter: drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.25));
 }
 

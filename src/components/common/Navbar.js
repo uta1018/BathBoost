@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 //アイコンのインポート
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faGear, faFilePen } from "@fortawesome/free-solid-svg-icons";
+import { TbCrystalBall } from "react-icons/tb";
 
 const Navbar = ({ currentPage }) => {
   const navigate = useNavigate();
@@ -15,29 +16,28 @@ const Navbar = ({ currentPage }) => {
 
   return (
     <nav className="navbar-container">
-      {/* ユーザーボタン */}
-      <button onClick={() => navigate("/user")} className={getIconClass("user")}>
-        <FontAwesomeIcon
-          icon={faGear}
-          className="icon-user"
-        />
-        <p>せってい</p>
-      </button>
-
       {/* ホームボタン */}
       <button onClick={() => navigate("/")} className={getIconClass("home")}>
         <FontAwesomeIcon
           icon={faHouse}
-          className="icon-home"
+          className="icon-home fontawesome-icon"
         />
         <p>ホーム</p>
+      </button>
+      
+      {/* ユーザーボタン */}
+      <button onClick={() => navigate("/user")} className={getIconClass("user")}>
+        <FontAwesomeIcon
+          icon={faGear}
+          className="icon-user fontawesome-icon"
+        />
+        <p>せってい</p>
       </button>
 
       {/* うらないボタン */}
       <button onClick={() => navigate("/fortune")} className={getIconClass("fortune")}>
-        <FontAwesomeIcon
-          icon={faFilePen}
-          className="icon-fortune"
+        <TbCrystalBall 
+          className="icon-fortune react-icon"
         />
         <p>うらない</p>
       </button>
@@ -46,7 +46,7 @@ const Navbar = ({ currentPage }) => {
       <button onClick={() => navigate("/log")} className={getIconClass("log")}>
         <FontAwesomeIcon
           icon={faFilePen}
-          className="icon-log"
+          className="icon-log fontawesome-icon"
         />
         <p>きろく</p>
       </button>
