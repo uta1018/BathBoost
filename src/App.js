@@ -4,6 +4,7 @@ import User from "./components/user/User";
 import Log from "./components/log/Log";
 import Login from "./components/login/Login";
 import Room from "./components/room/Room";
+import Fortune from "./components/fortune/Fortune";
 import { Provider } from "./providers/Provider";
 import { ThemeProvider } from "./providers/Theme";
 
@@ -70,6 +71,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/first-login" element={<FirstLogin />}></Route>
             <Route path="/room" element={<Room />}></Route>
+            <Route path="/fortune" element={<Fortune />}></Route>
           </Routes>
         </Router>
         <Notification />
