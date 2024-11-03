@@ -72,6 +72,7 @@ function App() {
             <Route path="/first-login" element={<FirstLogin />}></Route>
             <Route path="/room" element={<Room />}></Route>
             <Route path="/fortune" element={<Fortune />}></Route>
+            <Route path="/test/0" element={<Fortune />}></Route>
           </Routes>
         </Router>
         <Notification />
