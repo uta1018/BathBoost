@@ -33,6 +33,15 @@ const Navbar = ({ currentPage }) => {
         <p>ホーム</p>
       </button>
 
+      {/* うらないボタン */}
+      <button onClick={() => navigate("/fortune")} className={getIconClass("fortune")}>
+        <FontAwesomeIcon
+          icon={faFilePen}
+          className="icon-fortune"
+        />
+        <p>うらない</p>
+      </button>
+
       {/* ログボタン */}
       <button onClick={() => navigate("/log")} className={getIconClass("log")}>
         <FontAwesomeIcon
