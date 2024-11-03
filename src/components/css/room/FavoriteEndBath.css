@@ -10,11 +10,11 @@
 }
 
 .favorite-container > .active-icon{
-  color: var(--sub-800);
+  color: var(--sub-500);
 }
 
 .favorite-container > span {
-  width: 14px;
+  width: 13px;
   margin: 0px 4px;
   text-align: end;
   color: var(--brown-700);

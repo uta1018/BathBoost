@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from "react";
+import React, { memo, useContext } from "react";
 import { Context } from "../../providers/Provider";
 import FavoriteEndBath from "./FavoriteEndBath";
 
@@ -73,10 +73,7 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
               <img src={post.stamp} />
               {/* いいね表示 */}
 
-              <FavoriteEndBath
-                userID={userID}
-                post={post}
-              />
+              <FavoriteEndBath userID={userID} post={post} />
             </div>
           ) : (
             <div className="stamp">
@@ -84,7 +81,15 @@ const PostItem = memo(({ post, authorUser, previousPostDate }) => {
             </div>
           )}
         </div>
-        <p className={post.type === "endBath" ? "time-stamp time-stamp-end-bath" : "time-stamp"}>{formatHHMM(post.date)}</p>
+        <p
+          className={
+            post.type === "endBath"
+              ? "time-stamp time-stamp-end-bath"
+              : "time-stamp"
+          }
+        >
+          {formatHHMM(post.date)}
+        </p>
       </div>
     </div>
   );
