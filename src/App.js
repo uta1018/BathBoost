@@ -57,6 +57,8 @@ import "./components/css/user/SettingRoom.css";
 import "./components/css/user/User.css";
 
 import "./components/css/log/Log.css";
+
+import "./components/css/fortune/Fortune.css";
 import FirstLogin from "./components/login/FirstLogin";
 import Notification from "./components/common/Notification";
 
