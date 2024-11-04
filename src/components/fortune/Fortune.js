@@ -12,7 +12,6 @@ const Fortune = () => {
   const { userID } = useContext(Context);
   const [userData, setUserData] = useState(null);
   const [isAbleFortune, setIsAbleFortune] = useState(false);
-  const fortuneResultCount = 5;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,8 +63,22 @@ const Fortune = () => {
       ticket: increment(-1),
       lastFortuneDate: new Date(),
     });
-    // 0 から 4 までのランダムな整数
-    const randomId = Math.floor(Math.random() * fortuneResultCount);
+
+    // id選択の確率分布: 0, 1, 2, 3, 4
+    const fortuneProbabilities = [0.05, 0.3, 0.3, 0.3, 0.05];
+
+    let randomId = -1;
+    let probabilitySum = 0;
+    const randomValue = Math.random();
+
+    for (let i = 0; i < fortuneProbabilities.length; i++) {
+      probabilitySum += fortuneProbabilities[i];
+      if (randomValue < probabilitySum) {
+        randomId = i;
+        break;
+      }
+    }
+
     navigate(`/fortune/${randomId}`, { state: { isAuthorized: true } });
   };
 
