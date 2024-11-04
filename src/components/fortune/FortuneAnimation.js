@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import FortuneResult from "./FortuneResult";
 
 const FortuneAnimation = () => {
   const [animation, setAnimation] = useState(0);
@@ -97,6 +98,7 @@ const FortuneAnimation = () => {
           />
         </div>
       )}
+      {animation == 5 && <FortuneResult />}
     </div>
   );
 };
