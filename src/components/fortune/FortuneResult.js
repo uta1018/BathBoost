@@ -41,7 +41,11 @@ const FortuneResult = ({ id }) => {
   return (
     <div>
       <h2>うらない結果</h2>
-      <div>結果: {results.join(", ")}</div>
+      <div>お金: {results[0]}</div>
+      <div>恋愛: {results[1]}</div>
+      <div>仕事: {results[2]}</div>
+      <div>健康: {results[3]}</div>
+      <div>人間関係: {results[4]}</div>
       <button onClick={() => navigate("/fortune", { replace: true })}>
         もどる
       </button>
