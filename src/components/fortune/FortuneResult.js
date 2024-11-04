@@ -1,102 +1,54 @@
-import { useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const FortuneResult = () => {
-  const [animation, setAnimation] = useState(0);
+const FortuneResult = ({ id }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { id } = useParams();
+  const resultCount = 5;
+  const resultMarks = ["◎", "○", "△", "×"];
 
-  useEffect(() => {
-    // ボタン操作以外でのアクセス（stateが空の場合）はホームにリダイレクト
-    if (!location.state || !location.state.isAuthorized) {
-      navigate("/", { replace: true });
+  // id と確率分布の対応
+  const probabilities = new Map([
+    // id: "◎", "○", "△", "×"
+    ["0", [0.7, 0.3, 0.0, 0.0]],
+    ["1", [0.5, 0.4, 0.1, 0.0]],
+    ["2", [0.3, 0.4, 0.2, 0.1]],
+    ["3", [0.2, 0.4, 0.3, 0.1]],
+    ["4", [0.0, 0.3, 0.5, 0.2]],
+    ["default", [0.0, 0.0, 0.0, 1.0]],
+  ]);
+
+  const selectedProbabilities =
+    probabilities.get(id) || probabilities.get("default");
+
+  const generateResults = (count) => {
+    const results = [];
+    for (let i = 0; i < count; i++) {
+      const randomValue = Math.random();
+      let probabilitySum = 0;
+
+      for (let j = 0; j < resultMarks.length; j++) {
+        probabilitySum += selectedProbabilities[j];
+        if (randomValue < probabilitySum) {
+          results.push(resultMarks[j]);
+          break;
+        }
+      }
     }
-  }, []);
+    return results;
+  };
+
+  const results = generateResults(resultCount);
 
   return (
     <div>
-      <h2>Fortune Result {id}</h2>
-      {animation == 0 && (
-        <div>
-          <img
-            src="/fortune/ice.png"
-            alt="アイス"
-            width={100}
-            onClick={() => {
-              setAnimation(1);
-            }}
-          />
-          <img
-            src="/fortune/ice.png"
-            alt="アイス"
-            width={100}
-            onClick={() => {
-              setAnimation(1);
-            }}
-          />
-          <img
-            src="/fortune/ice.png"
-            alt="アイス"
-            width={100}
-            onClick={() => {
-              setAnimation(1);
-            }}
-          />
-          <p>タップして選んでね</p>
-        </div>
-      )}
-      {animation == 1 && (
-        <div>
-          <img
-            src="/fortune/eating_ice1.png"
-            alt="食べかけのアイス"
-            width={300}
-            onClick={() => {
-              setAnimation(2);
-            }}
-          />
-          <p>タップしてね</p>
-        </div>
-      )}
-      {animation == 2 && (
-        <div>
-          <img
-            src="/fortune/eating_ice2.png"
-            alt="食べかけのアイス"
-            width={300}
-            onClick={() => {
-              setAnimation(3);
-            }}
-          />
-          <p>タップしてね</p>
-        </div>
-      )}
-      {animation == 3 && (
-        <div>
-          <img
-            src="/fortune/eating_ice3.png"
-            alt="食べかけのアイス"
-            width={300}
-            onClick={() => {
-              setAnimation(4);
-            }}
-          />
-          <p>タップしてね</p>
-        </div>
-      )}
-      {animation == 4 && id == 1 && (
-        <div>
-          <img
-            src="/fortune/result_1.png"
-            alt="大吉のアイスの棒"
-            width={300}
-            onClick={() => {
-              setAnimation(5);
-            }}
-          />
-        </div>
-      )}
+      <h2>うらない結果</h2>
+      <div>お金: {results[0]}</div>
+      <div>恋愛: {results[1]}</div>
+      <div>仕事: {results[2]}</div>
+      <div>健康: {results[3]}</div>
+      <div>人間関係: {results[4]}</div>
+      <button onClick={() => navigate("/fortune", { replace: true })}>
+        もどる
+      </button>
     </div>
   );
 };
