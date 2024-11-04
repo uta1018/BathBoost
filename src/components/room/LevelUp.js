@@ -1,9 +1,83 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../providers/Provider";
 import { db } from "../../firebase";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  increment,
+  updateDoc,
+} from "firebase/firestore";
 
-const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
+// 報酬
+const rewardDatas = {
+  1: {
+    path: "/setBathGoalStamp/2.png",
+    stampType: "setBathGoalStamp",
+    type: "stamp",
+  },
+  3: {
+    path: "/icon/1.png",
+    type: "icon",
+  },
+  5: {
+    path: "/themeColor/theme2.png",
+    themeColor: "theme2",
+    type: "themeColor",
+  },
+  7: {
+    path: "/startBathStamp/2.png",
+    stampType: "startBathStamp",
+    type: "stamp",
+  },
+  9: {
+    path: "/icon/2.png",
+    type: "icon",
+  },
+  11: {
+    path: "/endBathStamp/2.png",
+    stampType: "endBathStamp",
+    type: "stamp",
+  },
+  13: {
+    path: "/icon/3.png",
+    type: "icon",
+  },
+  15: {
+    path: "/setBathGoalStamp/3.png",
+    stampType: "setBathGoalStamp",
+    type: "stamp",
+  },
+  17: {
+    path: "/icon/4.png",
+    type: "icon",
+  },
+  19: {
+    path: "/themeColor/theme3.png",
+    themeColor: "theme3",
+    type: "themeColor",
+  },
+  21: {
+    path: "/startBathStamp/3.png",
+    stampType: "startBathStamp",
+    type: "stamp",
+  },
+  23: {
+    path: "/icon/5.png",
+    type: "icon",
+  },
+  25: {
+    path: "/endBathStamp/3.png",
+    stampType: "endBathStamp",
+    type: "stamp",
+  },
+  27: {
+    path: "/icon/6.png",
+    type: "icon",
+  },
+};
+
+const LevelUp = ({ point, closeLevelUp }) => {
   const { userID } = useContext(Context);
   const [userData, setUserData] = useState();
   const [rewardData, setRewardData] = useState();
@@ -22,32 +96,43 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
 
       // 報酬を取得
       if (userData.highestLevel < userData.level) {
-        const rewardDocRef = doc(db, "reward", userData.level.toString());
-        const rewardDocSnap = await getDoc(rewardDocRef);
-
-        // Firestoreにドキュメントが存在するか確認
-        if (rewardDocSnap.exists()) {
-          const rewardData = { level: userData.level, ...rewardDocSnap.data() };
-
-          // スタンプの場合のユーザーデータ更新
-          if (rewardData.type === "stamp") {
-            await updateDoc(userDocRef, {
-              [rewardData.stampType]: arrayUnion(rewardData.path),
-              highestLevel: userData.level,
-            });
-          } else if (rewardData.type === "icon") {
-            await updateDoc(userDocRef, {
-              iconList: arrayUnion(rewardData.path),
-              highestLevel: userData.level,
-            });
-          } else if (rewardData.type === "themeColor") {
-            await updateDoc(userDocRef, {
-              themeColorList: arrayUnion(rewardData.themeColor),
-              highestLevel: userData.level,
-            });
-          }
-          setRewardData(rewardData);
+        let rewardData;
+        if (rewardDatas[userData.level]) {
+          rewardData = {
+            level: userData.level,
+            ...rewardDatas[userData.level],
+          };
+        } else {
+          rewardData = {
+            level: userData.level,
+            path: "",
+            type: "ticket",
+          };
         }
+
+        // スタンプの場合のユーザーデータ更新
+        if (rewardData.type === "stamp") {
+          await updateDoc(userDocRef, {
+            [rewardData.stampType]: arrayUnion(rewardData.path),
+            highestLevel: userData.level,
+          });
+        } else if (rewardData.type === "icon") {
+          await updateDoc(userDocRef, {
+            iconList: arrayUnion(rewardData.path),
+            highestLevel: userData.level,
+          });
+        } else if (rewardData.type === "themeColor") {
+          await updateDoc(userDocRef, {
+            themeColorList: arrayUnion(rewardData.themeColor),
+            highestLevel: userData.level,
+          });
+        } else if (rewardData.type === "ticket") {
+          await updateDoc(userDocRef, {
+            ticket: increment(1),
+            highestLevel: userData.level,
+          });
+        }
+        setRewardData(rewardData);
       }
     };
 
@@ -80,11 +165,14 @@ const LevelUp = ({ nextPoint, point, closeLevelUp }) => {
                 {rewardData.type === "themeColor" &&
                   "テーマカラーをかくとくしました"}
                 {rewardData.type === "icon" && "アイコンをかくとくしました"}
+                {rewardData.type === "ticket" &&
+                  "うらないチケットをかくとくしました"}
               </p>
               <p>
                 {(rewardData.type === "themeColor" ||
                   rewardData.type === "icon") &&
                   "※せっていから変更できます"}
+                {rewardData.type === "ticket" && "※うらないで使用できます"}
               </p>
             </div>
           ) : (
