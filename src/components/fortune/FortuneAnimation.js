@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-const FortuneResult = () => {
+const FortuneAnimation = () => {
   const [animation, setAnimation] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -101,4 +101,4 @@ const FortuneResult = () => {
   );
 };
 
-export default FortuneResult;
+export default FortuneAnimation;
