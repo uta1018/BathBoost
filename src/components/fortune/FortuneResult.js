@@ -5,7 +5,9 @@ const FortuneResult = ({ id }) => {
   const resultCount = 5;
   const resultMarks = ["◎", "○", "△", "×"];
 
+  // id と確率分布の対応
   const probabilities = new Map([
+    // id: "◎", "○", "△", "×"
     ["0", [0.7, 0.3, 0.0, 0.0]],
     ["1", [0.5, 0.4, 0.1, 0.0]],
     ["2", [0.3, 0.4, 0.2, 0.1]],
