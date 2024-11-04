@@ -86,7 +86,7 @@ const FortuneAnimation = () => {
           <p>タップしてね</p>
         </div>
       )}
-      {animation == 4 && id == 1 && (
+      {animation == 4 && (
         <div>
           <img
             src="/fortune/result_1.png"
@@ -98,7 +98,7 @@ const FortuneAnimation = () => {
           />
         </div>
       )}
-      {animation == 5 && <FortuneResult />}
+      {animation == 5 && <FortuneResult id={id} />}
     </div>
   );
 };
