@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/test/*", 
+        "function": "shareTest"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

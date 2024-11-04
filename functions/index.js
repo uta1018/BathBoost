@@ -1,5 +1,7 @@
 const functions = require("firebase-functions/v1");
 const admin = require("firebase-admin");
+const fs = require("fs");
+const path = require("path");
 admin.initializeApp();
 
 // 毎分実行
@@ -61,12 +63,16 @@ exports.sendReminder = functions
           console.log(currentTime - lastReminderDate >= oneDayInMillis);
 
           // 24時間以上ポストがないか、前回のリマインダー送信から24時間以上経過しているかを確認
-          if (userId && lastReminderDate && currentTime - lastReminderDate >= oneDayInMillis) {
+          if (
+            userId &&
+            lastReminderDate &&
+            currentTime - lastReminderDate >= oneDayInMillis
+          ) {
             console.log("通知送信");
             await sendReminderNotification(userId);
 
-            const userRef = admin.firestore().collection('user').doc(userId);
-            
+            const userRef = admin.firestore().collection("user").doc(userId);
+
             // 通知送信後に、lastReminderDate を現在時刻で更新
             await userRef.update({
               lastReminderDate: currentTime,
@@ -305,4 +311,86 @@ const sendNotification = async (userId, goalBath) => {
   } else {
     console.log("通知トークンがありません");
   }
+};
+
+// 定数としてメタタグ情報を定義
+const TwitterCardDatas = [
+  {
+    title: "テスト",
+    description: "書き換わっている？",
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/bath-boost-dev.firebasestorage.app/o/logo512.png?alt=media",
+  },
+];
+
+exports.shareTest = functions
+  .region("asia-northeast1")
+  .https.onRequest(async (request, response) => {
+    // キャッシュを600秒設定
+    response.set("Cache-Control", "public, max-age=600, s-maxage=600");
+
+    // リクエストURLから trip ID を取得
+    const match = request.path.match("/test/(?<id>.+)");
+    if (!match || !match.groups) {
+      console.error("Invalid Url Error!");
+      response.status(404).end("404 Not Found");
+      return;
+    }
+
+    const testId = match.groups.id;
+
+    // React プロジェクトのビルド済み index.html を読み込み
+    let indexHTML;
+    try {
+      indexHTML = fs
+        .readFileSync(path.join(__dirname, "./hosting", "index.html"))
+        .toString();
+    } catch (error) {
+      console.error("Could not read index.html file:", error);
+      response.status(500).end("Internal Server Error");
+      return;
+    }
+
+    // Firestore から trip ドキュメントを取得
+    const twitterCardData = TwitterCardDatas[testId];
+
+    if (!twitterCardData) {
+      console.error("Could not fetch Trip!");
+      response.status(404).end("404 Not Found");
+      return;
+    }
+
+    const { title, description, imageUrl } = twitterCardData;
+
+    // メタタグを書き換え
+    indexHTML = updateMetaTag(
+      indexHTML, title, description, imageUrl
+    );
+
+    response.status(200).send(indexHTML);
+  });
+
+// メタタグを置き換える関数
+const updateMetaTag = (html, title, description, imageUrl) => {
+  return html
+    .replace(/<title>.*<\/title>/g, `<title>${title}</title>`)
+    .replace(
+      /<\s*meta name="description" content="[^>]*>/g,
+      `<meta name="description" content="${description}" />`
+    )
+    .replace(
+      /<\s*meta property="og:title" content="[^>]*>/g,
+      `<meta property="og:title" content="${title}" />`
+    )
+    .replace(
+      /<\s*meta property="og:description" content="[^>]*>/g,
+      `<meta property="og:description" content="${description}" />`
+    )
+    .replace(
+      /<\s*meta property="og:image" content="[^>]*>/g,
+      `<meta property="og:image" content="${imageUrl}" />`
+    )
+    .replace(
+      /<\s*meta name="twitter:description" content="[^>]*>/g,
+      `<meta name="twitter:description" content="${description}" />`
+    );
 };
