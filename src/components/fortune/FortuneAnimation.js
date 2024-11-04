@@ -89,13 +89,14 @@ const FortuneAnimation = () => {
       {animation == 4 && (
         <div>
           <img
-            src="/fortune/result_1.png"
-            alt="大吉のアイスの棒"
+            src={`/fortune/result_${id}.png`}
+            alt={`結果が書かれたアイスの棒 ${id}`}
             width={300}
             onClick={() => {
               setAnimation(5);
             }}
           />
+          <p>タップしてね</p>
         </div>
       )}
       {animation == 5 && <FortuneResult id={id} />}
