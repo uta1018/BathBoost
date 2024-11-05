@@ -34,7 +34,7 @@ const Fortune = () => {
           ...userData,
         });
 
-        if (userData.lastFortuneDate && userData.ticket) {
+        if (userData.lastFortuneDate) {
           const now = new Date();
           // 今日の0:00のタイムスタンプを生成
           const todayStart = new Date(
@@ -60,7 +60,7 @@ const Fortune = () => {
     const userDocRef = doc(db, "user", userID);
     await updateDoc(userDocRef, {
       ticket: increment(-1),
-      lastFortuneDate: new Date(),
+      lastFortuneDate: new Date().getTime(),
     });
 
     // id選択の確率分布: 0, 1, 2, 3, 4
