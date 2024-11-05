@@ -1,9 +1,16 @@
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
 const FortuneResult = ({ id }) => {
   const navigate = useNavigate();
   const resultCount = 5;
-  const resultMarks = ["◎", "○", "△", "×"];
+  const resultMarks = [
+    "めっちゃいい感じ！",
+    "いい感じ！",
+    "まあまあかな",
+    "だめそう…",
+  ];
 
   // id と確率分布の対応
   const probabilities = new Map([
@@ -39,16 +46,46 @@ const FortuneResult = ({ id }) => {
   const results = generateResults(resultCount);
 
   return (
-    <div>
-      <h2>うらない結果</h2>
-      <div>お金: {results[0]}</div>
-      <div>恋愛: {results[1]}</div>
-      <div>仕事: {results[2]}</div>
-      <div>健康: {results[3]}</div>
-      <div>人間関係: {results[4]}</div>
-      <button onClick={() => navigate("/fortune", { replace: true })}>
-        もどる
-      </button>
+    <div className="fortune-result-container">
+      <div className="header">
+        <div className="title">
+          <FontAwesomeIcon icon={faPaw} />
+          <h3>アイスうらないの結果</h3>
+        </div>
+      </div>
+      <img src={`/fortune/result_card_${id}.png`} alt="結果画像" />
+      <h2>~ 今日の運勢 ~</h2>
+      <div>
+        <div className="fortune-wrapper">
+          <div>恋愛</div>
+          <p>{results[0]}</p>
+        </div>
+        <div className="fortune-wrapper">
+          <div>お金</div>
+          <p>{results[1]}</p>
+        </div>
+        <div className="fortune-wrapper">
+          <div>仕事</div>
+          <p>{results[2]}</p>
+        </div>
+        <div className="fortune-wrapper">
+          <div>健康</div>
+          <p>{results[3]}</p>
+        </div>
+        <div className="fortune-wrapper">
+          <div>人間関係</div>
+          <p>{results[4]}</p>
+        </div>
+      </div>
+      <div className="button-wrapper">
+        <button
+          className="button button-w140 cancel-button"
+          onClick={() => navigate("/fortune", { replace: true })}
+        >
+          もどる
+        </button>
+        <button className="button button-w140 ok-button-sub">シェアする</button>
+      </div>
     </div>
   );
 };
