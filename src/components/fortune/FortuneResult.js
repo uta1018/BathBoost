@@ -23,6 +23,8 @@ const FortuneResult = ({ id }) => {
     ["default", [0.0, 0.0, 0.0, 1.0]],
   ]);
 
+  const msg = ["超大吉", "大吉", "中吉", "小吉", "凶"];
+
   const selectedProbabilities =
     probabilities.get(id) || probabilities.get("default");
 
@@ -53,7 +55,7 @@ const FortuneResult = ({ id }) => {
           <h3>アイスうらないの結果</h3>
         </div>
       </div>
-      <img src={`/fortune/result_card_${id}.png`} alt="結果画像" />
+      <img src={`/fortune/result_card_${id}.png`} alt={msg[id]} />
       <h2>~ 今日の運勢 ~</h2>
       <div>
         <div className="fortune-wrapper">
@@ -84,7 +86,13 @@ const FortuneResult = ({ id }) => {
         >
           もどる
         </button>
-        <button className="button button-w140 ok-button-sub">シェアする</button>
+        <a
+          href={`https://twitter.com/intent/tweet?url=https://bath-boost-dev.web.app/fortune/${id}&text=今日のあなたの運勢は…【${msg[id]}】です！%0a&hashtags=今日のアイスうらない&hashtags=bathboost`}
+          className="button button-w140 ok-button-sub"
+          target="_blank"
+        >
+          シェアする
+        </a>
       </div>
     </div>
   );
