@@ -36,7 +36,6 @@ const Fortune = () => {
 
         if (userData.lastFortuneDate && userData.ticket) {
           const now = new Date();
-          const lastDate = new Date(userData.lastFortuneDate);
           // 今日の0:00のタイムスタンプを生成
           const todayStart = new Date(
             now.getFullYear(),
@@ -45,7 +44,7 @@ const Fortune = () => {
           ).getTime();
 
           // lastFortuneDateが今日の0:00より前かどうかを判定
-          setIsAbleFortune(lastDate.getTime() < todayStart);
+          setIsAbleFortune(userData.lastFortuneDate < todayStart);
         } else {
           setIsAbleFortune(true);
         }
