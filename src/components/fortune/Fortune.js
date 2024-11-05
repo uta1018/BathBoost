@@ -64,7 +64,7 @@ const Fortune = () => {
     });
 
     // id選択の確率分布: 0, 1, 2, 3, 4
-    const fortuneProbabilities = [0.05, 0.3, 0.3, 0.3, 0.05];
+    const fortuneProbabilities = [0.04, 0.24, 0.24, 0.24, 0.24];
 
     let randomId = -1;
     let probabilitySum = 0;
