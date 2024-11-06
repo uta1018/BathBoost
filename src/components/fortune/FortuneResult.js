@@ -57,7 +57,7 @@ const FortuneResult = ({ id }) => {
       </div>
       <img src={`/fortune/result_card_${id}.png`} alt={msg[id]} />
       <h2>~ 今日の運勢 ~</h2>
-      <div>
+      <div className="fortune-wrapper-container">
         <div className="fortune-wrapper">
           <div>恋愛</div>
           <p>{results[0]}</p>

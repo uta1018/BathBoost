@@ -9,12 +9,12 @@ const FortuneAnimation = () => {
   const location = useLocation();
   const { id } = useParams();
 
-  useEffect(() => {
-    // ボタン操作以外でのアクセス（stateが空の場合）はホームにリダイレクト
-    if (!location.state || !location.state.isAuthorized) {
-      navigate("/", { replace: true });
-    }
-  }, []);
+  // useEffect(() => {
+  //   // ボタン操作以外でのアクセス（stateが空の場合）はホームにリダイレクト
+  //   if (!location.state || !location.state.isAuthorized) {
+  //     navigate("/", { replace: true });
+  //   }
+  // }, []);
 
   return (
     <div className="fortune-animation-container">

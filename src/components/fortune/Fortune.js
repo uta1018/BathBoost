@@ -92,7 +92,7 @@ const Fortune = () => {
           <p>{userData?.ticket || 0}</p>
         </div>
       </div>
-      <img src="/log/cat_book.png" alt="アイスうらない" />
+      <img src="/fortune/fortune_cat_frog.png" alt="アイスうらない" />
       <button
         onClick={handleRandomNavigate}
         className="fortune-button button"

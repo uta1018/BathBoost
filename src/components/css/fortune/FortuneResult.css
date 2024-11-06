@@ -55,6 +55,10 @@
   margin-bottom: 16px;
 }
 
+.fortune-result-container .fortune-wrapper-container {
+  width: 300px;
+}
+
 .fortune-result-container .fortune-wrapper {
   display: flex;
   gap: 32px;
