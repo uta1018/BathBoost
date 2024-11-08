@@ -8,8 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/test/*", 
-        "function": "shareTest"
+        "source": "/fortune/*", 
+        "function": "shareFortune"
       },
       {
         "source": "**",

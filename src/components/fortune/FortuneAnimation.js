@@ -1,20 +1,79 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import FortuneResult from "./FortuneResult";
 import Overlay from "../common/Overlay";
 
 const FortuneAnimation = () => {
   const [animation, setAnimation] = useState(0);
+  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { id } = useParams();
 
-  // useEffect(() => {
-  //   // ボタン操作以外でのアクセス（stateが空の場合）はホームにリダイレクト
-  //   if (!location.state || !location.state.isAuthorized) {
-  //     navigate("/", { replace: true });
-  //   }
-  // }, []);
+  useEffect(() => {
+    // ボタン操作以外でのアクセス（stateが空の場合）はホームにリダイレクト
+    if (!location.state || !location.state.isAuthorized) {
+      navigate("/", { replace: true });
+    }
+  }, []);
+
+  // ブラウザバックを禁止
+  const blockBrowserBack = useCallback(() => {
+    window.history.go(1);
+  }, []);
+
+  useEffect(() => {
+    // 直前の履歴に現在のページを追加
+    window.history.pushState(null, "", window.location.href);
+
+    // 直前の履歴と現在のページのループ
+    window.addEventListener("popstate", blockBrowserBack);
+
+    // クリーンアップは忘れない
+    return () => {
+      window.removeEventListener("popstate", blockBrowserBack);
+    };
+  }, [blockBrowserBack]);
+
+  const resultCount = 5;
+  const resultMarks = [
+    "めっちゃいい感じ！",
+    "いい感じ！",
+    "まあまあかな",
+    "だめそう…",
+  ];
+
+  // id と確率分布の対応
+  const probabilities = new Map([
+    // id: "◎", "○", "△", "×"
+    ["0", [0.7, 0.3, 0.0, 0.0]],
+    ["1", [0.5, 0.4, 0.1, 0.0]],
+    ["2", [0.3, 0.4, 0.2, 0.1]],
+    ["3", [0.2, 0.4, 0.3, 0.1]],
+    ["4", [0.0, 0.3, 0.5, 0.2]],
+    ["default", [0.0, 0.0, 0.0, 1.0]],
+  ]);
+
+  const selectedProbabilities =
+    probabilities.get(id) || probabilities.get("default");
+
+  const generateResults = (count) => {
+    const results = [];
+    for (let i = 0; i < count; i++) {
+      const randomValue = Math.random();
+      let probabilitySum = 0;
+
+      for (let j = 0; j < resultMarks.length; j++) {
+        probabilitySum += selectedProbabilities[j];
+        if (randomValue < probabilitySum) {
+          results.push(resultMarks[j]);
+          break;
+        }
+      }
+    }
+    return results;
+  };
+
+  const results = generateResults(resultCount);
 
   return (
     <div className="fortune-animation-container">
@@ -97,7 +156,7 @@ const FortuneAnimation = () => {
       {animation == 5 && (
         <>
           <Overlay />
-          <FortuneResult id={id} />
+          <FortuneResult />
         </>
       )}
     </div>

@@ -79,7 +79,6 @@ function App() {
             <Route path="/room" element={<Room />}></Route>
             <Route path="/fortune" element={<Fortune />}></Route>
             <Route path="/fortune/:id" element={<FortuneAnimation />}></Route>
-            <Route path="/test/0" element={<Fortune />}></Route>
           </Routes>
         </Router>
         <Notification />

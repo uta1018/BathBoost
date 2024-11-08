@@ -1,16 +1,31 @@
-.fortune-result-container {
+.fortune-result-container-popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 352px;
-  height: 600px;
   background: var(--gray-0);
   z-index: 2;
   border-radius: 20px;
+}
+
+.fortune-result-container {
+  width: 352px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.fortune-result-container > .page-subheading div{
+  margin: 32px 0px 20px;
+}
+
+.fortune-result-container > .page-subheading p {
+  width: 100%;
+  text-align: end;
+  margin-bottom: 4px;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .fortune-result-container > .header {
