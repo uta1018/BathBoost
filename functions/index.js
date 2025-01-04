@@ -8,13 +8,12 @@ admin.initializeApp();
 exports.sendReminder = functions
   .region("asia-northeast1")
   .runWith({ memory: "512MB" })
-  .pubsub.schedule("every 1 minutes")
+  .pubsub.schedule("every 5 minutes")
   .timeZone("Asia/Tokyo")
   .onRun(async (context) => {
     // 秒を切り捨てた現在時刻
     const now = (() => {
       let s = admin.firestore.Timestamp.now().seconds;
-      s = s - (s % 60);
       return new admin.firestore.Timestamp(s, 0);
     })();
     console.log(now);
@@ -24,7 +23,8 @@ exports.sendReminder = functions
       const remindersSnapshot = await admin
         .firestore()
         .collection("notifications")
-        .where("time", "==", now)
+        .where("time", ">=", now)
+        .where("time", "<", new admin.firestore.Timestamp(now.seconds + 300, 0))
         .get();
 
       // 取得したドキュメントごとに処理

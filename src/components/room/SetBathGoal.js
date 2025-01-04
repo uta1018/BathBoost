@@ -78,7 +78,7 @@ const SetBathGoal = ({
     }
 
     const notificationTime = new Date(goalDateTime);
-    notificationTime.setMinutes(notificationTime.getMinutes() - 5);
+    notificationTime.setMinutes(notificationTime.getMinutes() - 10);
 
     // ルーム画面へ
     closeSelectStamp();
