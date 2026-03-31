@@ -2,13 +2,18 @@
 ##### 技育CAMPハッカソン2024 vol.11最優秀賞受賞 / 技育博2024 vol.4 ゆめみ賞・DeNA賞受賞 / 技育展2024 決勝進出
 友達と互いにお風呂報告をすることで、お風呂に入るモチベーションを高めるWebアプリケーションです。
 チャットルームで、かわいいスタンプを使って目標宣言、お風呂報告ができます。
-お風呂報告をするとお風呂ポイントが貯まり、お風呂レベルが上がります。
+お風呂報告をするとお風呂ポイントが貯まり、お風呂レベルが上がります。新しく、通知機能やうらない機能が追加されました。
 
 ![Bath_Boost_2](https://github.com/user-attachments/assets/4e2d9590-2217-423d-afa1-e0f5226037d7)
 
 https://github.com/user-attachments/assets/6dce235b-2009-444d-8ece-4b279c9ae1b3
 
-##### 技育展2回戦のスライド
+##### 技育展決勝 (2024/11)
+[スライド Canvaリンク](https://canva.link/8tfqgrgjnevhu4x)
+
+[プレゼン Youtubeリンク](https://youtu.be/xRYd8dV40Ic?t=4126)
+
+##### 技育展2回戦 (2024/10)
 ![1](https://github.com/user-attachments/assets/67f0e47c-daa4-498e-9913-ef50654bd3b5)
 ![2](https://github.com/user-attachments/assets/cd3059ce-54b4-4a7d-b64d-31a7891a1d02)
 ![3](https://github.com/user-attachments/assets/90b678d4-9a19-4117-b527-c0368f134d03)
@@ -21,7 +26,7 @@ https://github.com/user-attachments/assets/2efaa39a-852b-496a-8767-a47cce86a655
 ![8](https://github.com/user-attachments/assets/70c579c7-0344-408d-9539-2b445432926e)
 ![9](https://github.com/user-attachments/assets/ad8220fc-e29d-4c91-9c8e-9ac0454ab939)
 
-##### 技育CAMP時のスライド
+##### 技育CAMPハッカソン (2024/8)
 ![1](https://github.com/user-attachments/assets/3bc62dc9-3894-4304-b55d-277954e8ba36)
 ![2](https://github.com/user-attachments/assets/ac07e84d-a901-4ef0-a2b0-94f705e12377)
 ![3](https://github.com/user-attachments/assets/45d764ce-28e4-4d55-b524-8c71c421e037)
