@@ -105,7 +105,7 @@ const LevelUp = ({ point, closeLevelUp }) => {
         } else {
           rewardData = {
             level: userData.level,
-            path: "",
+            path: "/fortune/ticket.png",
             type: "ticket",
           };
         }

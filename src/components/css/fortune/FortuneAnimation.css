@@ -1,0 +1,66 @@
+.fortune-animation-container {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--skyblue);
+}
+
+@keyframes floating-y {
+  0% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(20%);
+  }
+}
+
+.fortune-animation-container .ice-wrapper {
+  position: fixed;
+  top: 32%;
+  display: flex;
+  gap: 10vw;
+  width: 100vw;
+  justify-content: center;
+}
+
+.fortune-animation-container .ice-wrapper img {
+  width: 18vw;
+}
+
+.fortune-animation-container .fortune-0 p {
+  position: fixed;
+  top: 70%;
+  color: var(--gray-0);
+  font-size: 24px;
+  font-weight: 600;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  text-align: center;
+  animation: floating-y 1.2s ease-in-out infinite alternate-reverse;
+}
+
+.fortune-animation-container .fortune-1 img,
+.fortune-animation-container .fortune-2 img,
+.fortune-animation-container .fortune-3 img,
+.fortune-animation-container .fortune-4 img {
+  width: 110vw;
+  position: fixed;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.fortune-animation-container .fortune-1 p,
+.fortune-animation-container .fortune-2 p,
+.fortune-animation-container .fortune-3 p,
+.fortune-animation-container .fortune-4 p {
+  position: fixed;
+  top: 16%;
+  color: var(--gray-0);
+  font-size: 24px;
+  font-weight: 600;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  text-align: center;
+  animation: floating-y 1.2s ease-in-out infinite alternate-reverse;
+}

@@ -4,7 +4,9 @@ import {
   collection,
   doc,
   getDoc,
+  limit,
   onSnapshot,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -99,7 +101,9 @@ const Room = () => {
     const getPostsRealtime = () => {
       const postsQuery = query(
         collection(db, "posts"),
-        where("roomid", "==", roomID)
+        where("roomid", "==", roomID),
+        orderBy("date", "desc"),
+        limit(50)
       );
 
       const unsubscribe = onSnapshot(postsQuery, (snapshot) => {

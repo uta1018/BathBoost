@@ -59,6 +59,9 @@ import "./components/css/user/User.css";
 import "./components/css/log/Log.css";
 
 import "./components/css/fortune/Fortune.css";
+import "./components/css/fortune/FortuneAnimation.css";
+import "./components/css/fortune/FortuneResult.css";
+
 import FirstLogin from "./components/login/FirstLogin";
 import Notification from "./components/common/Notification";
 
@@ -76,7 +79,6 @@ function App() {
             <Route path="/room" element={<Room />}></Route>
             <Route path="/fortune" element={<Fortune />}></Route>
             <Route path="/fortune/:id" element={<FortuneAnimation />}></Route>
-            <Route path="/test/0" element={<Fortune />}></Route>
           </Routes>
         </Router>
         <Notification />

@@ -8,13 +8,12 @@ admin.initializeApp();
 exports.sendReminder = functions
   .region("asia-northeast1")
   .runWith({ memory: "512MB" })
-  .pubsub.schedule("every 1 minutes")
+  .pubsub.schedule("every 5 minutes")
   .timeZone("Asia/Tokyo")
   .onRun(async (context) => {
     // 秒を切り捨てた現在時刻
     const now = (() => {
       let s = admin.firestore.Timestamp.now().seconds;
-      s = s - (s % 60);
       return new admin.firestore.Timestamp(s, 0);
     })();
     console.log(now);
@@ -24,7 +23,8 @@ exports.sendReminder = functions
       const remindersSnapshot = await admin
         .firestore()
         .collection("notifications")
-        .where("time", "==", now)
+        .where("time", ">=", now)
+        .where("time", "<", new admin.firestore.Timestamp(now.seconds + 300, 0))
         .get();
 
       // 取得したドキュメントごとに処理
@@ -316,27 +316,52 @@ const sendNotification = async (userId, goalBath) => {
 // 定数としてメタタグ情報を定義
 const TwitterCardDatas = [
   {
-    title: "テスト",
-    description: "書き換わっている？",
-    imageUrl: "https://firebasestorage.googleapis.com/v0/b/bath-boost-dev.firebasestorage.app/o/logo512.png?alt=media",
+    title: "🌟超大吉🌟 | Bath Boost🐾",
+    description: "Bath Boostでお風呂に入って、アイスうらないをしよう🛀🍦🔮",
+    imageUrl:
+      "https://firebasestorage.googleapis.com/v0/b/bath-boost-dev.firebasestorage.app/o/result_card_0.png?alt=media",
+  },
+  {
+    title: "大吉 | Bath Boost🐾",
+    description: "Bath Boostでお風呂に入って、アイスうらないをしよう🛀🍦🔮",
+    imageUrl:
+      "https://firebasestorage.googleapis.com/v0/b/bath-boost-dev.firebasestorage.app/o/result_card_1.png?alt=media",
+  },
+  {
+    title: "中吉 | Bath Boost🐾",
+    description: "Bath Boostでお風呂に入って、アイスうらないをしよう🛀🍦🔮",
+    imageUrl:
+      "https://firebasestorage.googleapis.com/v0/b/bath-boost-dev.firebasestorage.app/o/result_card_2.png?alt=media",
+  },
+  {
+    title: "小吉 | Bath Boost🐾",
+    description: "Bath Boostでお風呂に入って、アイスうらないをしよう🛀🍦🔮",
+    imageUrl:
+      "https://firebasestorage.googleapis.com/v0/b/bath-boost-dev.firebasestorage.app/o/result_card_3.png?alt=media",
+  },
+  {
+    title: "凶 | Bath Boost🐾",
+    description: "Bath Boostでお風呂に入って、アイスうらないをしよう🛀🍦🔮",
+    imageUrl:
+      "https://firebasestorage.googleapis.com/v0/b/bath-boost-dev.firebasestorage.app/o/result_card_4.png?alt=media",
   },
 ];
 
-exports.shareTest = functions
+exports.shareFortune = functions
   .region("asia-northeast1")
   .https.onRequest(async (request, response) => {
     // キャッシュを600秒設定
     response.set("Cache-Control", "public, max-age=600, s-maxage=600");
 
     // リクエストURLから trip ID を取得
-    const match = request.path.match("/test/(?<id>.+)");
+    const match = request.path.match("/fortune/(?<id>.+)");
     if (!match || !match.groups) {
       console.error("Invalid Url Error!");
       response.status(404).end("404 Not Found");
       return;
     }
 
-    const testId = match.groups.id;
+    const id = match.groups.id;
 
     // React プロジェクトのビルド済み index.html を読み込み
     let indexHTML;
@@ -351,7 +376,7 @@ exports.shareTest = functions
     }
 
     // Firestore から trip ドキュメントを取得
-    const twitterCardData = TwitterCardDatas[testId];
+    const twitterCardData = TwitterCardDatas[id];
 
     if (!twitterCardData) {
       console.error("Could not fetch Trip!");
@@ -362,9 +387,7 @@ exports.shareTest = functions
     const { title, description, imageUrl } = twitterCardData;
 
     // メタタグを書き換え
-    indexHTML = updateMetaTag(
-      indexHTML, title, description, imageUrl
-    );
+    indexHTML = updateMetaTag(indexHTML, title, description, imageUrl);
 
     response.status(200).send(indexHTML);
   });

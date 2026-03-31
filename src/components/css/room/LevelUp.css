@@ -93,6 +93,11 @@
   border-radius: 20px;
 }
 
+.level-up-container > .level-up .reward-wrapper .ticket {
+  width: 160px;
+  box-shadow: none;
+}
+
 .level-up-container > .level-up .reward-wrapper .icon {
   width: 100px;
   border-radius: 100px;
